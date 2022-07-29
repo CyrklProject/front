@@ -4,7 +4,7 @@ Cyrkl-App
 
 Description
 
- Appli de rencontre ( à ne pas confondre avec un réseau social ) mais dans une version différente de Linkedin puisque son but est de prendre des rendez-vous.
+Dating application (not to be confused with a social network) but in a different version of Linkedin since its purpose is to make appointments.
 
 Getting Started
 Dependencies
