@@ -1,0 +1,39 @@
+.header-background{
+    position: absolute;
+    width: 100%;
+    height:20vh;
+    background: #EFE8E1; 
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.title{
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    justify-content:center;
+    width: 100%;
+    height: 30vh;
+}
+
+.name{
+font-style: normal;
+font-weight: 500;
+font-size: 60px;
+display: flex;
+letter-spacing: 0.155em;
+color: #173F35;
+margin: 0;
+}
+
+.slogan{
+font-style: normal;
+font-weight: 500;
+font-size: 14px;
+display: flex;
+margin: 0;
+letter-spacing: 0.155em;
+color: #173F35;
+}

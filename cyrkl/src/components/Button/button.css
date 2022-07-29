@@ -1,0 +1,14 @@
+.button{
+    position: absolute;
+    width: 200px;
+    height: 51px;
+    font-family: 'Be Vietnam';
+    font-style: normal;
+    font-weight: 800;
+    font-size: 12px;
+    line-height: 23px;
+    letter-spacing: 0.155em;
+    background: #9CAF88;
+    color: #173F35;
+    border: none;
+}
