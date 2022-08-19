@@ -16,30 +16,42 @@
     justify-content: center;
 }
 
+.color-block{
+    position: absolute;
+    width: 52px;
+    height: 430px;
+    left: 10%;
+    top:0%;
+    background: rgba(156, 175, 136, 0.4);
+}
+
 .registration-title{
-position: absolute;
-width: 310px;
-height: 87px;
-left: 273px;
-top: 333px;
-font-family: 'Playfair Display';
-font-style: normal;
-font-weight: 500;
-font-size: 36px;
-line-height: 48px;
-display: flex;
-align-items: center;
-text-align: center;
-letter-spacing: 0.155em;
-color: #FFFFFF;
+    border-bottom: 1px solid #9CAF88;
+    position: absolute;
+    width: 25%;
+    height: 87px;
+    left: 7%;
+    top: 20%;
+    font-family: 'Playfair Display';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 36px;
+    line-height: 48px;
+    display: flex;
+    padding-left: 14%;
+    letter-spacing: 0.155em;
+    color: #FFFFFF;
+    align-items: center;
 }
 
 .registration-form{
     position: absolute;
     display: flex;
-    left: 273px;
-    top: 400px;
-
+    left: 12%;
+    top: 30%;
+    padding-left: 9%;
+    padding-top: 2%;
+    flex-direction: column;
 }
 
 .input{
@@ -53,9 +65,16 @@ color: #FFFFFF;
     padding-left: 0;
     margin-top: 15px;
     display: flex;
+    width: 140%;
 }
 
 ::placeholder{
     font-size: larger;
     color: #FFFFFF;
+}
+
+.button{
+    margin-top: 27%;
+    left: 35%;
+    width: 100%;
 }

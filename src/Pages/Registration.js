@@ -1,18 +1,36 @@
 import React, { useState } from 'react';
 import './Registration.css';
 import Banner from '../components/Banner/Banner';
+import Button from '../components/Button/Button';
 
 export default function Registration() {
   const [name, setName] = useState('');
+  const [firstname, setFirstname] = useState('');
+  const [mail, setMail] = useState('');
+  const [telephone, setTelephone] = useState('');
+  const [mdp, setMdp] = useState('');
 
   const handleName = (e) => {
     setName(e.target.value);
   };
 
+  const handleFirstname = (e) => {
+    setFirstname(e.target.value);
+  };
+  const handleMail = (e) => {
+    setMail(e.target.value);
+  };
+  const handleTelephone = (e) => {
+    setTelephone(e.target.value);
+  };
+  const handleMdp = (e) => {
+    setMdp(e.target.value);
+  };
   return (
     <div className="registration-body">
       <Banner />
       <div className="registration-background">
+        <div className="color-block"></div>
         <div className="registration-title">S&apos;inscrire</div>
         <div className="registration-form">
           <form>
@@ -24,34 +42,35 @@ export default function Registration() {
               placeholder="Nom"
             />
             <input
-              onChange={handleName}
+              onChange={handleFirstname}
               className="input"
-              value={name}
+              value={firstname}
               type="text"
               placeholder="Prénom"
             />
             <input
-              onChange={handleName}
+              onChange={handleMail}
               className="input"
-              value={name}
+              value={mail}
               type="text"
               placeholder="Mail"
             />
             <input
-              onChange={handleName}
+              onChange={handleTelephone}
               className="input"
-              value={name}
+              value={telephone}
               type="text"
               placeholder="Téléphone"
             />
             <input
-              onChange={handleName}
+              onChange={handleMdp}
               className="input"
-              value={name}
+              value={mdp}
               type="text"
               placeholder="Mot de passe"
             />
           </form>
+          <Button />
         </div>
       </div>
     </div>
