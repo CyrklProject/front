@@ -2,16 +2,10 @@ import React from 'react';
 import './welcome.css';
 import Button from '../components/Button/Button';
 import Banner from '../components/Banner/Banner';
-import { Link, Routes, Route, useLocation } from 'react-router-dom';
-import { Registration } from './Registration';
+// import { Routes, Route, useLocation } from 'react-router-dom';
+// import Registration from './Registration';
 
 export default function Welcome() {
-  const location = useLocation();
-
-  console.log('hash', location.hash);
-  console.log('pathname', location.pathname);
-  console.log('search', location.search);
-
   return (
     <div>
       <Banner />
@@ -38,11 +32,10 @@ export default function Welcome() {
             <a href="/Registration">
               <Button />
             </a>
-            <Link to="/Registration">Registration</Link>
 
-            <Routes>
+            {/* <Routes>
               <Route path="/Registration" element={<Registration />} />
-            </Routes>
+            </Routes> */}
           </div>
         </div>
       </div>

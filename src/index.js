@@ -4,11 +4,18 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
+import Registration from './Pages/Registration';
+import Welcome from './Pages/Welcome';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Router>
-    <App />
+    <Routes>
+      <Route path="/" element={<App />} />
+      <Route path="/Welcome" element={<Welcome />} />
+      <Route path="/Registration" element={<Registration />} />
+    </Routes>
   </Router>
 );
 

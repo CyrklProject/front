@@ -2,7 +2,7 @@ import React from 'react';
 import './welcome.css';
 import Banner from '../components/Banner/Banner';
 
-export function Registration() {
+export default function Registration() {
   return (
     <div>
       <div>
