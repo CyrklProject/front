@@ -1,0 +1,61 @@
+.registration-body{
+    display: flex;
+}
+
+.registration-background{
+    background: url(./Images/background.png);
+    background-size: cover;
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    left: 0px;
+    top: 19vh;
+    display:flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+}
+
+.registration-title{
+position: absolute;
+width: 310px;
+height: 87px;
+left: 273px;
+top: 333px;
+font-family: 'Playfair Display';
+font-style: normal;
+font-weight: 500;
+font-size: 36px;
+line-height: 48px;
+display: flex;
+align-items: center;
+text-align: center;
+letter-spacing: 0.155em;
+color: #FFFFFF;
+}
+
+.registration-form{
+    position: absolute;
+    display: flex;
+    left: 273px;
+    top: 400px;
+
+}
+
+.input{
+    background: transparent;
+    border-bottom-color: #FFFFFF;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom-width: 1px;
+    padding: 15px;
+    padding-left: 0;
+    margin-top: 15px;
+    display: flex;
+}
+
+::placeholder{
+    font-size: larger;
+    color: #FFFFFF;
+}

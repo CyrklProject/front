@@ -2,8 +2,6 @@ import React from 'react';
 import './welcome.css';
 import Button from '../components/Button/Button';
 import Banner from '../components/Banner/Banner';
-// import { Routes, Route, useLocation } from 'react-router-dom';
-// import Registration from './Registration';
 
 export default function Welcome() {
   return (
@@ -32,10 +30,6 @@ export default function Welcome() {
             <a href="/Registration">
               <Button />
             </a>
-
-            {/* <Routes>
-              <Route path="/Registration" element={<Registration />} />
-            </Routes> */}
           </div>
         </div>
       </div>
