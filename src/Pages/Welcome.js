@@ -28,7 +28,7 @@ export default function Welcome() {
               niveau.
             </p>
             <a href="/Registration">
-              <Button />
+              <Button>S&apos;abonner</Button>
             </a>
           </div>
         </div>
