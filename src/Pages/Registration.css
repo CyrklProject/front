@@ -1,0 +1,80 @@
+.registration-body{
+    display: flex;
+}
+
+.registration-background{
+    background: url(./Images/background.png);
+    background-size: cover;
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    left: 0px;
+    top: 19vh;
+    display:flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+}
+
+.color-block{
+    position: absolute;
+    width: 52px;
+    height: 430px;
+    left: 10%;
+    top:0%;
+    background: rgba(156, 175, 136, 0.4);
+}
+
+.registration-title{
+    border-bottom: 1px solid #9CAF88;
+    position: absolute;
+    width: 25%;
+    height: 87px;
+    left: 7%;
+    top: 20%;
+    font-family: 'Playfair Display';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 36px;
+    line-height: 48px;
+    display: flex;
+    padding-left: 14%;
+    letter-spacing: 0.155em;
+    color: #FFFFFF;
+    align-items: center;
+}
+
+.registration-form{
+    position: absolute;
+    display: flex;
+    left: 12%;
+    top: 30%;
+    padding-left: 9%;
+    padding-top: 2%;
+    flex-direction: column;
+}
+
+.input{
+    background: transparent;
+    border-bottom-color: #FFFFFF;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom-width: 1px;
+    padding: 15px;
+    padding-left: 0;
+    margin-top: 15px;
+    display: flex;
+    width: 140%;
+}
+
+::placeholder{
+    font-size: larger;
+    color: #FFFFFF;
+}
+
+.button{
+    margin-top: 27%;
+    left: 35%;
+    width: 100%;
+}

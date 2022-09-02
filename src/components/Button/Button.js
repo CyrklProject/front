@@ -1,10 +1,10 @@
-import React from 'react'
-import './button.css'
+import React from 'react';
+import './button.css';
 
 export default function Button() {
-    return(
-        <div>
-            <button className="button">S'ABONNER</button>
-        </div>
-    )
+  return (
+    <div>
+      <button className="button">S&apos;ABONNER</button>
+    </div>
+  );
 }
