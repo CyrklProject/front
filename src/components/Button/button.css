@@ -1,14 +1,47 @@
-.button{
-    position: absolute;
+:root {
+    --primary: #9CAF88;
+    --white: #FFFFFF;
+    --darkgreen: #173F35;  
+    --cream: #efebe1;
+    --black: #000000;
+
+}
+
+.btn{
+    font-family:'Be Vietnam Pro', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    cursor: pointer;
+    margin-top: 30px;
+    text-align: center;
+}
+
+/* button colors and styles */
+
+.btn--primary--solid{
+    background-color: var(--primary);
+    color: var(--darkgreen);
+    border: none;
+}
+
+.btn--primary--outline{
+    background-color: transparent;
+    color: var(--darkgreen);
+    border: #173F35, solid, 2px;
+}
+
+.btn--primary--reverse{
+    background-color: var(--primary);
+    color: var(--cream);
+    border: none;
+}
+
+/* button sizes */
+.btn--medium{
     width: 200px;
     height: 51px;
-    font-family: 'Be Vietnam';
-    font-style: normal;
-    font-weight: 800;
-    font-size: 12px;
     line-height: 23px;
     letter-spacing: 0.155em;
-    background: #9CAF88;
-    color: #173F35;
-    border: none;
+
 }

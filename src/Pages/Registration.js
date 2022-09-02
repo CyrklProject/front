@@ -1,7 +1,8 @@
+/* eslint-disable react/no-unescaped-entities */
 import React, { useState } from 'react';
 import './Registration.css';
 import Banner from '../components/Banner/Banner';
-import Button from '../components/Button/Button';
+import { Button } from '../components/Button/Button';
 
 export default function Registration() {
   const [name, setName] = useState('');
@@ -70,7 +71,15 @@ export default function Registration() {
               placeholder="Mot de passe"
             />
           </form>
-          <Button />
+          <Button
+            onClick={() => {
+              console.log('working');
+            }}
+            type="button"
+            buttonStyle="btn--primary--reverse"
+            buttonSize="btn--medium">
+            S'INSCRIRE
+          </Button>
         </div>
       </div>
     </div>
