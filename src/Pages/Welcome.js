@@ -1,6 +1,7 @@
+/* eslint-disable react/no-unescaped-entities */
 import React from 'react';
 import './welcome.css';
-import Button from '../components/Button/Button';
+import { Button } from '../components/Button/Button';
 import Banner from '../components/Banner/Banner';
 
 export default function Welcome() {
@@ -28,7 +29,15 @@ export default function Welcome() {
               niveau.
             </p>
             <a href="/Registration">
-              <Button />
+              <Button
+                onClick={() => {
+                  console.log('working');
+                }}
+                type="button"
+                buttonStyle="btn--primary--solid"
+                buttonSize="btn--medium">
+                S'ABONNER
+              </Button>
             </a>
           </div>
         </div>
