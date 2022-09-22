@@ -22,6 +22,12 @@ Installing
 npm install --global yarn
 yarn install
 yarn add react-router-dom
+yarn add styled-components
+
+RADIX-UI
+
+yarn add @radix-ui/react-avatar
+yarn add @radix-ui/react-separator
 
 Executing program
 
