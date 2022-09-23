@@ -1,4 +1,3 @@
-import React from 'react';
 import './welcome.css';
 import { CategorieTitle, EditContainer, AvatarMenu } from './Edit.style';
 import { Avatar } from '../components/Avatar/Avatar';

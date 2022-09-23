@@ -23,23 +23,6 @@ export const EditContainer = styled.div`
   justify-content: flex-start;
 `;
 
-// export const UpdateButton = styled.button`
-//   border: none;
-//   font-weight: 700;
-//   font-size: 14px;
-//   line-height: 20px;
-//   display: flex;
-//   align-items: center;
-//   letter-spacing: 0.155em;
-//   justify-content: center;
-//   width: 187.03px;
-//   height: 40.99px;
-//   background: #d5b19e;
-//   color: white;
-//   border-radius: 30px 30px 30px 30px;
-//   margin: 20px;
-// `;
-
 export const AvatarMenu = styled.div`
   display: flex;
   flex-direction: row;
