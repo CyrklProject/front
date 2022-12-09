@@ -1,0 +1,23 @@
+.carousel--container{
+    background-color: aqua;
+    display: flex;
+    justify-content: center;
+    height: 80%;
+}
+
+.carousel--item{
+    display: flex;
+    justify-content: center;
+    background-color: bisque;
+    height: 80%;
+}
+
+.carousel--caption{
+    display: flex;
+    justify-content: center;
+    height: 400;
+    background-color: pink;
+    height: 80%;
+    color:black;
+}
+

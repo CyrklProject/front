@@ -2,6 +2,7 @@ import React from 'react';
 import './welcome.css';
 import Button from '../components/Button/Button';
 import Banner from '../components/Banner/Banner';
+import DatePickerS from '../Pages/Calendar';
 
 export default function Welcome() {
   return (
@@ -21,6 +22,7 @@ export default function Welcome() {
               more-or-less normal distribution of letters, as opposed to using &apos;Content here,
               content here&apos;, making it look like readable English.
             </p>
+            <DatePickerS />
           </div>
           <div className="content-right">
             <p className="content-para-right">
