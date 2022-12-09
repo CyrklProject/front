@@ -7,19 +7,26 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { Routes, Route } from 'react-router-dom';
 import Registration from './Pages/Registration';
 import Welcome from './Pages/Welcome';
+import Edit from './Pages/Edit';
+import { Navbar } from './components/Navbar/Navbar';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Router>
+    <Navbar />
     <Routes>
       <Route path="/" element={<App />} />
-      <Route path="/Welcome" element={<Welcome />} />
-      <Route path="/Registration" element={<Registration />} />
+      <Route path="/welcome" element={<Welcome />} />
+      <Route path="/registration" element={<Registration />} />
+      <Route path="/edit" element={<Edit />} />
+      {/* <Route path="/calendrier" element={<Calendrier />} />
+      <Route path="/listes" element={<Listes />} />
+      <Route path="/slides" element={<Slides />} />
+      <Route path="/alertes" element={<Alertes />} />
+      <Route path="/chat" element={<Chat />} />
+      <Route path="/deconnexion" element={<Deconnexion />} /> */}
     </Routes>
   </Router>
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
