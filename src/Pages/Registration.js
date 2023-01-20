@@ -27,6 +27,33 @@ export default function Registration() {
   const handleMdp = (e) => {
     setMdp(e.target.value);
   };
+
+  fetch('s.Router.HandleFunc("localhost:8080/", middlewares.SetMiddlewareJSON(s.Home)).Methods("GET")').then(
+    (response) => console.log(response + 'connected to API')
+  );
+
+  // fetch('', {
+  //   method: 'POST',
+  //   headers: {
+  //     'content-type': 'application/json',
+  //     accept: 'application/json'
+  //   },
+  //   body: JSON.stringify({
+  //     name: handleName,
+  //     firstname: handleFirstname,
+  //     mail: handleMail,
+  //     telephone: handleTelephone,
+  //     mdp: handleMdp
+  //   })
+  // })
+  //   .then((response) => response.json())
+  //   .then((response) => {
+  //     console.log(response);
+  //   })
+  //   .catch((err) => {
+  //     console.log(err);
+  //   });
+
   return (
     <div className="registration-body">
       <Banner />
