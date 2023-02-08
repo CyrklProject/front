@@ -2,12 +2,10 @@
 import React from 'react';
 import './welcome.css';
 import { Button } from '../components/Button/Button';
-import Banner from '../components/Banner/Banner';
 
 export default function Welcome() {
   return (
     <div>
-      <Banner />
       <div className="welcome-background">
         <div className="title-welcome">
           <h2>BIENVENUE</h2>

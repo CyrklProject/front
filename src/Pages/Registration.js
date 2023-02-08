@@ -1,7 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 import React, { useState, useEffect } from 'react';
 import './Registration.css';
-import Banner from '../components/Banner/Banner';
 import { Button } from '../components/Button/Button';
 
 export default function Registration() {
@@ -91,7 +90,6 @@ export default function Registration() {
 
   return (
     <div className="registration-body">
-      <Banner />
       <div className="registration-background">
         <div className="color-block"></div>
         <div className="registration-title">S&apos;inscrire</div>

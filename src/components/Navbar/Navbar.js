@@ -29,6 +29,8 @@ export function Navbar() {
             <NavbarLink to="/registration"> Registration</NavbarLink>
             <NavbarLink to="/edit"> Edit</NavbarLink>
             <NavbarLink to="/login"> Login</NavbarLink>
+            <NavbarLink to="/matching"> Matching</NavbarLink>
+
             <OpenLinksButton
               onClick={() => {
                 setExtendNavbar((curr) => !curr);
@@ -45,6 +47,7 @@ export function Navbar() {
           <NavbarLinkExtended to="/registration"> Registration</NavbarLinkExtended>
           <NavbarLinkExtended to="/edit"> Edit</NavbarLinkExtended>
           <NavbarLinkExtended to="/login"> Login</NavbarLinkExtended>
+          <NavbarLinkExtended to="/matching"> Matching</NavbarLinkExtended>
         </NavbarExtendedContainer>
       )}
     </NavbarContainer>
