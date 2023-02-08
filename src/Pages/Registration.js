@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Registration.css';
 import Banner from '../components/Banner/Banner';
 import { Button } from '../components/Button/Button';
@@ -28,9 +28,44 @@ export default function Registration() {
     setMdp(e.target.value);
   };
 
-  fetch('s.Router.HandleFunc("localhost:8080/", middlewares.SetMiddlewareJSON(s.Home)).Methods("GET")').then(
-    (response) => console.log(response + 'connected to API')
-  );
+  function home() {
+    const [data, setData] = useState(null);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+      fetch(`http://188.165.238.74:8080/users`)
+        .then((response) => response.json())
+        .then((usefulData) => {
+          console.log(usefulData);
+          setLoading(false);
+          setData(usefulData);
+        });
+    }, []);
+
+    return (
+      <>
+        <div className="App">
+          {loading && <p>Loading...</p>}
+          {!loading && <p>Fetched data</p>}
+          <div>{data}</div>
+        </div>
+      </>
+    );
+  }
+
+  // function home() {
+  //   const getUsers = () => {
+  //     return fetch('http://localhost:8080/users', {
+  //       type: 'GET'
+  //     }).then((res) => res.json());
+  //   };
+  //   console.log(getUsers);
+  //   return {
+  //     getUsers
+  //   };
+  // }
+
+  home();
 
   // fetch('', {
   //   method: 'POST',
