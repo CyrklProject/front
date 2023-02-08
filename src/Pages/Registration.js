@@ -143,6 +143,19 @@ export default function Registration() {
             S'INSCRIRE
           </Button>
         </div>
+        <div className="connexion">
+          <a href="/Login">
+            <Button
+              onClick={() => {
+                console.log('working');
+              }}
+              type="button"
+              buttonStyle="btn--primary--reverse"
+              buttonSize="btn--medium">
+              SE CONNECTER
+            </Button>
+          </a>
+        </div>
       </div>
     </div>
   );

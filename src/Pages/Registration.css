@@ -78,3 +78,9 @@
     left: 35%;
     width: 100%;
 }
+
+.connexion{
+    display: flex;
+    right: 22%;
+    position: absolute;
+}

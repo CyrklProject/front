@@ -28,6 +28,7 @@ export function Navbar() {
             <NavbarLink to="/welcome"> Welcome</NavbarLink>
             <NavbarLink to="/registration"> Registration</NavbarLink>
             <NavbarLink to="/edit"> Edit</NavbarLink>
+            <NavbarLink to="/login"> Login</NavbarLink>
             <OpenLinksButton
               onClick={() => {
                 setExtendNavbar((curr) => !curr);
@@ -43,6 +44,7 @@ export function Navbar() {
           <NavbarLinkExtended to="/welcome"> Welcome</NavbarLinkExtended>
           <NavbarLinkExtended to="/registration"> Registration</NavbarLinkExtended>
           <NavbarLinkExtended to="/edit"> Edit</NavbarLinkExtended>
+          <NavbarLinkExtended to="/login"> Login</NavbarLinkExtended>
         </NavbarExtendedContainer>
       )}
     </NavbarContainer>

@@ -9,6 +9,7 @@ import Registration from './Pages/Registration';
 import Welcome from './Pages/Welcome';
 import Edit from './Pages/Edit';
 import { Navbar } from './components/Navbar/Navbar';
+import Login from './Pages/Login';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -19,6 +20,7 @@ root.render(
       <Route path="/welcome" element={<Welcome />} />
       <Route path="/registration" element={<Registration />} />
       <Route path="/edit" element={<Edit />} />
+      <Route path="/login" element={<Login />} />
       {/* <Route path="/calendrier" element={<Calendrier />} />
       <Route path="/listes" element={<Listes />} />
       <Route path="/slides" element={<Slides />} />
