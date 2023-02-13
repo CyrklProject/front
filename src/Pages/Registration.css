@@ -3,9 +3,8 @@
 }
 
 .registration-background{
-    background: url(./Images/background.png);
+    background: url(./assets/Backgrounds/background.png);
     background-size: cover;
-    position: absolute;
     width: 100%;
     height: 100vh;
     left: 0px;
@@ -16,12 +15,12 @@
     justify-content: center;
 }
 
-.color-block{
+.color-block-registration{
     position: absolute;
     width: 52px;
-    height: 430px;
+    height: 400px;
     left: 10%;
-    top:0%;
+    top:80px;
     background: rgba(156, 175, 136, 0.4);
 }
 

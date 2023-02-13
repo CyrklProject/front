@@ -91,7 +91,7 @@ export default function Registration() {
   return (
     <div className="registration-body">
       <div className="registration-background">
-        <div className="color-block"></div>
+        <div className="color-block-registration"></div>
         <div className="registration-title">S&apos;inscrire</div>
         <div className="registration-form">
           <form>
