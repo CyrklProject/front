@@ -12,7 +12,25 @@ import {
   Location,
   LinkDisponibilities,
   HowMany,
-  Photos
+  Photos,
+  PhotoProfil,
+  NameBox,
+  Sector,
+  Name,
+  TitlteSector,
+  ParaSector,
+  Experience,
+  Description,
+  TitleExperience,
+  SmallPhotoProfil,
+  InfosExperienceBox,
+  Status,
+  Entreprise,
+  Duration,
+  WrapperExperience,
+  ButtonSwipeCross,
+  ButtonSwipeStar,
+  ButtonSwipeDiner
 } from './Matching.style';
 import { Button } from '../components/Button/Button';
 
@@ -47,11 +65,39 @@ export default function Matching() {
         </Contact>
       </LeftContent>
       <CenterContent>
-        <div>popopo</div>
+        <PhotoProfil>
+          <div>photo du profil</div>
+        </PhotoProfil>
+        <NameBox>
+          <Name>Oussama Ammar</Name>
+        </NameBox>
+        <Sector>
+          <TitlteSector>SECTEUR/BESOIN/OFFRE</TitlteSector>
+          <ParaSector>
+            Conference Speaker, Financement de startups, Conseil aux entreprises
+          </ParaSector>
+        </Sector>
       </CenterContent>
-      <RightContent></RightContent>
+      <RightContent>
+        <Experience>
+          <TitleExperience>EXPÉRIENCE</TitleExperience>
+          <WrapperExperience>
+            <SmallPhotoProfil>photo</SmallPhotoProfil>
+            <InfosExperienceBox>
+              <Status>Co-founder et Director</Status>
+              <Entreprise>The Familly - Temps plein</Entreprise>
+              <Duration>Mars 2013 - aujourd’hui </Duration>
+            </InfosExperienceBox>
+          </WrapperExperience>
+        </Experience>
+        <Description>
+          <div>Description</div>
+        </Description>
+      </RightContent>
       <Footer>
-        <div>dududu</div>
+        <ButtonSwipeCross></ButtonSwipeCross>
+        <ButtonSwipeStar></ButtonSwipeStar>
+        <ButtonSwipeDiner></ButtonSwipeDiner>
       </Footer>
     </MatchingContainer>
   );

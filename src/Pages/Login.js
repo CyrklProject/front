@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import './Login.css';
 import { Button } from '../components/Button/Button';
-import Banner from '../components/Banner/Banner';
 
 export default function Login() {
   const [mail, setMail] = useState('');
@@ -18,7 +17,6 @@ export default function Login() {
 
   return (
     <div>
-      <Banner />
       <div className="login-background">
         <div className="color-block"></div>
         <div className="login-title">Se connecter</div>
