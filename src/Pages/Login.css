@@ -5,7 +5,6 @@
 }
 
 .login-background{
-    position: absolute;
     width: 100%;
     height: 100vh;
     left: 0px;
@@ -97,9 +96,9 @@ margin:0vh;
 .color-block{
     position: absolute;
     width: 52px;
-    height: 430px;
+    height: 400px;
     left: 10%;
-    top:0%;
+    top:80px;
     background: rgba(156, 175, 136, 0.4);
 }
 
