@@ -72,7 +72,7 @@ export default function Registration() {
         password
       }),
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/x-www-form-urlencoded'
       }
     })
       .then((res) => res.json())
