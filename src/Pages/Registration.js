@@ -36,7 +36,7 @@ export default function Registration() {
   };
 
   const fetchUserData = () => {
-    fetch('http://localhost:8080/users')
+    fetch('http://localhost:8080/usersG')
       .then((response) => {
         return response.json();
       })
