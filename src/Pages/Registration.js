@@ -5,52 +5,133 @@ import { Button } from '../components/Button/Button';
 
 export default function Registration() {
   const [name, setName] = useState('');
-  const [firstname, setFirstname] = useState('');
-  const [mail, setMail] = useState('');
+  const [lastname, setlastname] = useState('');
+  const [email, setemail] = useState('');
   const [telephone, setTelephone] = useState('');
-  const [mdp, setMdp] = useState('');
+  const [password, setpassword] = useState('');
+  const [users, setusers] = useState([]);
+  const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState(false);
 
   const handleName = (e) => {
     setName(e.target.value);
+    setSubmitted(false);
   };
 
-  const handleFirstname = (e) => {
-    setFirstname(e.target.value);
+  const handlelastname = (e) => {
+    setlastname(e.target.value);
+    setSubmitted(false);
   };
-  const handleMail = (e) => {
-    setMail(e.target.value);
+  const handleemail = (e) => {
+    setemail(e.target.value);
+    setSubmitted(false);
   };
   const handleTelephone = (e) => {
     setTelephone(e.target.value);
+    setSubmitted(false);
   };
-  const handleMdp = (e) => {
-    setMdp(e.target.value);
+  const handlepassword = (e) => {
+    setpassword(e.target.value);
+    setSubmitted(false);
   };
 
-  function home() {
-    const [data, setData] = useState(null);
-    const [loading, setLoading] = useState(true);
+  const fetchUserData = () => {
+    fetch('http://localhost:8080/users')
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        setusers(data);
+        console.log(data);
+      });
+  };
 
-    useEffect(() => {
-      fetch(`http://188.165.238.74:8080/users`)
-        .then((response) => response.json())
-        .then((usefulData) => {
-          console.log(usefulData);
-          setLoading(false);
-          setData(usefulData);
-        });
-    }, []);
+  useEffect(() => {
+    fetchUserData();
+  }, []);
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (name === '' || email === '' || password === '') {
+      setError(true);
+    } else {
+      setSubmitted(true);
+      setError(false);
+      postSignIn();
+    }
+  };
+
+  const postSignIn = () => {
+    fetch('http://localhost:8080/users', {
+      method: 'POST',
+      body: JSON.stringify({
+        name,
+        lastname,
+        email,
+        telephone,
+        password
+      }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((err) => console.error(err));
+  };
+
+  // Showing success message
+  const successMessage = () => {
     return (
-      <>
-        <div className="App">
-          {loading && <p>Loading...</p>}
-          {!loading && <p>Fetched data</p>}
-          <div>{data}</div>
-        </div>
-      </>
+      <div
+        className="success"
+        style={{
+          display: submitted ? '' : 'none'
+        }}>
+        <h1>User {name} successfully registered!!</h1>
+      </div>
     );
-  }
+  };
+
+  // Showing error message if error is true
+  const errorMessage = () => {
+    return (
+      <div
+        className="error"
+        style={{
+          display: error ? '' : 'none'
+        }}>
+        <h1>Please enter all the fields</h1>
+      </div>
+    );
+  };
+
+  // function home() {
+  //   const [data, setData] = useState(null);
+  //   const [loading, setLoading] = useState(true);
+
+  //   useEffect(() => {
+  //     fetch(`http://188.165.238.74:8080/users`)
+  //       .then((response) => response.json())
+  //       .then((usefulData) => {
+  //         console.log(usefulData);
+  //         setLoading(false);
+  //         setData(usefulData);
+  //       });
+  //   }, []);
+
+  //   return (
+  //     <>
+  //       <div className="App">
+  //         {loading && <p>Loading...</p>}
+  //         {!loading && <p>Fetched data</p>}
+  //         <div>{data}</div>
+  //       </div>
+  //     </>
+  //   );
+  // }
 
   // function home() {
   //   const getUsers = () => {
@@ -64,7 +145,7 @@ export default function Registration() {
   //   };
   // }
 
-  home();
+  // home();
 
   // fetch('', {
   //   method: 'POST',
@@ -74,10 +155,10 @@ export default function Registration() {
   //   },
   //   body: JSON.stringify({
   //     name: handleName,
-  //     firstname: handleFirstname,
-  //     mail: handleMail,
+  //     lastname: handlelastname,
+  //     email: handleemail,
   //     telephone: handleTelephone,
-  //     mdp: handleMdp
+  //     password: handlepassword
   //   })
   // })
   //   .then((response) => response.json())
@@ -93,6 +174,20 @@ export default function Registration() {
       <div className="registration-background">
         <div className="color-block-registration"></div>
         <div className="registration-title">S&apos;inscrire</div>
+        {/* Calling to the methods */}
+        <div className="messages">
+          {errorMessage()}
+          {successMessage()}
+        </div>
+        <div>
+          {users.length > 0 && (
+            <ul>
+              {users.map((user) => (
+                <li key={user.id}>{user.name}</li>
+              ))}
+            </ul>
+          )}
+        </div>
         <div className="registration-form">
           <form>
             <input
@@ -103,18 +198,18 @@ export default function Registration() {
               placeholder="Nom"
             />
             <input
-              onChange={handleFirstname}
+              onChange={handlelastname}
               className="input"
-              value={firstname}
+              value={lastname}
               type="text"
               placeholder="Prénom"
             />
             <input
-              onChange={handleMail}
+              onChange={handleemail}
               className="input"
-              value={mail}
+              value={email}
               type="text"
-              placeholder="Mail"
+              placeholder="Email"
             />
             <input
               onChange={handleTelephone}
@@ -124,17 +219,15 @@ export default function Registration() {
               placeholder="Téléphone"
             />
             <input
-              onChange={handleMdp}
+              onChange={handlepassword}
               className="input"
-              value={mdp}
+              value={password}
               type="text"
               placeholder="Mot de passe"
             />
           </form>
           <Button
-            onClick={() => {
-              console.log('working');
-            }}
+            onClick={handleSubmit}
             type="button"
             buttonStyle="btn--primary--reverse"
             buttonSize="btn--medium">
