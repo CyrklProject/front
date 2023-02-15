@@ -36,7 +36,7 @@ export default function Registration() {
   };
 
   const fetchUserData = () => {
-    fetch('http://172.20.0.3:8080/usersG')
+    fetch('http://localhost:8080/usersG')
       .then((response) => {
         return response.json();
       })
@@ -62,7 +62,7 @@ export default function Registration() {
   };
 
   const postSignIn = () => {
-    fetch('http://172.20.0.3:8080/users', {
+    fetch('http://localhost:8080/users', {
       method: 'POST',
       body: JSON.stringify({
         name,
