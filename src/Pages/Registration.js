@@ -2,6 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import './Registration.css';
 import { Button } from '../components/Button/Button';
+import { SuccessMessage } from '../components/Message/SuccessMessage';
+import { ErrorMessage } from '../components/Message/ErrorMessage';
 
 export default function Registration() {
   const [name, setName] = useState('');
@@ -9,9 +11,9 @@ export default function Registration() {
   const [email, setemail] = useState('');
   const [telephone, setTelephone] = useState('');
   const [password, setpassword] = useState('');
-  const [users, setusers] = useState([]);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(false);
+  const [errorData, setErrorData] = useState('');
 
   const handleName = (e) => {
     setName(e.target.value);
@@ -36,12 +38,11 @@ export default function Registration() {
   };
 
   const fetchUserData = () => {
-    fetch('http://localhost:8080/usersG')
+    fetch('http://188.165.238.74:8080/usersG')
       .then((response) => {
         return response.json();
       })
       .then((data) => {
-        setusers(data);
         console.log(data);
       });
   };
@@ -50,19 +51,16 @@ export default function Registration() {
     fetchUserData();
   }, []);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (name === '' || email === '' || password === '') {
-      setError(true);
-    } else {
-      setSubmitted(true);
-      setError(false);
-      postSignIn();
-    }
+  const ResetForm = () => {
+    setName('');
+    setlastname('');
+    setemail('');
+    setTelephone('');
+    setpassword('');
   };
 
   const postSignIn = () => {
-    fetch('http://localhost:8080/users', {
+    fetch('http://188.165.238.74:8080/users', {
       method: 'POST',
       body: JSON.stringify({
         name,
@@ -77,9 +75,24 @@ export default function Registration() {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        console.log(data.error);
+        setErrorData(data.error);
       })
       .catch((err) => console.error(err));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    postSignIn();
+    if (status == 200) {
+      setSubmitted(true);
+      setError(false);
+      ResetForm();
+      successMessage();
+    } else {
+      setError(true);
+      errorMessage();
+    }
   };
 
   // Showing success message
@@ -90,7 +103,7 @@ export default function Registration() {
         style={{
           display: submitted ? '' : 'none'
         }}>
-        <h1>User {name} successfully registered!!</h1>
+        <SuccessMessage></SuccessMessage>
       </div>
     );
   };
@@ -103,90 +116,20 @@ export default function Registration() {
         style={{
           display: error ? '' : 'none'
         }}>
-        <h1>Please enter all the fields</h1>
+        <ErrorMessage>{errorData}</ErrorMessage>
       </div>
     );
   };
-
-  // function home() {
-  //   const [data, setData] = useState(null);
-  //   const [loading, setLoading] = useState(true);
-
-  //   useEffect(() => {
-  //     fetch(`http://188.165.238.74:8080/users`)
-  //       .then((response) => response.json())
-  //       .then((usefulData) => {
-  //         console.log(usefulData);
-  //         setLoading(false);
-  //         setData(usefulData);
-  //       });
-  //   }, []);
-
-  //   return (
-  //     <>
-  //       <div className="App">
-  //         {loading && <p>Loading...</p>}
-  //         {!loading && <p>Fetched data</p>}
-  //         <div>{data}</div>
-  //       </div>
-  //     </>
-  //   );
-  // }
-
-  // function home() {
-  //   const getUsers = () => {
-  //     return fetch('http://localhost:8080/users', {
-  //       type: 'GET'
-  //     }).then((res) => res.json());
-  //   };
-  //   console.log(getUsers);
-  //   return {
-  //     getUsers
-  //   };
-  // }
-
-  // home();
-
-  // fetch('', {
-  //   method: 'POST',
-  //   headers: {
-  //     'content-type': 'application/json',
-  //     accept: 'application/json'
-  //   },
-  //   body: JSON.stringify({
-  //     name: handleName,
-  //     lastname: handlelastname,
-  //     email: handleemail,
-  //     telephone: handleTelephone,
-  //     password: handlepassword
-  //   })
-  // })
-  //   .then((response) => response.json())
-  //   .then((response) => {
-  //     console.log(response);
-  //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  //   });
 
   return (
     <div className="registration-body">
       <div className="registration-background">
         <div className="color-block-registration"></div>
         <div className="registration-title">S&apos;inscrire</div>
-        {/* Calling to the methods */}
+        {/* Calling to the methods  */}
         <div className="messages">
           {errorMessage()}
           {successMessage()}
-        </div>
-        <div>
-          {users.length > 0 && (
-            <ul>
-              {users.map((user) => (
-                <li key={user.id}>{user.name}</li>
-              ))}
-            </ul>
-          )}
         </div>
         <div className="registration-form">
           <form>

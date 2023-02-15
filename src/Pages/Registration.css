@@ -63,13 +63,22 @@
     padding: 15px;
     padding-left: 0;
     margin-top: 15px;
+    color: #FFFFFF;
     display: flex;
     width: 140%;
+    font-size: medium;
 }
 
 ::placeholder{
     font-size: larger;
     color: #FFFFFF;
+}
+
+input:focus{
+    outline: none !important;
+    border-color: #9CAF88;
+    box-shadow: 0 0 10px #9CAF88;
+    border-radius: 8px;
 }
 
 .button{
