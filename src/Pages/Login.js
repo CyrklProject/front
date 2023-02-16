@@ -10,6 +10,8 @@ export default function Login() {
   const [password, setPassword] = useState('');
   const [token, setToken] = useState('');
   const [auth, setAuth] = useState(Boolean);
+  const sessionToken = sessionStorage.getItem('token');
+  const [isLoggedin, setIsLoggedin] = useState(false);
 
   const handleEmail = (e) => {
     setEmail(e.target.value);
@@ -18,6 +20,7 @@ export default function Login() {
   const handlePassword = (e) => {
     setPassword(e.target.value);
   };
+  console.log(sessionToken, isLoggedin);
 
   const login = () => {
     fetch('http://188.165.238.74:8080/login', {
@@ -32,21 +35,28 @@ export default function Login() {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(token);
         setToken(data);
+        console.log('this is the token token' + token);
+        console.log('this came from the backend', data);
+        sessionStorage.setItem('token', data);
         setAuth(true);
+        setIsLoggedin(true);
       })
       .catch((err) => {
         console.error(err);
         setAuth(false);
+        setIsLoggedin(false);
       });
   };
+
+  console.log('this is the token out of the fetch' + token);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     login();
-    if (auth === true) {
+    if (auth === true && token && token != '' && token != undefined) {
       console.log('CONNECTED');
+      setIsLoggedin(true);
       navigate('/Edit');
     }
   };
@@ -56,7 +66,6 @@ export default function Login() {
       <div className="login-background">
         <div className="color-block"></div>
         <div className="login-title">Se connecter</div>
-
         <div className="content-login">
           <div className="content-left-login">
             <div className="login-form">

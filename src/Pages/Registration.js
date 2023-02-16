@@ -13,7 +13,6 @@ export default function Registration() {
   const [password, setpassword] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(false);
-  const [errorData, setErrorData] = useState('');
 
   const handleName = (e) => {
     setName(e.target.value);
@@ -51,15 +50,16 @@ export default function Registration() {
     fetchUserData();
   }, []);
 
-  const ResetForm = () => {
-    setName('');
-    setlastname('');
-    setemail('');
-    setTelephone('');
-    setpassword('');
-  };
+  // const ResetForm = () => {
+  //   setName('');
+  //   setlastname('');
+  //   setemail('');
+  //   setTelephone('');
+  //   setpassword('');
+  // };
 
   const postSignIn = () => {
+    setError(false);
     fetch('http://188.165.238.74:8080/users', {
       method: 'POST',
       body: JSON.stringify({
@@ -72,53 +72,78 @@ export default function Registration() {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
       }
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data.error);
-        setErrorData(data.error);
-      })
-      .catch((err) => console.error(err));
+    }).then((res) => {
+      res.json();
+      console.log(res.status);
+      if (res.status >= 204) {
+        console.log(res.status + 'error condition');
+        setError(true);
+      } else {
+        setError(false);
+      }
+    });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     postSignIn();
-    if (status == 200) {
-      setSubmitted(true);
-      setError(false);
-      ResetForm();
-      successMessage();
-    } else {
-      setError(true);
-      errorMessage();
-    }
   };
 
   // Showing success message
-  const successMessage = () => {
-    return (
-      <div
-        className="success"
-        style={{
-          display: submitted ? '' : 'none'
-        }}>
-        <SuccessMessage></SuccessMessage>
-      </div>
-    );
-  };
+  // const successMessage = () => {
+  //   return (
+  //     <div
+  //       className="success"
+  //       style={{
+  //         display: submitted ? '' : 'none'
+  //       }}>
+  //       <SuccessMessage></SuccessMessage>
+  //     </div>
+  //   );
+  // };
 
   // Showing error message if error is true
-  const errorMessage = () => {
-    return (
-      <div
-        className="error"
-        style={{
-          display: error ? '' : 'none'
-        }}>
-        <ErrorMessage>{errorData}</ErrorMessage>
-      </div>
-    );
+  // const errorMessage = () => {
+  //   return (
+  //     <div
+  //       className="error"
+  //       style={{
+  //         display: error ? '' : 'none'
+  //       }}>
+  //       <ErrorMessage>error</ErrorMessage>
+  //     </div>
+  //   );
+  // };
+  // successMessage();
+  // errorMessage();
+
+  console.log(error + 'error pour voir le type');
+
+  const validate = () => {
+    console.log(error + 'before validate condition');
+    if (error === true) {
+      console.log(error + 'in validate true condition');
+      return (
+        <div
+          className="error"
+          style={{
+            display: error ? '' : 'none'
+          }}>
+          <ErrorMessage>error</ErrorMessage>
+        </div>
+      );
+    } else if (error === false) {
+      console.log(error + 'in validate false condition');
+      return (
+        <div
+          className="success"
+          style={{
+            display: submitted ? '' : 'none'
+          }}>
+          <SuccessMessage></SuccessMessage>
+        </div>
+      );
+    }
   };
 
   return (
@@ -127,10 +152,7 @@ export default function Registration() {
         <div className="color-block-registration"></div>
         <div className="registration-title">S&apos;inscrire</div>
         {/* Calling to the methods  */}
-        <div className="messages">
-          {errorMessage()}
-          {successMessage()}
-        </div>
+        <div className="messages">{validate()}</div>
         <div className="registration-form">
           <form>
             <input

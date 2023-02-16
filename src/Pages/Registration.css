@@ -79,6 +79,7 @@ input:focus{
     border-color: #9CAF88;
     box-shadow: 0 0 10px #9CAF88;
     border-radius: 8px;
+    padding: 15px;
 }
 
 .button{

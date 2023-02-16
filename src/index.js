@@ -11,6 +11,7 @@ import Edit from './Pages/Edit';
 import { Navbar } from './components/Navbar/Navbar';
 import Login from './Pages/Login';
 import Matching from './Pages/Matching';
+import Logout from './Pages/Logout';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -23,7 +24,7 @@ root.render(
       <Route path="/edit" element={<Edit />} />
       <Route path="/login" element={<Login />} />
       <Route path="/matching" element={<Matching />} />
-
+      <Route path="/logout" element={<Logout />} />
       {/* <Route path="/calendrier" element={<Calendrier />} />
       <Route path="/listes" element={<Listes />} />
       <Route path="/slides" element={<Slides />} />
