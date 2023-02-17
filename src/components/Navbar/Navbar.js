@@ -48,7 +48,9 @@ export function Navbar() {
           <NavbarLinkExtended to="/registration"> Registration</NavbarLinkExtended>
           <NavbarLinkExtended to="/edit"> Edit</NavbarLinkExtended>
           <NavbarLinkExtended to="/login"> Login</NavbarLinkExtended>
+
           <NavbarLinkExtended to="/logout"> Logout</NavbarLinkExtended>
+
           <NavbarLinkExtended to="/matching"> Matching</NavbarLinkExtended>
         </NavbarExtendedContainer>
       )}

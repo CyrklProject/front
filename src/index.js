@@ -13,6 +13,13 @@ import Login from './Pages/Login';
 import Matching from './Pages/Matching';
 import Logout from './Pages/Logout';
 
+// const recupSession = sessionStorage.getItem('token');
+// const [isLoggedin, setIsLoggedin] = useState(false);
+
+// if (recupSession != '' && recupSession != undefined) {
+//   setIsLoggedin(true);
+// }
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Router>

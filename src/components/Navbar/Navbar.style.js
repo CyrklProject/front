@@ -35,7 +35,7 @@ export const NavbarLinkContainer = styled.div`
 `;
 
 export const NavbarLink = styled(Link)`
-  color: white;
+  color: #173f35;
   font-size: x-large;
   font-family: Arial, Helvetica, sans-serif;
   text-decoration: none;
@@ -89,5 +89,5 @@ export const Logo = styled.div`
   text-align: center;
   letter-spacing: 0.155em;
   // font-family: 'Oswald';
-  color: #9caf88;
+  color: #173f35;
 `;

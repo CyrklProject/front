@@ -11,7 +11,10 @@ export default function Login() {
   const [token, setToken] = useState('');
   const [auth, setAuth] = useState(Boolean);
   const sessionToken = sessionStorage.getItem('token');
+  const userEmail = sessionStorage.getItem('email');
   const [isLoggedin, setIsLoggedin] = useState(false);
+
+  console.log(sessionToken, isLoggedin, userEmail);
 
   const handleEmail = (e) => {
     setEmail(e.target.value);
@@ -20,7 +23,6 @@ export default function Login() {
   const handlePassword = (e) => {
     setPassword(e.target.value);
   };
-  console.log(sessionToken, isLoggedin);
 
   const login = () => {
     fetch('http://188.165.238.74:8080/login', {
@@ -36,9 +38,9 @@ export default function Login() {
       .then((res) => res.json())
       .then((data) => {
         setToken(data);
-        console.log('this is the token token' + token);
-        console.log('this came from the backend', data);
+        console.log(email, data);
         sessionStorage.setItem('token', data);
+        sessionStorage.setItem('email', email);
         setAuth(true);
         setIsLoggedin(true);
       })
@@ -49,16 +51,15 @@ export default function Login() {
       });
   };
 
-  console.log('this is the token out of the fetch' + token);
-
   const handleSubmit = (e) => {
     e.preventDefault();
     login();
     if (auth === true && token && token != '' && token != undefined) {
       console.log('CONNECTED');
       setIsLoggedin(true);
-      navigate('/Edit');
+      console.log(email);
     }
+    navigate('/Edit');
   };
 
   return (
