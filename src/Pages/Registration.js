@@ -199,6 +199,18 @@ export default function Registration() {
             S'INSCRIRE
           </Button>
         </div>
+        <div className="right--wrapper">
+          <p className="right--content">Déjà inscrit ?</p>
+          <a href="/Login">
+            <Button
+              className="button--right"
+              type="button"
+              buttonStyle="btn--primary--reverse"
+              buttonSize="btn--medium">
+              SE CONNECTER
+            </Button>
+          </a>
+        </div>
       </div>
     </div>
   );

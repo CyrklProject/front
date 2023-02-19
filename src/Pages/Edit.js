@@ -3,7 +3,7 @@ import React from 'react';
 import { CategorieTitle, EditContainer, AvatarMenu } from './Edit.style';
 import { Avatar } from '../components/Avatar/Avatar';
 import { StyledLabel, Flex, Input, LabelContainer } from '../components/label/Label.style';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '../components/Button/Button';
 
 export default function Edit() {
@@ -20,6 +20,7 @@ export default function Edit() {
   const [password, setPassword] = useState('');
   const [createdAt, setCreatedAt] = useState();
   const [updatedAt, setUpdatedAt] = useState();
+  const [dataLoading, setDataLoading] = useState(false);
 
   console.log(urlphoto, id, createdAt, updatedAt);
 
@@ -59,6 +60,8 @@ export default function Edit() {
     setPassword(e.target.value);
   }
 
+  console.log(dataLoading + 'data is loading');
+
   const fetchUsersData = () => {
     fetch('http://188.165.238.74:8080/usersG')
       .then((response) => {
@@ -91,6 +94,7 @@ export default function Edit() {
               setCreatedAt(data.createdAt);
               setUpdatedAt(data.updatedAt);
               seturlphoto(data.urlphoto);
+              // window.location.reload();
             })
             .catch((error) => {
               console.error('Error:', error);
@@ -104,11 +108,72 @@ export default function Edit() {
       });
   };
 
-  fetchUsersData();
+  useEffect(() => {
+    fetchUsersData();
+  }, []);
+
+  if (dataLoading === false) {
+    setDataLoading(true);
+  } else {
+    // Clear the localStorage flag to allow for another fetch later
+  }
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   await fetchUsersData();
+  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await fetchUsersData();
+
+    const updatedUser = {
+      lastname,
+      name,
+      email,
+      telephone,
+      position,
+      urlphoto,
+      positionsought,
+      industry,
+      industrysought,
+      password,
+      createdAt,
+      updatedAt
+    };
+
+    try {
+      const response = await fetch(`http://188.165.238.74:8080/users/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: JSON.stringify(updatedUser)
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to update user');
+      }
+
+      const data = await response.json();
+      console.log(data);
+
+      // Reset the form fields after successful submission
+      setId(data.id);
+      setlastname(data.lastname);
+      setName(data.name);
+      setEmail(data.email);
+      setTelephone(data.telephone);
+      setPosition(data.position);
+      setPositionsought(data.positionsought);
+      setIndustry(data.industry);
+      setIndustrysought(data.industrysought);
+      setPassword(data.password);
+      setCreatedAt(data.createdAt);
+      setUpdatedAt(data.updatedAt);
+      seturlphoto(data.urlphoto);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -135,7 +200,7 @@ export default function Edit() {
       <LabelContainer>
         <Flex id="firstname-container">
           <StyledLabel>Prénom</StyledLabel>
-          <Input type="text" id="lastname" value={name} onChange={handleChangeName} />
+          <Input type="text" id="name" value={name} onChange={handleChangeName} />
         </Flex>
 
         <Flex>

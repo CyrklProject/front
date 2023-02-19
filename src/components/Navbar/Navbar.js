@@ -41,8 +41,6 @@ export function Navbar() {
         </LeftContainer>
         <RightContainer>
           <NavbarLinkContainer>
-            <NavbarLink to="/welcome"> Welcome</NavbarLink>
-            <NavbarLink to="/registration"> Registration</NavbarLink>
             <NavbarLink to="/edit"> Edit</NavbarLink>
             {isLoggedin ? (
               // Si l'utilisateur est connecté, afficher Logout

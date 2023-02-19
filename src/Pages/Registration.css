@@ -10,9 +10,9 @@
     left: 0px;
     top: 19vh;
     display:flex;
-    flex-direction: column;
+    flex-direction: row;
     align-content: center;
-    justify-content: center;
+    justify-content: space-around;
 }
 
 .color-block-registration{
@@ -92,4 +92,28 @@ input:focus{
     display: flex;
     right: 22%;
     position: absolute;
+}
+
+.right--content{
+    width: 35vh;
+    height: 10vh;
+    font-weight: 800;
+    font-size: 20px;
+    line-height: 28px;
+    display: flex;
+    letter-spacing: 0.155em;
+    color: #FFFFFF;
+    justify-content: center;
+    align-items: center;
+}
+
+.button--right{
+    color: #FFFFFF;
+}
+
+.right--wrapper{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
