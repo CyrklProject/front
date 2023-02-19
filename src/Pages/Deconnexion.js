@@ -1,9 +1,9 @@
-import './Logout.css';
+import './Deconnexion.css';
 import React, { useState } from 'react';
 import { Button } from '../components/Button/Button';
 import { useNavigate } from 'react-router-dom';
 
-export default function Logout() {
+export default function Deconnexion() {
   const navigate = useNavigate();
   const recupSession = sessionStorage.getItem('token');
   const [isLoggedin, setIsLoggedin] = useState(true);
@@ -13,6 +13,7 @@ export default function Logout() {
   const logout = () => {
     if (recupSession != '' && recupSession != undefined) {
       sessionStorage.removeItem('token');
+      sessionStorage.removeItem('email');
       setIsLoggedin(false);
       navigate('/Login');
     }

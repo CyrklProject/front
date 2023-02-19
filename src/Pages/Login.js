@@ -51,9 +51,9 @@ export default function Login() {
       });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    login();
+    await login(); // Attendre la fin de la requête asynchrone
     if (auth === true && token && token != '' && token != undefined) {
       console.log('CONNECTED');
       setIsLoggedin(true);

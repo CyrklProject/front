@@ -20,7 +20,6 @@ export default function Edit() {
   const [password, setPassword] = useState('');
   const [createdAt, setCreatedAt] = useState();
   const [updatedAt, setUpdatedAt] = useState();
-  // const [currentUser, setCurrentUser] = useState();
 
   console.log(urlphoto, id, createdAt, updatedAt);
 
@@ -107,6 +106,11 @@ export default function Edit() {
 
   fetchUsersData();
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await fetchUsersData();
+  };
+
   return (
     <EditContainer>
       <CategorieTitle>Mon Profil</CategorieTitle>
@@ -118,6 +122,14 @@ export default function Edit() {
         <Button type="button" buttonStyle="btn--primary--reverse" buttonSize="btn--small">
           Supprimer
         </Button>
+
+        <Button
+          onClick={handleSubmit}
+          type="button"
+          buttonStyle="btn--primary--solid"
+          buttonSize="btn--medium">
+          ENREGISTRER
+        </Button>
       </AvatarMenu>
 
       <LabelContainer>
@@ -128,7 +140,7 @@ export default function Edit() {
 
         <Flex>
           <StyledLabel>Nom</StyledLabel>
-          <Input type="text" id="name" value={lastname} onChange={handleChangeLastname} />
+          <Input type="text" id="lastname" value={lastname} onClick={handleChangeLastname} />
         </Flex>
 
         <Flex>
