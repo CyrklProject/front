@@ -191,7 +191,7 @@ export default function Edit() {
         <Button
           onClick={handleSubmit}
           type="button"
-          buttonStyle="btn--primary--solid"
+          buttonStyle="btn--primary--reverse"
           buttonSize="btn--medium">
           ENREGISTRER
         </Button>

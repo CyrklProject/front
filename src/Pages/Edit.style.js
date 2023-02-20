@@ -27,4 +27,7 @@ export const AvatarMenu = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: space-around;
+  margin: 0px;
+  width: 50%;
 `;
