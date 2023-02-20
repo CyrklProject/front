@@ -114,6 +114,11 @@ input:focus{
 .right--wrapper{
     display:flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
+    padding-top: 15%;
+    padding-left: 40%;
+}
+
+.messages{
+    display:flex;
 }

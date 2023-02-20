@@ -79,6 +79,7 @@ export default function Registration() {
         console.log(data.error);
         setErrorText(data.error);
         if (res.status <= 400) {
+          setSubmitted(true);
           console.log('im under 400');
           successMessage();
         } else {
@@ -103,7 +104,13 @@ export default function Registration() {
         style={{
           display: submitted ? '' : 'none'
         }}>
-        <SuccessMessage></SuccessMessage>
+        <SuccessMessage>
+          <p>
+            Nous avons bien reçu votre demande d&apos;inscription. Vous recevrez une réponse dans
+            les plus bref délais.
+          </p>
+          <p>A très vite sur Cyrkl !</p>
+        </SuccessMessage>
       </div>
     );
   };
@@ -173,9 +180,6 @@ export default function Registration() {
       <div className="registration-background">
         <div className="color-block-registration"></div>
         <div className="registration-title">S&apos;inscrire</div>
-        {/* Calling to the methods  */}
-        <div className="messages">{successMessage()}</div>
-        <div className="messages">{errorMessage()}</div>
         <div className="registration-form">
           <form>
             <input
@@ -223,6 +227,9 @@ export default function Registration() {
           </Button>
         </div>
         <div className="right--wrapper">
+          <div className="messages">{successMessage()}</div>
+          <div className="messages">{errorMessage()}</div>
+
           <p className="right--content">Déjà inscrit ?</p>
           <a href="/Login">
             <Button

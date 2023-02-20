@@ -10,9 +10,6 @@ export const ErrorMessageContainer = styled('div')`
   background-color: #d5b19e;
   color: #ffffff;
   width: 250px;
-  position: absolute;
-  left: 1000px;
-  top: 400px;
   height: 40px;
   justify-content: center;
   border-radius: 8px;
