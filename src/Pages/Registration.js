@@ -1,5 +1,4 @@
-/* eslint-disable react/no-unescaped-entities */
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './Registration.css';
 import { Button } from '../components/Button/Button';
 import { SuccessMessage } from '../components/Message/SuccessMessage';
@@ -36,28 +35,6 @@ export default function Registration() {
     setpassword(e.target.value);
     setSubmitted(false);
   };
-
-  const fetchUserData = () => {
-    fetch('http://188.165.238.74:8080/usersG')
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        console.log(data);
-      });
-  };
-
-  useEffect(() => {
-    fetchUserData();
-  }, []);
-
-  // const ResetForm = () => {
-  //   setName('');
-  //   setlastname('');
-  //   setemail('');
-  //   setTelephone('');
-  //   setpassword('');
-  // };
 
   const postSignIn = () => {
     setError(false);
@@ -126,54 +103,6 @@ export default function Registration() {
       </div>
     );
   };
-  // successMessage();
-  // errorMessage();
-
-  console.log(error + 'error pour voir le type');
-
-  // const validate = () => {
-  //   console.log(error + 'before validate condition');
-  //   if (error === true) {
-  //     console.log(error + 'in validate true condition');
-  //     return (
-  //       <div
-  //         className="error"
-  //         style={{
-  //           display: error ? '' : 'none'
-  //         }}>
-  //         <ErrorMessage>error</ErrorMessage>
-  //       </div>
-  //     );
-  //   } else if (error === false) {
-  //     console.log(error + 'in validate false condition');
-  //     return (
-  //       <div
-  //         className="success"
-  //         style={{
-  //           display: submitted ? '' : 'none'
-  //         }}>
-  //         <SuccessMessage></SuccessMessage>
-  //       </div>
-  //     );
-  //   }
-  // };
-
-  // const validate = () => {
-  //   console.log(error + 'error bool in validate');
-  //   if (error === true) {
-  //     return (
-  //       <div className="error">
-  //         <ErrorMessage error={errorText} />
-  //       </div>
-  //     );
-  //   } else if (error === false) {
-  //     return (
-  //       <div className="success" style={{ display: submitted ? '' : 'none' }}>
-  //         <SuccessMessage />
-  //       </div>
-  //     );
-  //   }
-  // };
 
   return (
     <div className="registration-body">
@@ -223,7 +152,7 @@ export default function Registration() {
             type="button"
             buttonStyle="btn--primary--reverse"
             buttonSize="btn--medium">
-            S'INSCRIRE
+            S&apos;INSCRIRE
           </Button>
         </div>
         <div className="right--wrapper">
