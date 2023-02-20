@@ -13,6 +13,7 @@ export default function Registration() {
   const [password, setpassword] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(false);
+  const [errorText, setErrorText] = useState('');
 
   const handleName = (e) => {
     setName(e.target.value);
@@ -73,14 +74,20 @@ export default function Registration() {
         'Content-Type': 'application/x-www-form-urlencoded'
       }
     }).then((res) => {
-      res.json();
-      console.log(res.status);
-      if (res.status >= 204) {
-        console.log(res.status + 'error condition');
-        setError(true);
-      } else {
-        setError(false);
-      }
+      res.json().then((data) => {
+        console.log(res.status);
+        console.log(data.error);
+        setErrorText(data.error);
+        if (res.status <= 400) {
+          console.log('im under 400');
+          successMessage();
+        } else {
+          console.log('im after 400');
+          setError(true);
+          console.log(error + 'error in 400');
+          errorMessage();
+        }
+      });
     });
   };
 
@@ -89,62 +96,77 @@ export default function Registration() {
     postSignIn();
   };
 
-  // Showing success message
-  // const successMessage = () => {
-  //   return (
-  //     <div
-  //       className="success"
-  //       style={{
-  //         display: submitted ? '' : 'none'
-  //       }}>
-  //       <SuccessMessage></SuccessMessage>
-  //     </div>
-  //   );
-  // };
+  const successMessage = () => {
+    return (
+      <div
+        className="success"
+        style={{
+          display: submitted ? '' : 'none'
+        }}>
+        <SuccessMessage></SuccessMessage>
+      </div>
+    );
+  };
 
-  // Showing error message if error is true
-  // const errorMessage = () => {
-  //   return (
-  //     <div
-  //       className="error"
-  //       style={{
-  //         display: error ? '' : 'none'
-  //       }}>
-  //       <ErrorMessage>error</ErrorMessage>
-  //     </div>
-  //   );
-  // };
+  const errorMessage = () => {
+    return (
+      <div
+        className="error"
+        style={{
+          display: error ? '' : 'none'
+        }}>
+        <ErrorMessage>{errorText}</ErrorMessage>
+      </div>
+    );
+  };
   // successMessage();
   // errorMessage();
 
   console.log(error + 'error pour voir le type');
 
-  const validate = () => {
-    console.log(error + 'before validate condition');
-    if (error === true) {
-      console.log(error + 'in validate true condition');
-      return (
-        <div
-          className="error"
-          style={{
-            display: error ? '' : 'none'
-          }}>
-          <ErrorMessage>error</ErrorMessage>
-        </div>
-      );
-    } else if (error === false) {
-      console.log(error + 'in validate false condition');
-      return (
-        <div
-          className="success"
-          style={{
-            display: submitted ? '' : 'none'
-          }}>
-          <SuccessMessage></SuccessMessage>
-        </div>
-      );
-    }
-  };
+  // const validate = () => {
+  //   console.log(error + 'before validate condition');
+  //   if (error === true) {
+  //     console.log(error + 'in validate true condition');
+  //     return (
+  //       <div
+  //         className="error"
+  //         style={{
+  //           display: error ? '' : 'none'
+  //         }}>
+  //         <ErrorMessage>error</ErrorMessage>
+  //       </div>
+  //     );
+  //   } else if (error === false) {
+  //     console.log(error + 'in validate false condition');
+  //     return (
+  //       <div
+  //         className="success"
+  //         style={{
+  //           display: submitted ? '' : 'none'
+  //         }}>
+  //         <SuccessMessage></SuccessMessage>
+  //       </div>
+  //     );
+  //   }
+  // };
+
+  // const validate = () => {
+  //   console.log(error + 'error bool in validate');
+  //   if (error === true) {
+  //     return (
+  //       <div className="error">
+  //         <ErrorMessage error={errorText} />
+  //       </div>
+  //     );
+  //   } else if (error === false) {
+  //     return (
+  //       <div className="success" style={{ display: submitted ? '' : 'none' }}>
+  //         <SuccessMessage />
+  //       </div>
+  //     );
+  //   }
+  // };
 
   return (
     <div className="registration-body">
@@ -152,7 +174,8 @@ export default function Registration() {
         <div className="color-block-registration"></div>
         <div className="registration-title">S&apos;inscrire</div>
         {/* Calling to the methods  */}
-        <div className="messages">{validate()}</div>
+        <div className="messages">{successMessage()}</div>
+        <div className="messages">{errorMessage()}</div>
         <div className="registration-form">
           <form>
             <input
