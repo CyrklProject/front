@@ -60,7 +60,7 @@ export default function Edit() {
   console.log(dataLoading + 'data is loading');
 
   const fetchUsersData = () => {
-    fetch('http://localhost:8080/users', {
+    fetch('http://188.165.238.74:8080/user', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
@@ -77,7 +77,7 @@ export default function Edit() {
           const userId = user.id;
           console.log(`User with email ${userEmail} has ID ${userId}`);
 
-          fetch(`http://localhost:8080/user/${userId}`, {
+          fetch(`http://188.165.238.74:8080/user/${userId}`, {
             method: 'GET',
             headers: {
               'Content-Type': 'application/x-www-form-urlencoded'
@@ -130,7 +130,7 @@ export default function Edit() {
   // };
 
   const handleSubmit = () => {
-    fetch(`http://localhost:8080/updateuser/${id}`, {
+    fetch(`http://188.165.238.74:8080/updateuser/${id}`, {
       method: 'POST',
       body: JSON.stringify({
         lastname,

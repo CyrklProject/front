@@ -38,7 +38,7 @@ export default function Registration() {
 
   const postSignIn = () => {
     setError(false);
-    fetch('http://localhost:8080/user', {
+    fetch('http://188.165.238.74:8080/user', {
       method: 'POST',
       body: JSON.stringify({
         name,
