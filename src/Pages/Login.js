@@ -25,7 +25,7 @@ export default function Login() {
   };
 
   const login = () => {
-    fetch('http://188.165.238.74:8080/login', {
+    fetch('http://localhost:8080/login', {
       method: 'POST',
       body: JSON.stringify({
         email,
