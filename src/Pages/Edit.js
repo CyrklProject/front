@@ -130,8 +130,8 @@ export default function Edit() {
   // };
 
   const handleSubmit = () => {
-    const token = sessionStorage.getItem('token');
-    console.log(token);
+    // const token = sessionStorage.getItem('token');
+    // console.log(token);
     fetch(`http://188.165.238.74:8080/updateuser/${id}`, {
       mode: 'no-cors',
       method: 'POST',
@@ -149,8 +149,8 @@ export default function Edit() {
         updatedAt
       }),
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        Authorization: `Bearer ${token}`
+        'Content-Type': 'application/x-www-form-urlencoded'
+        // Authorization: `Bearer ${token}`
       }
     })
       .then((response) => {
