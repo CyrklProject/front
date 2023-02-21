@@ -322,7 +322,7 @@ export default function Edit() {
 
         <Flex>
           <StyledLabel>Nom</StyledLabel>
-          <Input type="text" id="lastname" value={lastname} onClick={handleChangeLastname} />
+          <Input type="text" id="lastname" value={lastname} onChange={handleChangeLastname} />
         </Flex>
 
         <Flex>
