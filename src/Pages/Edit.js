@@ -131,7 +131,7 @@ export default function Edit() {
 
   const handleSubmit = () => {
     // const token = sessionStorage.getItem('token');
-    // console.log(token);
+    console.log(id);
     fetch(`http://188.165.238.74:8080/updateuser/${id}`, {
       mode: 'no-cors',
       method: 'POST',
