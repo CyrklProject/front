@@ -60,7 +60,7 @@ export default function Edit() {
   console.log(dataLoading + 'data is loading');
 
   const fetchUsersData = () => {
-    fetch('http://188.165.238.74:8080/user', {
+    fetch('http://188.165.238.74:8080/users', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
