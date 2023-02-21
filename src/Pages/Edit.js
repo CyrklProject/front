@@ -5,6 +5,8 @@ import { Avatar } from '../components/Avatar/Avatar';
 import { StyledLabel, Flex, Input, LabelContainer } from '../components/label/Label.style';
 import { useState, useEffect } from 'react';
 import { Button } from '../components/Button/Button';
+// import { MultiSelect } from '../components/MultiSelect/MultiSelect';
+import Select from 'react-select';
 
 export default function Edit() {
   const [id, setId] = useState();
@@ -14,15 +16,22 @@ export default function Edit() {
   const [telephone, setTelephone] = useState('');
   const [position, setPosition] = useState('');
   const [urlphoto, seturlphoto] = useState('');
-  const [positionsought, setPositionsought] = useState();
-  const [industry, setIndustry] = useState('');
-  const [industrysought, setIndustrysought] = useState();
+  const [positionsought, setPositionsought] = useState([]); //interlocuteurs
+  const [industry, setIndustry] = useState(''); //secteur
+  const [industrysought, setIndustrysought] = useState([]); //secteur d'activité voulu
   const [password, setPassword] = useState('');
   const [createdAt, setCreatedAt] = useState();
   const [updatedAt, setUpdatedAt] = useState();
   const [dataLoading, setDataLoading] = useState(false);
+  const [selectedOptionsIndustry, setSelectedOptionsIndustry] = useState();
+  const [selectedIndustrysought, setselectedIndustrysought] = useState([]);
+
+  const [selectedOptionsPosition, setSelectedOptionsPosition] = useState();
+  const [selectedPositionsought, setselectedPositionsought] = useState([]);
 
   console.log(urlphoto, id, createdAt, updatedAt);
+  const profilephoto =
+    'https://www.michelrichardphotographe.fr/wp-content/uploads/2018/07/Profil-Linkedin-viadeo.jpg';
 
   function handleChangeLastname(e) {
     setlastname(e.target.value);
@@ -44,26 +53,19 @@ export default function Edit() {
     setPosition(e.target.value);
   }
 
-  function handleChangePositionSought(e) {
-    setPositionsought(e.target.value);
-  }
-
   function handleChangeIndustry(e) {
     setIndustry(e.target.value);
-  }
-
-  function handleChangeIndustrySought(e) {
-    setIndustrysought(e.target.value);
-  }
-
-  function handleChangePassword(e) {
-    setPassword(e.target.value);
   }
 
   console.log(dataLoading + 'data is loading');
 
   const fetchUsersData = () => {
-    fetch('http://188.165.238.74:8080/usersG')
+    fetch('http://188.165.238.74:8080/users', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
+    })
       .then((response) => {
         return response.json();
       })
@@ -75,12 +77,16 @@ export default function Edit() {
           const userId = user.id;
           console.log(`User with email ${userEmail} has ID ${userId}`);
 
-          fetch(`http://188.165.238.74:8080/users/${userId}`)
+          fetch(`http://188.165.238.74:8080/user/${userId}`, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded'
+            }
+          })
             .then((response) => {
               return response.json();
             })
             .then((data) => {
-              console.log(data);
               setId(data.id);
               setlastname(data.lastname);
               setName(data.name);
@@ -93,7 +99,7 @@ export default function Edit() {
               setPassword(data.password);
               setCreatedAt(data.createdAt);
               setUpdatedAt(data.updatedAt);
-              seturlphoto(data.urlphoto);
+              seturlphoto(profilephoto);
               // window.location.reload();
             })
             .catch((error) => {
@@ -123,64 +129,171 @@ export default function Edit() {
   //   await fetchUsersData();
   // };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    const updatedUser = {
-      lastname,
-      name,
-      email,
-      telephone,
-      position,
-      urlphoto,
-      positionsought,
-      industry,
-      industrysought,
-      password,
-      createdAt,
-      updatedAt
-    };
-
-    try {
-      const response = await fetch(`http://188.165.238.74:8080/users/${id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: JSON.stringify(updatedUser)
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to update user');
+  const handleSubmit = () => {
+    fetch(`http://188.165.238.74:8080/updateuser/${id}`, {
+      method: 'POST',
+      body: JSON.stringify({
+        lastname,
+        name,
+        email,
+        telephone,
+        position,
+        urlphoto,
+        positionsought,
+        industry,
+        industrysought,
+        password,
+        updatedAt
+      }),
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
       }
-
-      const data = await response.json();
-      console.log(data);
-
-      // Reset the form fields after successful submission
-      setId(data.id);
-      setlastname(data.lastname);
-      setName(data.name);
-      setEmail(data.email);
-      setTelephone(data.telephone);
-      setPosition(data.position);
-      setPositionsought(data.positionsought);
-      setIndustry(data.industry);
-      setIndustrysought(data.industrysought);
-      setPassword(data.password);
-      setCreatedAt(data.createdAt);
-      setUpdatedAt(data.updatedAt);
-      seturlphoto(data.urlphoto);
-    } catch (error) {
-      console.error(error);
-    }
+    })
+      .then((response) => {
+        console.log(response);
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+        setId(data.id);
+        setlastname(data.lastname);
+        setName(data.name);
+        setEmail(data.email);
+        setTelephone(data.telephone);
+        setPosition(data.position);
+        setPositionsought(positionsought);
+        setIndustrysought(industrysought);
+        setIndustry(data.industry);
+        // setIndustrysought(Array.from(data.industrysought));
+        setPassword(data.password);
+        setCreatedAt(data.createdAt);
+        setUpdatedAt(data.updatedAt);
+        seturlphoto(profilephoto);
+        // window.location.reload();
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
   };
+
+  const allSelectedValuesIndustry = [];
+
+  function handleSelectIndustry(data) {
+    setSelectedOptionsIndustry(data);
+    const selectedValues = data.map((option) => option.value);
+    allSelectedValuesIndustry.push(...selectedValues); // ajout des nouvelles valeurs à la variable allSelectedValues
+    setselectedIndustrysought(selectedValues);
+    setIndustrysought(allSelectedValuesIndustry); // utilisation de la variable allSelectedValues comme source de vérité pour les valeurs sélectionnées
+    return allSelectedValuesIndustry;
+  }
+
+  const allSelectedValuesPosition = [];
+
+  function handleSelectPosition(data) {
+    setSelectedOptionsPosition(data);
+    const selectedValues = data.map((option) => option.value);
+    allSelectedValuesPosition.push(...selectedValues); // ajout des nouvelles valeurs à la variable allSelectedValues
+    setselectedPositionsought(selectedValues);
+    setPositionsought(allSelectedValuesPosition); // utilisation de la variable allSelectedValues comme source de vérité pour les valeurs sélectionnées
+    return allSelectedValuesPosition;
+  }
+
+  console.log(positionsought);
+  console.log(selectedIndustrysought, selectedPositionsought);
+
+  // function handleSelectPosition(data) {
+  //   setSelectedOptionsPosition(data);
+  //   console.log(selectedOptionsPosition + 'industry');
+  //   setselectedPositionsought(data.map((option) => option.value));
+  //   console.log(selectedIndustrysought + 'position');
+  // }
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   setToken(sessionStorage.getItem('token'));
+  //   console.log(token);
+
+  //   const updatedUser = {
+  // lastname,
+  // name,
+  // email,
+  // telephone,
+  // position,
+  // urlphoto,
+  // positionsought,
+  // industry,
+  // industrysought,
+  // password,
+  // updatedAt
+  //   };
+
+  //   try {
+  //     const response = await fetch(`http://188.165.238.74:8080/updateuser/${id}`, {
+  //       method: 'PUT',
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //         'Content-Type': 'application/json'
+  //       },
+  //       body: JSON.stringify(updatedUser)
+  //     });
+  //     console.log(response + 'reponse');
+
+  //     if (!response.ok) {
+  //       throw new Error('Failed to update user');
+  //     }
+
+  //     const data = await response.json();
+  //     console.log(response + 'reponse');
+  //     console.log(data + 'data');
+  //     setId(data.id);
+  //     setlastname(data.lastname);
+  //     setName(data.name);
+  //     setEmail(data.email);
+  //     setTelephone(data.telephone);
+  //     setPosition(data.position);
+  //     setPositionsought(data.positionsought);
+  //     setIndustry(data.industry);
+  //     setIndustrysought(data.industrysought);
+  //     setPassword(data.password);
+  //     setCreatedAt(data.createdAt);
+  //     setUpdatedAt(data.updatedAt);
+  //     seturlphoto(data.urlphoto);
+  //     setToken(sessionStorage.getItem('token'));
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
+
+  const optionListIndustry = [
+    { value: 'agro-alimentaire', label: 'Agro-alimentaire' },
+    { value: 'industrie', label: 'Industrie' },
+    { value: 'energie', label: 'Énergie' },
+    { value: 'education', label: 'Éducation' },
+    { value: 'conseil', label: 'Conseil' },
+    { value: 'marketing', label: 'Marketing' },
+    { value: 'finance ', label: 'Finance ' },
+    { value: 'technologies ', label: 'Technologies ' },
+    { value: 'sante ', label: 'Soins de santé ' }
+  ];
+
+  const optionListPosition = [
+    { value: 'entrepreneurs', label: 'Entrepreneurs' },
+    { value: 'CTO', label: 'CTO' },
+    { value: 'Managers', label: 'Managers' },
+    { value: 'Experts sectoriels ', label: 'Experts sectoriels ' },
+    { value: 'Investisseurs', label: 'Investisseurs' },
+    { value: 'Mentors', label: 'Mentors' },
+    { value: 'Conseillers', label: 'Conseillers' },
+    { value: 'Consultants', label: 'Consultants' },
+    { value: 'Leaders communautaires', label: 'Leaders communautaires' },
+    { value: 'Universitaires', label: 'Universitaires' }
+  ];
 
   return (
     <EditContainer>
       <CategorieTitle>Mon Profil</CategorieTitle>
       <AvatarMenu>
-        <Avatar></Avatar>
+        <Avatar profilephoto={profilephoto}></Avatar>
         <Button type="button" buttonStyle="btn--primary--reverse" buttonSize="btn--small">
           Modifier
         </Button>
@@ -225,33 +338,8 @@ export default function Edit() {
         </Flex>
 
         <Flex>
-          <StyledLabel>Password</StyledLabel>
-          <Input type="text" id="password" value={password} onChange={handleChangePassword} />
-        </Flex>
-
-        <Flex>
           <StyledLabel>Secteur</StyledLabel>
           <Input type="text" id="industry" value={industry} onChange={handleChangeIndustry} />
-        </Flex>
-
-        <Flex>
-          <StyledLabel>Secteur recherche</StyledLabel>
-          <Input
-            type="text"
-            id="industrySought"
-            value={industrysought}
-            onChange={handleChangeIndustrySought}
-          />
-        </Flex>
-
-        <Flex>
-          <StyledLabel>Titre recherche</StyledLabel>
-          <Input
-            type="text"
-            id="positionSought"
-            value={positionsought}
-            onChange={handleChangePositionSought}
-          />
         </Flex>
 
         <Flex>
@@ -262,6 +350,43 @@ export default function Edit() {
             value={position}
             onChange={handleChangePosition}
             style={{ width: 490 }}
+          />
+        </Flex>
+
+        <Flex>
+          <StyledLabel>Secteur d&apos;activité recherché</StyledLabel>
+          <Select
+            styles={{
+              control: (baseStyles, state) => ({
+                ...baseStyles,
+                borderColor: state.isFocused ? '#173F35' : '#9CAF88'
+              })
+            }}
+            options={optionListIndustry}
+            placeholder="Select"
+            value={selectedOptionsIndustry}
+            onChange={handleSelectIndustry}
+            isMulti
+          />
+        </Flex>
+
+        <Flex>
+          <StyledLabel>Recherche</StyledLabel>
+          <Select
+            styles={{
+              control: (baseStyles, state) => ({
+                ...baseStyles,
+                borderColor: state.isFocused ? '#173F35' : '#9CAF88'
+              }),
+              options: () => ({
+                borderColor: '#173F35'
+              })
+            }}
+            options={optionListPosition}
+            placeholder="Select"
+            value={selectedOptionsPosition}
+            onChange={handleSelectPosition}
+            isMulti
           />
         </Flex>
       </LabelContainer>

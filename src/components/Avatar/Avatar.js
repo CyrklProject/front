@@ -1,13 +1,12 @@
 import { StyledAvatar, StyledImage, Flex } from './Avatar.style';
 
-export function Avatar() {
+export function Avatar(props) {
+  const { profilephoto } = props;
+
   return (
     <Flex>
       <StyledAvatar>
-        <StyledImage
-          src="https://images.unsplash.com/photo-1492633423870-43d1cd2775eb?&w=128&h=128&dpr=2&q=80"
-          alt="Colm Tuite"
-        />
+        <StyledImage src={profilephoto} alt="Colm Tuite" />
       </StyledAvatar>
     </Flex>
   );
