@@ -270,19 +270,13 @@ export const ButtonSwipeCross = styled.div`
   width: 64px;
   background-color: rgba(32, 55, 90, 0.69);
   align-items: center;
+  justify-content: center;
   margin: 10%;
-  margin-left: 27%;
+  margin-left: 37%;
   border-radius: 50%;
-`;
-
-export const ButtonSwipeStar = styled.div`
-  display: flex;
-  margin: 0;
-  height: 64px;
-  width: 64px;
-  background-color: rgba(156, 175, 136, 0.7);
-  margin: 10%;
-  border-radius: 50%;
+  color: #efe8e1;
+  font-weight: bold;
+  font-size: 36px;
 `;
 
 export const ButtonSwipeDiner = styled.div`

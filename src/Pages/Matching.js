@@ -22,7 +22,6 @@ import {
   Status,
   WrapperExperience,
   ButtonSwipeCross,
-  ButtonSwipeStar,
   ButtonSwipeDiner
 } from './Matching.style';
 import { useState, useEffect } from 'react';
@@ -88,6 +87,32 @@ export default function Matching() {
         if (data) {
           setUserProfile(data);
           setId(nextId);
+        }
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  };
+
+  const handlePrevUser = () => {
+    const prevId = id - 1;
+    fetch(`http://188.165.238.74:8080/user/${prevId}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
+    })
+      .then((response) => {
+        if (response.status === 400) {
+          setId(1);
+        } else {
+          return response.json();
+        }
+      })
+      .then((data) => {
+        if (data) {
+          setUserProfile(data);
+          setId(prevId);
         }
       })
       .catch((error) => {
@@ -252,8 +277,7 @@ export default function Matching() {
       )}
       <Footer>
         {/* <button onClick={handleNextUser}>NEXT</button> */}
-        <ButtonSwipeCross></ButtonSwipeCross>
-        <ButtonSwipeStar></ButtonSwipeStar>
+        <ButtonSwipeCross onClick={handlePrevUser}>&lt;</ButtonSwipeCross>
         <ButtonSwipeDiner onClick={handleNextUser}>&gt;</ButtonSwipeDiner>
       </Footer>
     </div>
