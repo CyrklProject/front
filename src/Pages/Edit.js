@@ -25,9 +25,23 @@ export default function Edit() {
   const [dataLoading, setDataLoading] = useState(false);
   const [selectedOptionsIndustry, setSelectedOptionsIndustry] = useState();
   const [selectedIndustrysought, setselectedIndustrysought] = useState([]);
+  const [year, setYear] = useState()
+  const [month, setmonth] = useState()
+  const [day, setDay] = useState()
+  const [hour, setHour] = useState()
+  // const [minutes, setMinutes] = useState()
+  const [dateandhours, setDateAndHours] = useState(new Date())
+  // const [dateObj, setDateObj] = new Date()
+  const [lieu, setLieu] = useState('')
+  const [selectedOptionsYear, setSelectedOptionsYear] = useState()
+  const [selectedOptionsmonth, setSelectedOptionsmonth] = useState()
+  const [selectedOptionsDay, setSelectedOptionsDay] = useState()
+  const [selectedOptionsHour, setSelectedOptionsHour] = useState()
 
   const [selectedOptionsPosition, setSelectedOptionsPosition] = useState();
   const [selectedPositionsought, setselectedPositionsought] = useState([]);
+
+  // rajoute le menu déroulant pour les 4 h, d, j , a) OK
 
   console.log(urlphoto, id, createdAt, updatedAt);
   const profilephoto =
@@ -179,7 +193,7 @@ export default function Edit() {
         console.error('Error:', error);
       });
   };
-
+  
   const allSelectedValuesIndustry = [];
 
   function handleSelectIndustry(data) {
@@ -204,6 +218,26 @@ export default function Edit() {
 
   console.log(positionsought);
   console.log(selectedIndustrysought, selectedPositionsought);
+
+
+  // faire comme handleSelectPosition (prend j, a, ... il les met en etat il les retourn en les mettant dans SetDateandhours (nouveau format))
+  function handleSelectYear(data) {
+    setSelectedOptionsYear(data.value);
+    // setSelectedOptionsYear(value)
+    // setDateAndHours(new Date(Date.UTC(setYear(data.value), setMonth(data.value), day, hour, minute, second, millisecond)));
+  }
+
+  function handleSelectMonth(data) {
+    setSelectedOptionsmonth(data.value)
+  }
+
+  function handleSelectDay(data) {
+    setSelectedOptionsDay(data.value)
+  }
+
+  function handleSelectHour(data) {
+    setSelectedOptionsHour(data.value)
+  }
 
   // function handleSelectPosition(data) {
   //   setSelectedOptionsPosition(data);
@@ -293,6 +327,83 @@ export default function Edit() {
     { value: 'Universitaires', label: 'Universitaires' }
   ];
 
+  const optionListAnnée = [
+    { value: '2023', label: '2023' },
+    { value: '2024', label: '2024' },
+    { value: '2025', label: '2025' },
+    { value: '2026', label: '2026' },
+    { value: '2027', label: '2027' },
+    { value: '2028', label: '2028' },
+    { value: '2029', label: '2029' },
+    { value: '2030', label: '2030' }
+  ];
+
+  const optionListMonth = [
+    { value: '1', label: 'Janvier' },
+    { value: '2', label: 'Février' },
+    { value: '3', label: 'Mars' },
+    { value: '4', label: 'Avril' },
+    { value: '5', label: 'Mai' },
+    { value: '6', label: 'Juin' },
+    { value: '7', label: 'Juillet' },
+    { value: '8', label: 'Août' },
+    { value: '9', label: 'Septembre' },
+    { value: '10', label: 'Octobre' },
+    { value: '11', label: 'Novembre' },
+    { value: '12', label: 'Décembre' }
+  ];
+
+  const optionListDay = [
+    { value: '1', label: '1' },
+    { value: '2', label: '2' },
+    { value: '3', label: '3' },
+    { value: '4', label: '4' },
+    { value: '5', label: '5' },
+    { value: '6', label: '6' },
+    { value: '7', label: '7' },
+    { value: '8', label: '8' },
+    { value: '9', label: '9' },
+    { value: '10', label: '10' },
+    { value: '11', label: '11' },
+    { value: '12', label: '12' },
+    { value: '13', label: '13' },
+    { value: '14', label: '14' },
+    { value: '15', label: '15' },
+    { value: '16', label: '16' },
+    { value: '17', label: '17' },
+    { value: '18', label: '18' },
+    { value: '19', label: '19' },
+    { value: '20', label: '20' },
+    { value: '21', label: '21' },
+    { value: '22', label: '22' },
+    { value: '23', label: '23' },
+    { value: '24', label: '24' },
+    { value: '25', label: '25' },
+    { value: '26', label: '26' },
+    { value: '27', label: '27' },
+    { value: '28', label: '28' },
+    { value: '29', label: '29' },
+    { value: '30', label: '30' },
+    { value: '31', label: '31' },
+  ];
+
+  const optionListHour = [
+    { value: '12:00', label: '1' },
+    { value: '12:15', label: '2' },
+    { value: '12:30', label: '3' },
+    { value: '12:45', label: '4' },
+    { value: '13:00', label: '5' },
+    { value: '13:15', label: '6' },
+    { value: '13:30', label: '7' },
+    { value: '13:45', label: '8' },
+    { value: '14:00', label: '9' },
+    { value: '14:15', label: '10' },
+    { value: '14:30', label: '11' },
+    { value: '14:45', label: '12' },
+    { value: '15:00', label: '13' }
+  ];
+
+// rajouter les options du menu déraoulatn 
   return (
     <EditContainer>
       <CategorieTitle>Mon Profil</CategorieTitle>
