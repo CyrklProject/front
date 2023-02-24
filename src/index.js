@@ -30,8 +30,9 @@ root.render(
       <Route path="/registration" element={<Registration />} />
       <Route path="/edit" element={<Edit />} />
       <Route path="/login" element={<Login />} />
-      <Route path="/matching" element={<Matching />} />
+      <Route path="/users/:id" element={<Matching />} />
       <Route path="/deconnexion" element={<Deconnexion />} />
+      {/* <Route path="/users/:id" element={<Matching />} /> */}
       {/* <Route path="/calendrier" element={<Calendrier />} />
       <Route path="/listes" element={<Listes />} />
       <Route path="/slides" element={<Slides />} />
