@@ -1,11 +1,10 @@
 import './welcome.css';
 import React from 'react';
-import { CategorieTitle, EditContainer, AvatarMenu } from './Edit.style';
+import { CategorieTitle, EditContainer, AvatarMenu, ButtonWrapper } from './Edit.style';
 import { Avatar } from '../components/Avatar/Avatar';
 import { StyledLabel, Flex, Input, LabelContainer } from '../components/label/Label.style';
 import { useState, useEffect } from 'react';
 import { Button } from '../components/Button/Button';
-// import { MultiSelect } from '../components/MultiSelect/MultiSelect';
 import Select from 'react-select';
 
 export default function Edit() {
@@ -16,18 +15,18 @@ export default function Edit() {
   const [telephone, setTelephone] = useState('');
   const [position, setPosition] = useState('');
   const [urlphoto, seturlphoto] = useState('');
-  const [positionsought, setPositionsought] = useState([]); //interlocuteurs
-  const [industry, setIndustry] = useState(''); //secteur
-  const [industrysought, setIndustrysought] = useState([]); //secteur d'activité voulu
+  const [positionsought, setPositionsought] = useState([]);
+  const [industry, setIndustry] = useState('');
+  const [industrysought, setIndustrysought] = useState([]);
   const [password, setPassword] = useState('');
   const [createdAt, setCreatedAt] = useState();
   const [updatedAt, setUpdatedAt] = useState();
   const [dataLoading, setDataLoading] = useState(false);
   const [selectedOptionsIndustry, setSelectedOptionsIndustry] = useState();
   const [selectedIndustrysought, setselectedIndustrysought] = useState([]);
-
   const [selectedOptionsPosition, setSelectedOptionsPosition] = useState();
   const [selectedPositionsought, setselectedPositionsought] = useState([]);
+  const [isModified, setIsModified] = useState(false);
 
   console.log(urlphoto, id, createdAt, updatedAt);
   const profilephoto =
@@ -35,26 +34,32 @@ export default function Edit() {
 
   function handleChangeLastname(e) {
     setlastname(e.target.value);
+    setIsModified(true);
   }
 
   function handleChangeName(e) {
     setName(e.target.value);
+    setIsModified(true);
   }
 
   function handleChangeEmail(e) {
     setEmail(e.target.value);
+    setIsModified(true);
   }
 
   function handleChangeTelephone(e) {
     setTelephone(e.target.value);
+    setIsModified(true);
   }
 
   function handleChangePosition(e) {
     setPosition(e.target.value);
+    setIsModified(true);
   }
 
   function handleChangeIndustry(e) {
     setIndustry(e.target.value);
+    setIsModified(true);
   }
 
   console.log(dataLoading + 'data is loading');
@@ -88,6 +93,7 @@ export default function Edit() {
             })
             .then((data) => {
               setId(data.id);
+              sessionStorage.setItem('userID', data.id);
               setlastname(data.lastname);
               setName(data.name);
               setEmail(data.email);
@@ -120,18 +126,10 @@ export default function Edit() {
 
   if (dataLoading === false) {
     setDataLoading(true);
-  } else {
-    // Clear the localStorage flag to allow for another fetch later
   }
-
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   await fetchUsersData();
-  // };
 
   const handleSubmit = () => {
     console.log('id' + id);
-    // const token = sessionStorage.getItem('token');
     fetch(`http://188.165.238.74:8080/updateuser/${id}`, {
       mode: 'no-cors',
       method: 'POST',
@@ -150,7 +148,6 @@ export default function Edit() {
       }),
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
-        // Authorization: `Bearer ${token}`
       }
     })
       .then((response) => {
@@ -168,7 +165,6 @@ export default function Edit() {
         setPositionsought(positionsought);
         setIndustrysought(industrysought);
         setIndustry(data.industry);
-        // setIndustrysought(Array.from(data.industrysought));
         setPassword(data.password);
         setCreatedAt(data.createdAt);
         setUpdatedAt(data.updatedAt);
@@ -188,6 +184,7 @@ export default function Edit() {
     allSelectedValuesIndustry.push(...selectedValues); // ajout des nouvelles valeurs à la variable allSelectedValues
     setselectedIndustrysought(selectedValues);
     setIndustrysought(allSelectedValuesIndustry); // utilisation de la variable allSelectedValues comme source de vérité pour les valeurs sélectionnées
+    setIsModified(true);
     return allSelectedValuesIndustry;
   }
 
@@ -199,74 +196,12 @@ export default function Edit() {
     allSelectedValuesPosition.push(...selectedValues); // ajout des nouvelles valeurs à la variable allSelectedValues
     setselectedPositionsought(selectedValues);
     setPositionsought(allSelectedValuesPosition); // utilisation de la variable allSelectedValues comme source de vérité pour les valeurs sélectionnées
+    setIsModified(true);
     return allSelectedValuesPosition;
   }
 
   console.log(positionsought);
   console.log(selectedIndustrysought, selectedPositionsought);
-
-  // function handleSelectPosition(data) {
-  //   setSelectedOptionsPosition(data);
-  //   console.log(selectedOptionsPosition + 'industry');
-  //   setselectedPositionsought(data.map((option) => option.value));
-  //   console.log(selectedIndustrysought + 'position');
-  // }
-
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   setToken(sessionStorage.getItem('token'));
-  //   console.log(token);
-
-  //   const updatedUser = {
-  // lastname,
-  // name,
-  // email,
-  // telephone,
-  // position,
-  // urlphoto,
-  // positionsought,
-  // industry,
-  // industrysought,
-  // password,
-  // updatedAt
-  //   };
-
-  //   try {
-  //     const response = await fetch(`http://188.165.238.74:8080/updateuser/${id}`, {
-  //       method: 'PUT',
-  //       headers: {
-  //         Authorization: `Bearer ${token}`,
-  //         'Content-Type': 'application/json'
-  //       },
-  //       body: JSON.stringify(updatedUser)
-  //     });
-  //     console.log(response + 'reponse');
-
-  //     if (!response.ok) {
-  //       throw new Error('Failed to update user');
-  //     }
-
-  //     const data = await response.json();
-  //     console.log(response + 'reponse');
-  //     console.log(data + 'data');
-  //     setId(data.id);
-  //     setlastname(data.lastname);
-  //     setName(data.name);
-  //     setEmail(data.email);
-  //     setTelephone(data.telephone);
-  //     setPosition(data.position);
-  //     setPositionsought(data.positionsought);
-  //     setIndustry(data.industry);
-  //     setIndustrysought(data.industrysought);
-  //     setPassword(data.password);
-  //     setCreatedAt(data.createdAt);
-  //     setUpdatedAt(data.updatedAt);
-  //     seturlphoto(data.urlphoto);
-  //     setToken(sessionStorage.getItem('token'));
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
 
   const optionListIndustry = [
     { value: 'agro-alimentaire', label: 'Agro-alimentaire' },
@@ -293,25 +228,17 @@ export default function Edit() {
     { value: 'Universitaires', label: 'Universitaires' }
   ];
 
+  // const renderList = () => {
+  //   positionsought.map((item) => {
+  //     <div>{item}</div>;
+  //   });
+  // };
+
   return (
     <EditContainer>
       <CategorieTitle>Mon Profil</CategorieTitle>
       <AvatarMenu>
         <Avatar profilephoto={profilephoto}></Avatar>
-        <Button type="button" buttonStyle="btn--primary--reverse" buttonSize="btn--small">
-          Modifier
-        </Button>
-        <Button type="button" buttonStyle="btn--primary--reverse" buttonSize="btn--small">
-          Supprimer
-        </Button>
-
-        <Button
-          onClick={handleSubmit}
-          type="button"
-          buttonStyle="btn--primary--reverse"
-          buttonSize="btn--medium">
-          ENREGISTRER
-        </Button>
       </AvatarMenu>
 
       <LabelContainer>
@@ -322,7 +249,7 @@ export default function Edit() {
 
         <Flex>
           <StyledLabel>Nom</StyledLabel>
-          <Input type="text" id="lastname" value={lastname} onClick={handleChangeLastname} />
+          <Input type="text" id="lastname" value={lastname} onChange={handleChangeLastname} />
         </Flex>
 
         <Flex>
@@ -393,6 +320,18 @@ export default function Edit() {
             isMulti
           />
         </Flex>
+
+        {isModified && (
+          <ButtonWrapper>
+            <Button
+              onClick={handleSubmit}
+              type="button"
+              buttonStyle="btn--primary--reverse"
+              buttonSize="btn--medium">
+              ENREGISTRER
+            </Button>
+          </ButtonWrapper>
+        )}
       </LabelContainer>
     </EditContainer>
   );

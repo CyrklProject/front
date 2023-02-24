@@ -27,7 +27,13 @@ export const AvatarMenu = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-around;
+  justify-content: flex-start;
   margin: 0px;
   width: 50%;
+`;
+
+export const ButtonWrapper = styled.div`
+  display: flex;
+  margin-top: 40px;
+  margin-left: 120px;
 `;
