@@ -169,7 +169,7 @@ export default function Edit() {
         setIndustrysought(industrysought);
         setIndustry(data.industry);
         // setIndustrysought(Array.from(data.industrysought));
-        setPassword(data.password);
+        setPassword('123456');
         setCreatedAt(data.createdAt);
         setUpdatedAt(data.updatedAt);
         seturlphoto(profilephoto);
