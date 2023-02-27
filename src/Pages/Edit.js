@@ -1,12 +1,20 @@
 import './welcome.css';
 import React from 'react';
-import { CategorieTitle, EditContainer, AvatarMenu } from './Edit.style';
+import {
+  CategorieTitle,
+  EditContainer,
+  AvatarMenu,
+  ButtonWrapper,
+  InputSoughtWrapper
+} from './Edit.style';
 import { Avatar } from '../components/Avatar/Avatar';
 import { StyledLabel, Flex, Input, LabelContainer } from '../components/label/Label.style';
 import { useState, useEffect } from 'react';
 import { Button } from '../components/Button/Button';
 // import { MultiSelect } from '../components/MultiSelect/MultiSelect';
 import Select from 'react-select';
+// import { SuccessMessage } from '../components/Message/SuccessMessage';
+// import { ErrorMessage } from '../components/Message/ErrorMessage';
 
 export default function Edit() {
   const [id, setId] = useState();
@@ -25,9 +33,11 @@ export default function Edit() {
   const [dataLoading, setDataLoading] = useState(false);
   const [selectedOptionsIndustry, setSelectedOptionsIndustry] = useState();
   const [selectedIndustrysought, setselectedIndustrysought] = useState([]);
-
   const [selectedOptionsPosition, setSelectedOptionsPosition] = useState();
   const [selectedPositionsought, setselectedPositionsought] = useState([]);
+  const [isModified, setIsModified] = useState(false);
+  // const [submitted, setSubmitted] = useState(false);
+  // const [error, setError] = useState(false);
 
   console.log(urlphoto, id, createdAt, updatedAt);
   const profilephoto =
@@ -35,26 +45,32 @@ export default function Edit() {
 
   function handleChangeLastname(e) {
     setlastname(e.target.value);
+    setIsModified(true);
   }
 
   function handleChangeName(e) {
     setName(e.target.value);
+    setIsModified(true);
   }
 
   function handleChangeEmail(e) {
     setEmail(e.target.value);
+    setIsModified(true);
   }
 
   function handleChangeTelephone(e) {
     setTelephone(e.target.value);
+    setIsModified(true);
   }
 
   function handleChangePosition(e) {
     setPosition(e.target.value);
+    setIsModified(true);
   }
 
   function handleChangeIndustry(e) {
     setIndustry(e.target.value);
+    setIsModified(true);
   }
 
   console.log(dataLoading + 'data is loading');
@@ -88,6 +104,7 @@ export default function Edit() {
             })
             .then((data) => {
               setId(data.id);
+              sessionStorage.setItem('userID', data.id);
               setlastname(data.lastname);
               setName(data.name);
               setEmail(data.email);
@@ -117,21 +134,11 @@ export default function Edit() {
   useEffect(() => {
     fetchUsersData();
   }, []);
-
   if (dataLoading === false) {
     setDataLoading(true);
-  } else {
-    // Clear the localStorage flag to allow for another fetch later
   }
-
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   await fetchUsersData();
-  // };
-
   const handleSubmit = () => {
     console.log('id' + id);
-    // const token = sessionStorage.getItem('token');
     fetch(`http://188.165.238.74:8080/updateuser/${id}`, {
       mode: 'no-cors',
       method: 'POST',
@@ -173,33 +180,40 @@ export default function Edit() {
         setCreatedAt(data.createdAt);
         setUpdatedAt(data.updatedAt);
         seturlphoto(profilephoto);
-        // window.location.reload();
+        //   if (response.status <= 400) {
+        //     setSubmitted(true);
+        //     successMessage();
+        //   } else {
+        //     setError(true);
+        //     errorMessage();
+        //   }
+        // });
       })
       .catch((error) => {
         console.error('Error:', error);
       });
   };
 
-  const allSelectedValuesIndustry = [];
-
   function handleSelectIndustry(data) {
     setSelectedOptionsIndustry(data);
     const selectedValues = data.map((option) => option.value);
-    allSelectedValuesIndustry.push(...selectedValues); // ajout des nouvelles valeurs à la variable allSelectedValues
+    // allSelectedValuesIndustry.push(...selectedValues); // ajout des nouvelles valeurs à la variable allSelectedValues
     setselectedIndustrysought(selectedValues);
-    setIndustrysought(allSelectedValuesIndustry); // utilisation de la variable allSelectedValues comme source de vérité pour les valeurs sélectionnées
-    return allSelectedValuesIndustry;
+    setIsModified(true);
+    // setIndustrysought(allSelectedValuesIndustry); // utilisation de la variable allSelectedValues comme source de vérité pour les valeurs sélectionnées
+    // return allSelectedValuesIndustry;
   }
 
-  const allSelectedValuesPosition = [];
+  // const allSelectedValuesPosition = [];
 
   function handleSelectPosition(data) {
     setSelectedOptionsPosition(data);
     const selectedValues = data.map((option) => option.value);
-    allSelectedValuesPosition.push(...selectedValues); // ajout des nouvelles valeurs à la variable allSelectedValues
+    // allSelectedValuesPosition.push(...selectedValues); // ajout des nouvelles valeurs à la variable allSelectedValues
     setselectedPositionsought(selectedValues);
-    setPositionsought(allSelectedValuesPosition); // utilisation de la variable allSelectedValues comme source de vérité pour les valeurs sélectionnées
-    return allSelectedValuesPosition;
+    setIsModified(true);
+    // setPositionsought(allSelectedValuesPosition); // utilisation de la variable allSelectedValues comme source de vérité pour les valeurs sélectionnées
+    // return allSelectedValuesPosition;
   }
 
   console.log(positionsought);
@@ -298,20 +312,6 @@ export default function Edit() {
       <CategorieTitle>Mon Profil</CategorieTitle>
       <AvatarMenu>
         <Avatar profilephoto={profilephoto}></Avatar>
-        <Button type="button" buttonStyle="btn--primary--reverse" buttonSize="btn--small">
-          Modifier
-        </Button>
-        <Button type="button" buttonStyle="btn--primary--reverse" buttonSize="btn--small">
-          Supprimer
-        </Button>
-
-        <Button
-          onClick={handleSubmit}
-          type="button"
-          buttonStyle="btn--primary--reverse"
-          buttonSize="btn--medium">
-          ENREGISTRER
-        </Button>
       </AvatarMenu>
 
       <LabelContainer>
@@ -322,7 +322,7 @@ export default function Edit() {
 
         <Flex>
           <StyledLabel>Nom</StyledLabel>
-          <Input type="text" id="lastname" value={lastname} onClick={handleChangeLastname} />
+          <Input type="text" id="lastname" value={lastname} onChange={handleChangeLastname} />
         </Flex>
 
         <Flex>
@@ -359,6 +359,14 @@ export default function Edit() {
 
         <Flex>
           <StyledLabel>Secteur d&apos;activité recherché</StyledLabel>
+          <InputSoughtWrapper>
+            <Input
+              type="text"
+              id="position"
+              value={selectedIndustrysought.join(', ')}
+              style={{ width: 290, marginBottom: 30 }}
+            />
+          </InputSoughtWrapper>
           <Select
             styles={{
               control: (baseStyles, state) => ({
@@ -376,6 +384,14 @@ export default function Edit() {
 
         <Flex>
           <StyledLabel>Recherche</StyledLabel>
+          <InputSoughtWrapper>
+            <Input
+              type="text"
+              id="position"
+              value={selectedPositionsought.join(', ')}
+              style={{ width: 290, marginBottom: 30, marginTop: 21 }}
+            />
+          </InputSoughtWrapper>
           <Select
             styles={{
               control: (baseStyles, state) => ({
@@ -393,6 +409,17 @@ export default function Edit() {
             isMulti
           />
         </Flex>
+        {isModified && (
+          <ButtonWrapper>
+            <Button
+              onClick={handleSubmit}
+              type="button"
+              buttonStyle="btn--primary--reverse"
+              buttonSize="btn--medium">
+              ENREGISTRER
+            </Button>
+          </ButtonWrapper>
+        )}
       </LabelContainer>
     </EditContainer>
   );
