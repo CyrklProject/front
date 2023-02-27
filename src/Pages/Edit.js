@@ -15,6 +15,7 @@ import { Button } from '../components/Button/Button';
 import Select from 'react-select';
 import { SuccessMessage } from '../components/Message/SuccessMessage';
 import { ErrorMessage } from '../components/Message/ErrorMessage';
+import { useNavigate } from 'react-router-dom';
 
 export default function Edit() {
   const [id, setId] = useState();
@@ -40,6 +41,7 @@ export default function Edit() {
   const [error, setError] = useState('');
   const [errorText, setErrorText] = useState('');
   const [submitted, setSubmitted] = useState(false);
+  const navigate = useNavigate();
 
   console.log(urlphoto, id, createdAt, updatedAt);
   const profilephoto =
@@ -164,8 +166,9 @@ export default function Edit() {
     }).then((response) => {
       console.log(response);
       response.json().then((data) => {
-        console.log(data.error);
+        console.log('data.error' + data.error);
         setErrorText(data.error);
+        console.log('data.error2' + data.error);
         console.log(data);
         setId(data.id);
         setlastname(data.lastname);
@@ -181,20 +184,21 @@ export default function Edit() {
         setCreatedAt(data.createdAt);
         setUpdatedAt(data.updatedAt);
         seturlphoto(profilephoto);
-        if (response.status <= 400) {
-          setSubmitted(true);
-          console.log('im under 400');
-          successMessage();
-        } else {
-          console.log('im after 400');
-          setError(true);
-          console.log(error + 'error in 400');
-          errorMessage();
-        }
+        console.log(response.status);
       });
-      // .catch((error) => {
-      //   console.error('Error:', error);
-      // });
+      if (response.status <= 400) {
+        setSubmitted(true);
+        console.log('im under 400');
+        successMessage();
+      } else {
+        console.log('im after 400');
+        setError(true);
+        console.log(error + 'error in 400');
+        errorMessage();
+      }
+      setTimeout(() => {
+        navigate('/Matching');
+      }, 10000);
     });
   };
 
