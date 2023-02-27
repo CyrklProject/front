@@ -10,8 +10,8 @@ export const MatchingContainer = styled.div`
 export const LeftContent = styled.div`
   display: flex;
   width: 350px;
-  height: 500px;
-  margin-top: 40px;
+  height: 350px;
+  margin-top: 13%;
   flex-direction: column;
 `;
 
@@ -50,11 +50,10 @@ export const Contact = styled.div`
 export const CenterContent = styled.div`
   display: flex;
   width: 350px;
-  height: 500px;
-  margin-top: 40px;
+  height: 700px;
   flex-direction: column;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: center;
 `;
 
 export const HowMany = styled.p`
@@ -74,8 +73,7 @@ export const Photos = styled.div`
 export const RightContent = styled.div`
   display: flex;
   width: 350px;
-  height: 500px;
-  margin-top: 28px;
+  height: 350px;
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-evenly;
@@ -83,7 +81,7 @@ export const RightContent = styled.div`
 
 export const Footer = styled.div`
   background-color: #efe8e1;
-  position: absolute;
+  margin-top: 2%;
   bottom: 0;
   width: 100%;
   height: 100px;
@@ -107,6 +105,17 @@ export const Date = styled.p`
 export const Location = styled.p`
   color: black;
   margin: 0;
+  font-weight: bold;
+  margin-left: 18%;
+  margin-top: 6%;
+  width: 80px;
+`;
+
+export const Hours = styled.div`
+  color: black;
+  margin: 0;
+  margin-left: 24%;
+  margin-top: 6%;
 `;
 
 export const LinkDisponibilities = styled.p`
@@ -120,13 +129,20 @@ export const PhotoProfil = styled.div`
   height: 250px;
   border: 1px solid;
   border-color: #9caf88;
+  margin-bottom: 10%;
   width: 80%;
+  img {
+    width: 100%;
+    height: 350px;
+    margin: 0;
+  }
 `;
 export const NameBox = styled.div`
   display: flex;
   flex-direction: row;
   margin: 0;
   height: 80px;
+  padding-top: 20%;
 `;
 export const Sector = styled.div`
   display: flex;
@@ -141,30 +157,32 @@ export const Name = styled.p`
   color: #fc0505;
   align-items: center;
   width: 340px;
-  padding-left: 10px;
+  padding-left: 70px;
   font-family: 'Playfair Display';
-  font-style: normal;
-  font-size: 20px;
+  font-size: 26px;
   line-height: 32px;
 `;
 
 export const TitlteSector = styled.div`
   display: flex;
   margin: 0;
+  width: 270px;
   height: 80px;
-  padding-left: 10px;
   color: rgba(156, 175, 136, 0.4);
   border-top: 1px solid;
   border-color: #9caf88;
-  padding-top: 10px;
+  padding-top: 20px;
+  font-weight: bold;
 `;
 
 export const ParaSector = styled.p`
   display: flex;
   margin: 0;
   height: 80px;
-  padding-left: 10px;
-  font-size: 14px;
+  font-weight: bold;
+  font-size: 18px;
+  padding-top: 20px;
+  padding-left: 5%;
 `;
 
 export const Experience = styled.div`
@@ -189,11 +207,14 @@ export const Description = styled.p`
 export const TitleExperience = styled.div`
   display: flex;
   margin: 0;
-  height: 80px;
-  flex-direction: column;
-  font-family: 'Be Vietnam';
-  color: rgba(0, 0, 0, 0.25);
-  padding: 10px;
+  width: 270px;
+  color: rgba(156, 175, 136, 0.4);
+  border-bottom: 1px solid;
+  border-color: #9caf88;
+  padding-top: 20px;
+  padding-bottom: 7%;
+  font-weight: bold;
+  height: 18px;
 `;
 
 export const SmallPhotoProfil = styled.div`
@@ -212,14 +233,17 @@ export const InfosExperienceBox = styled.div`
   margin: 10px;
   flex-direction: column;
   align-items: flex-start;
-  justify-content: space-evenly;
+  justify-contente: space-evenly;
 `;
 
 export const Status = styled.div`
   display: flex;
   margin: 0;
+  padding-top: 10%;
+  padding-bottom: 10%;
   font-weight: bold;
-  font-size: 14px;
+  font-size: 18px;
+  padding-left: 5%;
 `;
 
 export const Entreprise = styled.div`
@@ -237,31 +261,36 @@ export const Duration = styled.div`
 export const WrapperExperience = styled.div`
   display: flex;
   margin: 0;
-  flex-direction: row;
+  flex-direction: column;
 `;
 
 export const ButtonSwipeCross = styled.div`
   display: flex;
   margin: 0;
-  height: 40px;
-  width: 40px;
+  height: 64px;
+  width: 64px;
   background-color: rgba(32, 55, 90, 0.69);
   align-items: center;
-  justify-contente: space-evenly;
-`;
-
-export const ButtonSwipeStar = styled.div`
-  display: flex;
-  margin: 0;
-  height: 40px;
-  width: 40px;
-  background-color: rgba(156, 175, 136, 0.7);
+  justify-content: center;
+  margin: 10%;
+  margin-left: 37%;
+  border-radius: 50%;
+  color: #efe8e1;
+  font-weight: bold;
+  font-size: 36px;
 `;
 
 export const ButtonSwipeDiner = styled.div`
   display: flex;
   margin: 0;
-  height: 40px;
-  width: 40px;
+  height: 64px;
+  width: 64px;
+  align-items: center;
+  justify-content: center;
   background-color: #d5b19e;
+  margin: 10%;
+  border-radius: 50%;
+  color: #efe8e1;
+  font-weight: bold;
+  font-size: 36px;
 `;

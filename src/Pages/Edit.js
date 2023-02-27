@@ -1,12 +1,19 @@
 import './welcome.css';
 import React from 'react';
-import { CategorieTitle, EditContainer, AvatarMenu } from './Edit.style';
+import {
+  CategorieTitle,
+  EditContainer,
+  AvatarMenu,
+  ButtonWrapper
+  // InputSoughtWrapper
+} from './Edit.style';
 import { Avatar } from '../components/Avatar/Avatar';
 import { StyledLabel, Flex, Input, LabelContainer } from '../components/label/Label.style';
 import { useState, useEffect } from 'react';
 import { Button } from '../components/Button/Button';
-// import { MultiSelect } from '../components/MultiSelect/MultiSelect';
 import Select from 'react-select';
+import { SuccessMessage } from '../components/Message/SuccessMessage';
+import { ErrorMessage } from '../components/Message/ErrorMessage';
 
 export default function Edit() {
   const [id, setId] = useState();
@@ -16,18 +23,20 @@ export default function Edit() {
   const [telephone, setTelephone] = useState('');
   const [position, setPosition] = useState('');
   const [urlphoto, seturlphoto] = useState('');
-  const [positionsought, setPositionsought] = useState([]); //interlocuteurs
-  const [industry, setIndustry] = useState(''); //secteur
-  const [industrysought, setIndustrysought] = useState([]); //secteur d'activité voulu
+  const [positionsought, setPositionsought] = useState([]);
+  const [industry, setIndustry] = useState('');
+  const [industrysought, setIndustrysought] = useState([]);
   const [password, setPassword] = useState('');
   const [createdAt, setCreatedAt] = useState();
   const [updatedAt, setUpdatedAt] = useState();
   const [dataLoading, setDataLoading] = useState(false);
   const [selectedOptionsIndustry, setSelectedOptionsIndustry] = useState();
   const [selectedIndustrysought, setselectedIndustrysought] = useState([]);
-
   const [selectedOptionsPosition, setSelectedOptionsPosition] = useState();
   const [selectedPositionsought, setselectedPositionsought] = useState([]);
+  const [isModified, setIsModified] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState(false);
 
   console.log(urlphoto, id, createdAt, updatedAt);
   const profilephoto =
@@ -35,26 +44,32 @@ export default function Edit() {
 
   function handleChangeLastname(e) {
     setlastname(e.target.value);
+    setIsModified(true);
   }
 
   function handleChangeName(e) {
     setName(e.target.value);
+    setIsModified(true);
   }
 
   function handleChangeEmail(e) {
     setEmail(e.target.value);
+    setIsModified(true);
   }
 
   function handleChangeTelephone(e) {
     setTelephone(e.target.value);
+    setIsModified(true);
   }
 
   function handleChangePosition(e) {
     setPosition(e.target.value);
+    setIsModified(true);
   }
 
   function handleChangeIndustry(e) {
     setIndustry(e.target.value);
+    setIsModified(true);
   }
 
   console.log(dataLoading + 'data is loading');
@@ -88,6 +103,7 @@ export default function Edit() {
             })
             .then((data) => {
               setId(data.id);
+              sessionStorage.setItem('userID', data.id);
               setlastname(data.lastname);
               setName(data.name);
               setEmail(data.email);
@@ -100,7 +116,6 @@ export default function Edit() {
               setCreatedAt(data.createdAt);
               setUpdatedAt(data.updatedAt);
               seturlphoto(profilephoto);
-              // window.location.reload();
             })
             .catch((error) => {
               console.error('Error:', error);
@@ -120,22 +135,15 @@ export default function Edit() {
 
   if (dataLoading === false) {
     setDataLoading(true);
-  } else {
-    // Clear the localStorage flag to allow for another fetch later
   }
-
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   await fetchUsersData();
-  // };
 
   const handleSubmit = () => {
     console.log('id' + id);
-    // const token = sessionStorage.getItem('token');
     fetch(`http://188.165.238.74:8080/updateuser/${id}`, {
       mode: 'no-cors',
       method: 'POST',
       body: JSON.stringify({
+        id,
         lastname,
         name,
         email,
@@ -146,18 +154,14 @@ export default function Edit() {
         industry,
         industrysought,
         password,
-        updatedAt
+        updatedAt,
+        createdAt
       }),
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
-        // Authorization: `Bearer ${token}`
       }
-    })
-      .then((response) => {
-        console.log(response);
-        return response.json();
-      })
-      .then((data) => {
+    }).then((response) => {
+      response.json().then((data) => {
         console.log(data);
         setId(data.id);
         setlastname(data.lastname);
@@ -168,105 +172,37 @@ export default function Edit() {
         setPositionsought(positionsought);
         setIndustrysought(industrysought);
         setIndustry(data.industry);
-        // setIndustrysought(Array.from(data.industrysought));
         setPassword(data.password);
         setCreatedAt(data.createdAt);
         setUpdatedAt(data.updatedAt);
         seturlphoto(profilephoto);
-        // window.location.reload();
-      })
-      .catch((error) => {
-        console.error('Error:', error);
+        if (response.status <= 400) {
+          setSubmitted(true);
+          successMessage();
+        } else {
+          setError(true);
+          errorMessage();
+        }
       });
+    });
   };
-
-  const allSelectedValuesIndustry = [];
 
   function handleSelectIndustry(data) {
     setSelectedOptionsIndustry(data);
     const selectedValues = data.map((option) => option.value);
-    allSelectedValuesIndustry.push(...selectedValues); // ajout des nouvelles valeurs à la variable allSelectedValues
     setselectedIndustrysought(selectedValues);
-    setIndustrysought(allSelectedValuesIndustry); // utilisation de la variable allSelectedValues comme source de vérité pour les valeurs sélectionnées
-    return allSelectedValuesIndustry;
+    setIsModified(true);
   }
-
-  const allSelectedValuesPosition = [];
 
   function handleSelectPosition(data) {
     setSelectedOptionsPosition(data);
     const selectedValues = data.map((option) => option.value);
-    allSelectedValuesPosition.push(...selectedValues); // ajout des nouvelles valeurs à la variable allSelectedValues
     setselectedPositionsought(selectedValues);
-    setPositionsought(allSelectedValuesPosition); // utilisation de la variable allSelectedValues comme source de vérité pour les valeurs sélectionnées
-    return allSelectedValuesPosition;
+    setIsModified(true);
   }
 
   console.log(positionsought);
   console.log(selectedIndustrysought, selectedPositionsought);
-
-  // function handleSelectPosition(data) {
-  //   setSelectedOptionsPosition(data);
-  //   console.log(selectedOptionsPosition + 'industry');
-  //   setselectedPositionsought(data.map((option) => option.value));
-  //   console.log(selectedIndustrysought + 'position');
-  // }
-
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   setToken(sessionStorage.getItem('token'));
-  //   console.log(token);
-
-  //   const updatedUser = {
-  // lastname,
-  // name,
-  // email,
-  // telephone,
-  // position,
-  // urlphoto,
-  // positionsought,
-  // industry,
-  // industrysought,
-  // password,
-  // updatedAt
-  //   };
-
-  //   try {
-  //     const response = await fetch(`http://188.165.238.74:8080/updateuser/${id}`, {
-  //       method: 'PUT',
-  //       headers: {
-  //         Authorization: `Bearer ${token}`,
-  //         'Content-Type': 'application/json'
-  //       },
-  //       body: JSON.stringify(updatedUser)
-  //     });
-  //     console.log(response + 'reponse');
-
-  //     if (!response.ok) {
-  //       throw new Error('Failed to update user');
-  //     }
-
-  //     const data = await response.json();
-  //     console.log(response + 'reponse');
-  //     console.log(data + 'data');
-  //     setId(data.id);
-  //     setlastname(data.lastname);
-  //     setName(data.name);
-  //     setEmail(data.email);
-  //     setTelephone(data.telephone);
-  //     setPosition(data.position);
-  //     setPositionsought(data.positionsought);
-  //     setIndustry(data.industry);
-  //     setIndustrysought(data.industrysought);
-  //     setPassword(data.password);
-  //     setCreatedAt(data.createdAt);
-  //     setUpdatedAt(data.updatedAt);
-  //     seturlphoto(data.urlphoto);
-  //     setToken(sessionStorage.getItem('token'));
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
 
   const optionListIndustry = [
     { value: 'agro-alimentaire', label: 'Agro-alimentaire' },
@@ -293,25 +229,43 @@ export default function Edit() {
     { value: 'Universitaires', label: 'Universitaires' }
   ];
 
+  const successMessage = () => {
+    return (
+      <div
+        className="success"
+        style={{
+          display: submitted ? '' : 'none'
+        }}>
+        <SuccessMessage>
+          <p>
+            Nous avons bien reçu votre demande d&apos;inscription. Vous recevrez une réponse dans
+            les plus bref délais.
+          </p>
+          <p>A très vite sur Cyrkl !</p>
+        </SuccessMessage>
+      </div>
+    );
+  };
+
+  const errorMessage = () => {
+    return (
+      <div
+        className="error"
+        style={{
+          display: error ? '' : 'none'
+        }}>
+        <ErrorMessage>Error</ErrorMessage>
+      </div>
+    );
+  };
+
   return (
     <EditContainer>
       <CategorieTitle>Mon Profil</CategorieTitle>
       <AvatarMenu>
         <Avatar profilephoto={profilephoto}></Avatar>
-        <Button type="button" buttonStyle="btn--primary--reverse" buttonSize="btn--small">
-          Modifier
-        </Button>
-        <Button type="button" buttonStyle="btn--primary--reverse" buttonSize="btn--small">
-          Supprimer
-        </Button>
-
-        <Button
-          onClick={handleSubmit}
-          type="button"
-          buttonStyle="btn--primary--reverse"
-          buttonSize="btn--medium">
-          ENREGISTRER
-        </Button>
+        {submitted && <SuccessMessage>Your success message here</SuccessMessage>}
+        {error && <ErrorMessage>Your error message here</ErrorMessage>}
       </AvatarMenu>
 
       <LabelContainer>
@@ -322,7 +276,7 @@ export default function Edit() {
 
         <Flex>
           <StyledLabel>Nom</StyledLabel>
-          <Input type="text" id="lastname" value={lastname} onClick={handleChangeLastname} />
+          <Input type="text" id="lastname" value={lastname} onChange={handleChangeLastname} />
         </Flex>
 
         <Flex>
@@ -359,6 +313,15 @@ export default function Edit() {
 
         <Flex>
           <StyledLabel>Secteur d&apos;activité recherché</StyledLabel>
+          {/* <InputSoughtWrapper>
+            <Input
+              type="text"
+              id="position"
+              value={selectedIndustrysought.join(', ')}
+              style={{ width: 290, marginBottom: 30 }}
+            />
+          </InputSoughtWrapper> */}
+
           <Select
             styles={{
               control: (baseStyles, state) => ({
@@ -376,6 +339,14 @@ export default function Edit() {
 
         <Flex>
           <StyledLabel>Recherche</StyledLabel>
+          {/* <InputSoughtWrapper>
+            <Input
+              type="text"
+              id="position"
+              value={selectedPositionsought.join(', ')}
+              style={{ width: 290, marginBottom: 30, marginTop: 21 }}
+            />
+          </InputSoughtWrapper> */}
           <Select
             styles={{
               control: (baseStyles, state) => ({
@@ -393,6 +364,18 @@ export default function Edit() {
             isMulti
           />
         </Flex>
+
+        {isModified && (
+          <ButtonWrapper>
+            <Button
+              onClick={handleSubmit}
+              type="button"
+              buttonStyle="btn--primary--reverse"
+              buttonSize="btn--medium">
+              ENREGISTRER
+            </Button>
+          </ButtonWrapper>
+        )}
       </LabelContainer>
     </EditContainer>
   );

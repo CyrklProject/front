@@ -14,6 +14,7 @@ export default function Deconnexion() {
     if (recupSession != '' && recupSession != undefined) {
       sessionStorage.removeItem('token');
       sessionStorage.removeItem('email');
+      sessionStorage.removeItem('userID');
       setIsLoggedin(false);
       navigate('/Login');
     }

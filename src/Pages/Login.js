@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import './Login.css';
 import { Button } from '../components/Button/Button';
 import { useNavigate } from 'react-router-dom';
+import { ErrorMessage } from '../components/Message/ErrorMessage';
 
 export default function Login() {
   const navigate = useNavigate();
@@ -13,6 +14,7 @@ export default function Login() {
   const sessionToken = sessionStorage.getItem('token');
   const userEmail = sessionStorage.getItem('email');
   const [isLoggedin, setIsLoggedin] = useState(false);
+  const [error, setError] = useState('');
 
   console.log(sessionToken, isLoggedin, userEmail);
 
@@ -53,11 +55,18 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await login(); // Attendre la fin de la requête asynchrone
-    if (auth === true && token && token != '' && token != undefined) {
+    if (!email || !password) {
+      setError('Veuillez remplir tous les champs.');
+      return;
+    }
+    await login();
+    if (auth === true && token && token != ' ' && token != undefined) {
       console.log('CONNECTED');
       setIsLoggedin(true);
       console.log(email);
+    } else {
+      setError('Identifiants invalides.');
+      return;
     }
     navigate('/Edit');
   };
@@ -86,6 +95,9 @@ export default function Login() {
                   placeholder="Mot de passe"
                 />
               </form>
+            </div>
+            <div className="error-message--wrapper">
+              {error && <ErrorMessage className="error">{error}</ErrorMessage>}
             </div>
           </div>
           <div className="content-right-login">

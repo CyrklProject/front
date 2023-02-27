@@ -41,7 +41,9 @@ export function Navbar() {
         </LeftContainer>
         <RightContainer>
           <NavbarLinkContainer>
-            <NavbarLink to="/edit"> Edit</NavbarLink>
+            <NavbarLink to="/edit"> Profil</NavbarLink>
+            <NavbarLink to="/invitations"> Invitations</NavbarLink>
+            <NavbarLink to="/users/:id"> Matching</NavbarLink>
             {isLoggedin ? (
               // Si l'utilisateur est connecté, afficher Logout
               <NavbarLink to="/deconnexion" onClick={handleLogout}>
@@ -52,7 +54,6 @@ export function Navbar() {
               // Sinon, afficher Login
               <NavbarLink to="/login"> Login</NavbarLink>
             )}
-            <NavbarLink to="/matching"> Matching</NavbarLink>
 
             <OpenLinksButton
               onClick={() => {
@@ -69,6 +70,7 @@ export function Navbar() {
           <NavbarLinkExtended to="/welcome"> Welcome</NavbarLinkExtended>
           <NavbarLinkExtended to="/registration"> Registration</NavbarLinkExtended>
           <NavbarLinkExtended to="/edit"> Edit</NavbarLinkExtended>
+          <NavbarLinkExtended to="/invitations"> Invitations</NavbarLinkExtended>
           {isLoggedin ? (
             // Si l'utilisateur est connecté, afficher Logout
             <NavbarLinkExtended to="/Deconnexion" onClick={handleLogout}>
@@ -78,7 +80,7 @@ export function Navbar() {
             // Sinon, afficher Login
             <NavbarLinkExtended to="/login"> Login</NavbarLinkExtended>
           )}
-          <NavbarLinkExtended to="/matching"> Matching</NavbarLinkExtended>
+          <NavbarLinkExtended to="/users/:id"> Matching</NavbarLinkExtended>
         </NavbarExtendedContainer>
       )}
     </NavbarContainer>
