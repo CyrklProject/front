@@ -4,8 +4,8 @@ import {
   CategorieTitle,
   EditContainer,
   AvatarMenu,
-  ButtonWrapper,
-  InputSoughtWrapper
+  ButtonWrapper
+  // InputSoughtWrapper
 } from './Edit.style';
 import { Avatar } from '../components/Avatar/Avatar';
 import { StyledLabel, Flex, Input, LabelContainer } from '../components/label/Label.style';
@@ -116,7 +116,6 @@ export default function Edit() {
               setCreatedAt(data.createdAt);
               setUpdatedAt(data.updatedAt);
               seturlphoto(profilephoto);
-              // window.location.reload();
             })
             .catch((error) => {
               console.error('Error:', error);
@@ -144,6 +143,7 @@ export default function Edit() {
       mode: 'no-cors',
       method: 'POST',
       body: JSON.stringify({
+        id,
         lastname,
         name,
         email,
@@ -154,7 +154,8 @@ export default function Edit() {
         industry,
         industrysought,
         password,
-        updatedAt
+        updatedAt,
+        createdAt
       }),
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
@@ -186,28 +187,18 @@ export default function Edit() {
     });
   };
 
-  // const allSelectedValuesIndustry = [];
-
   function handleSelectIndustry(data) {
     setSelectedOptionsIndustry(data);
     const selectedValues = data.map((option) => option.value);
-    // allSelectedValuesIndustry.push(...selectedValues); // ajout des nouvelles valeurs à la variable allSelectedValues
     setselectedIndustrysought(selectedValues);
-    // setIndustrysought(allSelectedValuesIndustry); // utilisation de la variable allSelectedValues comme source de vérité pour les valeurs sélectionnées
     setIsModified(true);
-    // return allSelectedValuesIndustry;
   }
-
-  // const allSelectedValuesPosition = [];
 
   function handleSelectPosition(data) {
     setSelectedOptionsPosition(data);
     const selectedValues = data.map((option) => option.value);
-    // allSelectedValuesPosition.push(...selectedValues); // ajout des nouvelles valeurs à la variable allSelectedValues
     setselectedPositionsought(selectedValues);
-    // setPositionsought(allSelectedValuesPosition); // utilisation de la variable allSelectedValues comme source de vérité pour les valeurs sélectionnées
     setIsModified(true);
-    // return allSelectedValuesPosition;
   }
 
   console.log(positionsought);
@@ -322,14 +313,14 @@ export default function Edit() {
 
         <Flex>
           <StyledLabel>Secteur d&apos;activité recherché</StyledLabel>
-          <InputSoughtWrapper>
+          {/* <InputSoughtWrapper>
             <Input
               type="text"
               id="position"
               value={selectedIndustrysought.join(', ')}
               style={{ width: 290, marginBottom: 30 }}
             />
-          </InputSoughtWrapper>
+          </InputSoughtWrapper> */}
 
           <Select
             styles={{
@@ -348,14 +339,14 @@ export default function Edit() {
 
         <Flex>
           <StyledLabel>Recherche</StyledLabel>
-          <InputSoughtWrapper>
+          {/* <InputSoughtWrapper>
             <Input
               type="text"
               id="position"
               value={selectedPositionsought.join(', ')}
               style={{ width: 290, marginBottom: 30, marginTop: 21 }}
             />
-          </InputSoughtWrapper>
+          </InputSoughtWrapper> */}
           <Select
             styles={{
               control: (baseStyles, state) => ({

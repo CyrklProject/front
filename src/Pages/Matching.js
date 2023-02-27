@@ -65,6 +65,59 @@ export default function Matching() {
       });
   };
 
+  // const handleNextUser = () => {
+  //   let nextId = id + 1;
+  //   fetch(`http://188.165.238.74:8080/user/${nextId}`, {
+  //     method: 'GET',
+  //     headers: {
+  //       'Content-Type': 'application/x-www-form-urlencoded'
+  //     }
+  //   })
+  //     .then((response) => {
+  //       if (response.status === 400) {
+  //         return fetch(`http://188.165.238.74:8080/user/${nextId + 1}`, {
+  //           method: 'GET',
+  //           headers: {
+  //             'Content-Type': 'application/x-www-form-urlencoded'
+  //           }
+  //         });
+  //       } else {
+  //         return response.json();
+  //       }
+  //     })
+  //     .then((data) => {
+  //       if (!data) {
+  //         return fetch(`http://188.165.238.74:8080/user/${nextId + 2}`, {
+  //           method: 'GET',
+  //           headers: {
+  //             'Content-Type': 'application/x-www-form-urlencoded'
+  //           }
+  //         });
+  //       }
+  //       setUserProfile(data);
+  //       setId(nextId);
+  //     })
+  //     .then((data) => {
+  //       if (data) {
+  //         return data.json();
+  //       }
+  //       setUserProfile(data);
+  //       setId(nextId + 1);
+  //     })
+  //     .then((data) => {
+  //       if (!data) {
+  //         setUserProfile(data);
+  //         setId(1);
+  //       } else {
+  //         setUserProfile(data);
+  //         setId(nextId + 2);
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.error('Error:', error);
+  //     });
+  // };
+
   const handleNextUser = () => {
     const nextId = id + 1;
     fetch(`http://188.165.238.74:8080/user/${nextId}`, {
@@ -75,9 +128,32 @@ export default function Matching() {
     })
       .then((response) => {
         if (response.status === 400) {
-          setId(1); // réinitialiser l'id à 1
+          // vérifier si l'id suivant n'existe pas, chercher le prochain utilisateur disponible
+          fetch(`http://188.165.238.74:8080/user/${nextId + 1}`, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded'
+            }
+          })
+            .then((response) => {
+              if (response.status === 400) {
+                // si le prochain n'existe pas non plus, retourner à l'id 1
+                setId(1);
+              } else {
+                return response.json();
+              }
+            })
+            .then((data) => {
+              if (data) {
+                setUserProfile(data);
+                setId(nextId + 1);
+              }
+            })
+            .catch((error) => {
+              console.error('Error:', error);
+            });
         } else {
-          return response.json(); // continuer le traitement
+          return response.json();
         }
       })
       .then((data) => {
@@ -90,6 +166,32 @@ export default function Matching() {
         console.error('Error:', error);
       });
   };
+
+  // const handleNextUser = () => {
+  //   const nextId = id + 1;
+  //   fetch(`http://188.165.238.74:8080/user/${nextId}`, {
+  //     method: 'GET',
+  //     headers: {
+  //       'Content-Type': 'application/x-www-form-urlencoded'
+  //     }
+  //   })
+  //     .then((response) => {
+  //       if (response.status === 400) {
+  //         setId(1); // réinitialiser l'id à 1
+  //       } else {
+  //         return response.json(); // continuer le traitement
+  //       }
+  //     })
+  //     .then((data) => {
+  //       if (data) {
+  //         setUserProfile(data);
+  //         setId(nextId);
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.error('Error:', error);
+  //     });
+  // };
 
   const handlePrevUser = () => {
     const prevId = id - 1;
