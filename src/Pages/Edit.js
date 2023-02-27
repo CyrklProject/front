@@ -350,10 +350,9 @@ export default function Edit() {
       <CategorieTitle>Mon Profil</CategorieTitle>
       <AvatarMenu>
         <Avatar profilephoto={profilephoto}></Avatar>
-        <div className="messages">{successMessage()}</div>
-        <div className="messages">{errorMessage()}</div>
       </AvatarMenu>
-
+      <div className="messages">{successMessage()}</div>
+      <div className="messages">{errorMessage()}</div>
       <LabelContainer>
         <Flex id="firstname-container">
           <StyledLabel>Prénom</StyledLabel>
