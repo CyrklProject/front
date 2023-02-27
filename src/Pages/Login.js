@@ -65,13 +65,13 @@ export default function Login() {
       setIsLoggedin(true);
       console.log(email);
     }
-    console.log('CONNECTED');
-    setIsLoggedin(true);
-    console.log(email);
     // else {
     //   setError('Identifiants invalides.');
     //   return;
     // }
+    console.log('CONNECTED');
+    setIsLoggedin(true);
+    console.log(email);
     if (isLoggedin === true) {
       navigate('/Edit');
     }
