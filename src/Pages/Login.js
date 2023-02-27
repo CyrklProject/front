@@ -60,7 +60,7 @@ export default function Login() {
       return;
     }
     await login();
-    if (auth === true && token && token != ' ' && token != undefined) {
+    if (auth == true && token && token != ' ' && token != undefined) {
       console.log('CONNECTED');
       setIsLoggedin(true);
       console.log(email);
@@ -72,7 +72,7 @@ export default function Login() {
     console.log('CONNECTED');
     setIsLoggedin(true);
     console.log(email);
-    if (isLoggedin === true) {
+    if (isLoggedin == true) {
       navigate('/Edit');
     }
   };
