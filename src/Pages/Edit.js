@@ -166,16 +166,6 @@ export default function Edit() {
       response.json().then((data) => {
         console.log(data.error);
         setErrorText(data.error);
-        if (response.status <= 400) {
-          setSubmitted(true);
-          console.log('im under 400');
-          successMessage();
-        } else {
-          console.log('im after 400');
-          setError(true);
-          console.log(error + 'error in 400');
-          errorMessage();
-        }
         console.log(data);
         setId(data.id);
         setlastname(data.lastname);
@@ -191,14 +181,16 @@ export default function Edit() {
         setCreatedAt(data.createdAt);
         setUpdatedAt(data.updatedAt);
         seturlphoto(profilephoto);
-        //   if (response.status <= 400) {
-        //     setSubmitted(true);
-        //     successMessage();
-        //   } else {
-        //     setError(true);
-        //     errorMessage();
-        //   }
-        // });
+        if (response.status <= 400) {
+          setSubmitted(true);
+          console.log('im under 400');
+          successMessage();
+        } else {
+          console.log('im after 400');
+          setError(true);
+          console.log(error + 'error in 400');
+          errorMessage();
+        }
       });
       // .catch((error) => {
       //   console.error('Error:', error);
