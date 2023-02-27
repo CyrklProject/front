@@ -214,6 +214,7 @@ export const TitleExperience = styled.div`
   padding-top: 20px;
   padding-bottom: 7%;
   font-weight: bold;
+  height: 18px;
 `;
 
 export const SmallPhotoProfil = styled.div`

@@ -6,6 +6,8 @@ import { StyledLabel, Flex, Input, LabelContainer } from '../components/label/La
 import { useState, useEffect } from 'react';
 import { Button } from '../components/Button/Button';
 import Select from 'react-select';
+import { SuccessMessage } from '../components/Message/SuccessMessage';
+import { ErrorMessage } from '../components/Message/ErrorMessage';
 
 export default function Edit() {
   const [id, setId] = useState();
@@ -27,6 +29,8 @@ export default function Edit() {
   const [selectedOptionsPosition, setSelectedOptionsPosition] = useState();
   const [selectedPositionsought, setselectedPositionsought] = useState([]);
   const [isModified, setIsModified] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState(false);
 
   console.log(urlphoto, id, createdAt, updatedAt);
   const profilephoto =
@@ -149,12 +153,8 @@ export default function Edit() {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
       }
-    })
-      .then((response) => {
-        console.log(response);
-        return response.json();
-      })
-      .then((data) => {
+    }).then((response) => {
+      response.json().then((data) => {
         console.log(data);
         setId(data.id);
         setlastname(data.lastname);
@@ -169,11 +169,15 @@ export default function Edit() {
         setCreatedAt(data.createdAt);
         setUpdatedAt(data.updatedAt);
         seturlphoto(profilephoto);
-        // window.location.reload();
-      })
-      .catch((error) => {
-        console.error('Error:', error);
+        if (response.status <= 400) {
+          setSubmitted(true);
+          successMessage();
+        } else {
+          setError(true);
+          errorMessage();
+        }
       });
+    });
   };
 
   const allSelectedValuesIndustry = [];
@@ -228,17 +232,43 @@ export default function Edit() {
     { value: 'Universitaires', label: 'Universitaires' }
   ];
 
-  // const renderList = () => {
-  //   positionsought.map((item) => {
-  //     <div>{item}</div>;
-  //   });
-  // };
+  const successMessage = () => {
+    return (
+      <div
+        className="success"
+        style={{
+          display: submitted ? '' : 'none'
+        }}>
+        <SuccessMessage>
+          <p>
+            Nous avons bien reçu votre demande d&apos;inscription. Vous recevrez une réponse dans
+            les plus bref délais.
+          </p>
+          <p>A très vite sur Cyrkl !</p>
+        </SuccessMessage>
+      </div>
+    );
+  };
+
+  const errorMessage = () => {
+    return (
+      <div
+        className="error"
+        style={{
+          display: error ? '' : 'none'
+        }}>
+        <ErrorMessage>Error</ErrorMessage>
+      </div>
+    );
+  };
 
   return (
     <EditContainer>
       <CategorieTitle>Mon Profil</CategorieTitle>
       <AvatarMenu>
         <Avatar profilephoto={profilephoto}></Avatar>
+        {submitted && <SuccessMessage>Your success message here</SuccessMessage>}
+        {error && <ErrorMessage>Your error message here</ErrorMessage>}
       </AvatarMenu>
 
       <LabelContainer>

@@ -121,3 +121,9 @@ margin:0vh;
     align-items: center;
 }
 
+.error-message--wrapper{
+    display: flex;
+    margin-top: 100%;
+    padding-top: 70%;
+}
+

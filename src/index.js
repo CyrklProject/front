@@ -12,6 +12,7 @@ import { Navbar } from './components/Navbar/Navbar';
 import Login from './Pages/Login';
 import Matching from './Pages/Matching';
 import Deconnexion from './Pages/Deconnexion';
+import Invitations from './Pages/Invitations';
 
 // const recupSession = sessionStorage.getItem('token');
 // const [isLoggedin, setIsLoggedin] = useState(false);
@@ -29,6 +30,7 @@ root.render(
       <Route path="/welcome" element={<Welcome />} />
       <Route path="/registration" element={<Registration />} />
       <Route path="/edit" element={<Edit />} />
+      <Route path="/invitations" element={<Invitations />} />
       <Route path="/login" element={<Login />} />
       <Route path="/users/:id" element={<Matching />} />
       <Route path="/deconnexion" element={<Deconnexion />} />

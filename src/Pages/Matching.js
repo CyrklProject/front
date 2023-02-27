@@ -30,10 +30,7 @@ import { Button } from '../components/Button/Button';
 export default function Matching() {
   const [id, setId] = useState(1);
   const [userProfile, setUserProfile] = useState(null);
-  const [currentUserId, setCurrentUserID] = useState('');
-  const [token, setToken] = useState('');
-  const [auth, setAuth] = useState(Boolean);
-  const [isLoggedin, setIsLoggedin] = useState(false);
+  const [currentUserId, setCurrentUserID] = useState();
   const [slot, setSlot] = useState();
   const [isLoadingSlots, setIsLoadingSlots] = useState(true);
   const [lieu, setLieu] = useState();
@@ -137,6 +134,7 @@ export default function Matching() {
       })
       .then((data) => {
         setSlot(data);
+        setSlot_id(slot.id);
         const dateandhours = data[0].dateandhours;
         console.log(dateandhours);
         setLieu(data[0].lieu);
@@ -147,11 +145,6 @@ export default function Matching() {
         setMonth(dateFormated.getMonth());
         setDay(dateFormated.getDate());
         setHour(dateFormated.getHours());
-        console.log(year);
-        console.log(hour);
-        console.log(day);
-        console.log(month);
-        console.log(data[0].lieu);
       })
       .catch((error) => {
         console.error('Error:', error);
@@ -162,39 +155,23 @@ export default function Matching() {
     fetchSlotsByUserId(id);
   }, []);
 
-  // toLocaleDateString()
-
-  useEffect(() => {
-    console.log(year);
-    console.log(hour);
-    console.log(day);
-    console.log(month);
-    console.log(minute);
-    console.log(lieu);
-  }, [year, hour, day, month, minute, lieu]);
+  useEffect(() => {}, [year, hour, day, month, minute, lieu]);
 
   const createInvitation = () => {
-    setCurrentUserID(sessionStorage.getItem('userID'));
-    setToken(sessionStorage.getItem('token'));
-    if (currentUserId != ' ') {
-      setIsLoggedin(true);
-    }
-    if (currentUserId != ' ' && token != ' ') {
-      console.log('normally authenticated');
-      setAuth(true);
-    }
-    fetch(`http://188.165.238.74:8080/invitation`, {
+    setInviter_id(sessionStorage.getItem('userID'));
+    console.log(inviter_id);
+    const uid = id;
+    console.log(uid);
+    fetch(`http://188.165.238.74:8080/invitation/${uid}`, {
       mode: 'no-cors',
       method: 'POST',
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        auth,
-        isLoggedin
+        'Content-Type': 'application/x-www-form-urlencoded'
       },
       body: JSON.stringify({
-        inviter_id, // remplacer par l'id de l'utilisateur connecté
+        inviter_id,
         invited_id,
-        slot_id // id de l'utilisateur dont le profil est affiché
+        slot_id
       })
     })
       .then((response) => {
@@ -202,10 +179,12 @@ export default function Matching() {
       })
       .then((data) => {
         console.log(data);
-        setInviter_id(userProfile.id);
-        console.log(userProfile.id);
-        setInvited_id();
-        setSlot_id();
+        setCurrentUserID(sessionStorage.getItem('userID'));
+        console.log(currentUserId);
+        setInvited_id(id);
+        console.log(invited_id);
+        setSlot_id(slot.id);
+        console.log(slot_id);
       })
       .catch((error) => {
         console.error('Error:', error);

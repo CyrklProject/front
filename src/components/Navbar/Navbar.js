@@ -42,6 +42,7 @@ export function Navbar() {
         <RightContainer>
           <NavbarLinkContainer>
             <NavbarLink to="/edit"> Profil</NavbarLink>
+            <NavbarLink to="/invitations"> Invitations</NavbarLink>
             <NavbarLink to="/users/:id"> Matching</NavbarLink>
             {isLoggedin ? (
               // Si l'utilisateur est connecté, afficher Logout
@@ -69,6 +70,7 @@ export function Navbar() {
           <NavbarLinkExtended to="/welcome"> Welcome</NavbarLinkExtended>
           <NavbarLinkExtended to="/registration"> Registration</NavbarLinkExtended>
           <NavbarLinkExtended to="/edit"> Edit</NavbarLinkExtended>
+          <NavbarLinkExtended to="/invitations"> Invitations</NavbarLinkExtended>
           {isLoggedin ? (
             // Si l'utilisateur est connecté, afficher Logout
             <NavbarLinkExtended to="/Deconnexion" onClick={handleLogout}>
