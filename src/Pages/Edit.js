@@ -200,7 +200,7 @@ export default function Edit() {
     // allSelectedValuesIndustry.push(...selectedValues); // ajout des nouvelles valeurs à la variable allSelectedValues
     setselectedIndustrysought(selectedValues);
     setIsModified(true);
-    // setIndustrysought(allSelectedValuesIndustry); // utilisation de la variable allSelectedValues comme source de vérité pour les valeurs sélectionnées
+    setIndustrysought(selectedValues); // utilisation de la variable allSelectedValues comme source de vérité pour les valeurs sélectionnées
     // return allSelectedValuesIndustry;
   }
 
@@ -212,7 +212,7 @@ export default function Edit() {
     // allSelectedValuesPosition.push(...selectedValues); // ajout des nouvelles valeurs à la variable allSelectedValues
     setselectedPositionsought(selectedValues);
     setIsModified(true);
-    // setPositionsought(allSelectedValuesPosition); // utilisation de la variable allSelectedValues comme source de vérité pour les valeurs sélectionnées
+    setPositionsought(selectedValues); // utilisation de la variable allSelectedValues comme source de vérité pour les valeurs sélectionnées
     // return allSelectedValuesPosition;
   }
 
