@@ -54,6 +54,7 @@ export function Navbar() {
               // Sinon, afficher Login
               <NavbarLink to="/login"> Login</NavbarLink>
             )}
+
             <OpenLinksButton
               onClick={() => {
                 setExtendNavbar((curr) => !curr);

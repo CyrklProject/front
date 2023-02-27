@@ -156,17 +156,24 @@ export default function Matching() {
       })
       .then((data) => {
         setSlot(data);
+        console.log('data' + data);
         setSlot_id(slot.id);
+        console.log('slot' + slot_id);
         const dateandhours = data[0].dateandhours;
         console.log(dateandhours);
         setLieu(data[0].lieu);
         setDateandhours(dateandhours);
         const dateFormated = new Date(Date.parse(dateandhours));
         setMinute(dateFormated.getMinutes());
+        console.log('dateFormated minute' + minute);
         setYear(dateFormated.getFullYear());
+        console.log('dateFormated year' + year);
         setMonth(dateFormated.getMonth());
+        console.log('dateFormated month' + month);
         setDay(dateFormated.getDate());
+        console.log('dateFormated date' + Date);
         setHour(dateFormated.getHours());
+        console.log('dateFormated hours' + hour);
       })
       .catch((error) => {
         console.error('Error:', error);
@@ -178,6 +185,7 @@ export default function Matching() {
   }, []);
 
   useEffect(() => {}, [year, hour, day, month, minute, lieu]);
+  console.log('dateFormated y h d m m l' + year, hour, day, month, minute, lieu);
 
   const createInvitation = () => {
     setInviter_id(sessionStorage.getItem('userID'));
