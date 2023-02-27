@@ -60,11 +60,7 @@ export default function Login() {
       return;
     }
     await login();
-<<<<<<< HEAD
-    if (auth === true && token && token != ' ' && token != undefined) {
-=======
     if (auth == true && token && token != ' ' && token != undefined) {
->>>>>>> dc50b352ec5ebf129fc88fcc8df0f0967f54de88
       console.log('CONNECTED');
       setIsLoggedin(true);
       console.log(email);
