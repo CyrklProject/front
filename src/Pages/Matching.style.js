@@ -50,7 +50,8 @@ export const Contact = styled.div`
 export const CenterContent = styled.div`
   display: flex;
   width: 350px;
-  height: 700px;
+  height: 500px;
+  margin-top: 40px;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -73,7 +74,8 @@ export const Photos = styled.div`
 export const RightContent = styled.div`
   display: flex;
   width: 350px;
-  height: 350px;
+  height: 500px;
+  margin-top: 28px;
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-evenly;
@@ -137,6 +139,7 @@ export const PhotoProfil = styled.div`
     margin: 0;
   }
 `;
+
 export const NameBox = styled.div`
   display: flex;
   flex-direction: row;
@@ -144,6 +147,7 @@ export const NameBox = styled.div`
   height: 80px;
   padding-top: 20%;
 `;
+
 export const Sector = styled.div`
   display: flex;
   margin: 0;
@@ -157,7 +161,7 @@ export const Name = styled.p`
   color: #fc0505;
   align-items: center;
   width: 340px;
-  padding-left: 70px;
+  padding-left: 10px;
   font-family: 'Playfair Display';
   font-size: 26px;
   line-height: 32px;
@@ -179,10 +183,8 @@ export const ParaSector = styled.p`
   display: flex;
   margin: 0;
   height: 80px;
-  font-weight: bold;
-  font-size: 18px;
-  padding-top: 20px;
-  padding-left: 5%;
+  padding-left: 10px;
+  font-size: 14px;
 `;
 
 export const Experience = styled.div`

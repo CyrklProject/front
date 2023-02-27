@@ -4,8 +4,8 @@ import {
   CategorieTitle,
   EditContainer,
   AvatarMenu,
-  ButtonWrapper
-  // InputSoughtWrapper
+  ButtonWrapper,
+  InputSoughtWrapper
 } from './Edit.style';
 import { Avatar } from '../components/Avatar/Avatar';
 import { StyledLabel, Flex, Input, LabelContainer } from '../components/label/Label.style';
@@ -14,6 +14,7 @@ import { Button } from '../components/Button/Button';
 import Select from 'react-select';
 import { SuccessMessage } from '../components/Message/SuccessMessage';
 import { ErrorMessage } from '../components/Message/ErrorMessage';
+import { useNavigate } from 'react-router-dom';
 
 export default function Edit() {
   const [id, setId] = useState();
@@ -35,8 +36,11 @@ export default function Edit() {
   const [selectedOptionsPosition, setSelectedOptionsPosition] = useState();
   const [selectedPositionsought, setselectedPositionsought] = useState([]);
   const [isModified, setIsModified] = useState(false);
+  // const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState('');
+  const [errorText, setErrorText] = useState('');
   const [submitted, setSubmitted] = useState(false);
-  const [error, setError] = useState(false);
+  const navigate = useNavigate();
 
   console.log(urlphoto, id, createdAt, updatedAt);
   const profilephoto =
@@ -132,11 +136,9 @@ export default function Edit() {
   useEffect(() => {
     fetchUsersData();
   }, []);
-
   if (dataLoading === false) {
     setDataLoading(true);
   }
-
   const handleSubmit = () => {
     console.log('id' + id);
     fetch(`http://188.165.238.74:8080/updateuser/${id}`, {
@@ -161,7 +163,11 @@ export default function Edit() {
         'Content-Type': 'application/x-www-form-urlencoded'
       }
     }).then((response) => {
+      console.log(response);
       response.json().then((data) => {
+        console.log('data.error' + data.error);
+        setErrorText(data.error);
+        console.log('data.error2' + data.error);
         console.log(data);
         setId(data.id);
         setlastname(data.lastname);
@@ -172,33 +178,49 @@ export default function Edit() {
         setPositionsought(positionsought);
         setIndustrysought(industrysought);
         setIndustry(data.industry);
-        setPassword(data.password);
+        // setIndustrysought(Array.from(data.industrysought));
+        setPassword('123456');
         setCreatedAt(data.createdAt);
         setUpdatedAt(data.updatedAt);
         seturlphoto(profilephoto);
-        if (response.status <= 400) {
-          setSubmitted(true);
-          successMessage();
-        } else {
-          setError(true);
-          errorMessage();
-        }
+        console.log(response.status);
       });
+      if (response.status <= 400) {
+        setSubmitted(true);
+        console.log('im under 400');
+        successMessage();
+      } else {
+        console.log('im after 400');
+        setError(true);
+        console.log(error + 'error in 400');
+        errorMessage();
+      }
+      setTimeout(() => {
+        navigate('/Matching');
+      }, 10000);
     });
   };
 
   function handleSelectIndustry(data) {
     setSelectedOptionsIndustry(data);
     const selectedValues = data.map((option) => option.value);
+    // allSelectedValuesIndustry.push(...selectedValues); // ajout des nouvelles valeurs à la variable allSelectedValues
     setselectedIndustrysought(selectedValues);
     setIsModified(true);
+    setIndustrysought(selectedValues); // utilisation de la variable allSelectedValues comme source de vérité pour les valeurs sélectionnées
+    // return allSelectedValuesIndustry;
   }
+
+  // const allSelectedValuesPosition = [];
 
   function handleSelectPosition(data) {
     setSelectedOptionsPosition(data);
     const selectedValues = data.map((option) => option.value);
+    // allSelectedValuesPosition.push(...selectedValues); // ajout des nouvelles valeurs à la variable allSelectedValues
     setselectedPositionsought(selectedValues);
     setIsModified(true);
+    setPositionsought(selectedValues); // utilisation de la variable allSelectedValues comme source de vérité pour les valeurs sélectionnées
+    // return allSelectedValuesPosition;
   }
 
   console.log(positionsought);
@@ -237,11 +259,7 @@ export default function Edit() {
           display: submitted ? '' : 'none'
         }}>
         <SuccessMessage>
-          <p>
-            Nous avons bien reçu votre demande d&apos;inscription. Vous recevrez une réponse dans
-            les plus bref délais.
-          </p>
-          <p>A très vite sur Cyrkl !</p>
+          <p>Votre profil à bien été édité, vous allez être redirigé vers la page matching</p>
         </SuccessMessage>
       </div>
     );
@@ -254,7 +272,7 @@ export default function Edit() {
         style={{
           display: error ? '' : 'none'
         }}>
-        <ErrorMessage>Error</ErrorMessage>
+        <ErrorMessage>{errorText}</ErrorMessage>
       </div>
     );
   };
@@ -264,10 +282,9 @@ export default function Edit() {
       <CategorieTitle>Mon Profil</CategorieTitle>
       <AvatarMenu>
         <Avatar profilephoto={profilephoto}></Avatar>
-        {submitted && <SuccessMessage>Your success message here</SuccessMessage>}
-        {error && <ErrorMessage>Your error message here</ErrorMessage>}
       </AvatarMenu>
-
+      <div className="messages">{successMessage()}</div>
+      <div className="messages">{errorMessage()}</div>
       <LabelContainer>
         <Flex id="firstname-container">
           <StyledLabel>Prénom</StyledLabel>
@@ -313,15 +330,14 @@ export default function Edit() {
 
         <Flex>
           <StyledLabel>Secteur d&apos;activité recherché</StyledLabel>
-          {/* <InputSoughtWrapper>
+          <InputSoughtWrapper>
             <Input
               type="text"
               id="position"
               value={selectedIndustrysought.join(', ')}
               style={{ width: 290, marginBottom: 30 }}
             />
-          </InputSoughtWrapper> */}
-
+          </InputSoughtWrapper>
           <Select
             styles={{
               control: (baseStyles, state) => ({
@@ -339,14 +355,14 @@ export default function Edit() {
 
         <Flex>
           <StyledLabel>Recherche</StyledLabel>
-          {/* <InputSoughtWrapper>
+          <InputSoughtWrapper>
             <Input
               type="text"
               id="position"
               value={selectedPositionsought.join(', ')}
               style={{ width: 290, marginBottom: 30, marginTop: 21 }}
             />
-          </InputSoughtWrapper> */}
+          </InputSoughtWrapper>
           <Select
             styles={{
               control: (baseStyles, state) => ({
@@ -364,7 +380,6 @@ export default function Edit() {
             isMulti
           />
         </Flex>
-
         {isModified && (
           <ButtonWrapper>
             <Button

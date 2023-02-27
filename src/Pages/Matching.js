@@ -6,6 +6,9 @@ import {
   Footer,
   Disponibility,
   Contact,
+  Paratitle,
+  Location,
+  LinkDisponibilities,
   PhotoProfil,
   NameBox,
   Hours,
@@ -22,10 +25,12 @@ import {
   Status,
   WrapperExperience,
   ButtonSwipeCross,
-  ButtonSwipeDiner
+  ButtonSwipeDiner,
+  Hours
 } from './Matching.style';
 import { useState, useEffect } from 'react';
 import { Button } from '../components/Button/Button';
+import { useState, useEffect } from 'react';
 
 export default function Matching() {
   const [id, setId] = useState(1);
@@ -64,60 +69,6 @@ export default function Matching() {
         console.error('Error:', error);
       });
   };
-
-  // const handleNextUser = () => {
-  //   let nextId = id + 1;
-  //   fetch(`http://188.165.238.74:8080/user/${nextId}`, {
-  //     method: 'GET',
-  //     headers: {
-  //       'Content-Type': 'application/x-www-form-urlencoded'
-  //     }
-  //   })
-  //     .then((response) => {
-  //       if (response.status === 400) {
-  //         return fetch(`http://188.165.238.74:8080/user/${nextId + 1}`, {
-  //           method: 'GET',
-  //           headers: {
-  //             'Content-Type': 'application/x-www-form-urlencoded'
-  //           }
-  //         });
-  //       } else {
-  //         return response.json();
-  //       }
-  //     })
-  //     .then((data) => {
-  //       if (!data) {
-  //         return fetch(`http://188.165.238.74:8080/user/${nextId + 2}`, {
-  //           method: 'GET',
-  //           headers: {
-  //             'Content-Type': 'application/x-www-form-urlencoded'
-  //           }
-  //         });
-  //       }
-  //       setUserProfile(data);
-  //       setId(nextId);
-  //     })
-  //     .then((data) => {
-  //       if (data) {
-  //         return data.json();
-  //       }
-  //       setUserProfile(data);
-  //       setId(nextId + 1);
-  //     })
-  //     .then((data) => {
-  //       if (!data) {
-  //         setUserProfile(data);
-  //         setId(1);
-  //       } else {
-  //         setUserProfile(data);
-  //         setId(nextId + 2);
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.error('Error:', error);
-  //     });
-  // };
-
   const handleNextUser = () => {
     const nextId = id + 1;
     fetch(`http://188.165.238.74:8080/user/${nextId}`, {
@@ -137,6 +88,7 @@ export default function Matching() {
           })
             .then((response) => {
               if (response.status === 400) {
+                // nextId à un champ vide ou dans tous les slot il correspond à aucun user avec slot on ne le voit pas
                 // si le prochain n'existe pas non plus, retourner à l'id 1
                 setId(1);
               } else {
@@ -166,33 +118,6 @@ export default function Matching() {
         console.error('Error:', error);
       });
   };
-
-  // const handleNextUser = () => {
-  //   const nextId = id + 1;
-  //   fetch(`http://188.165.238.74:8080/user/${nextId}`, {
-  //     method: 'GET',
-  //     headers: {
-  //       'Content-Type': 'application/x-www-form-urlencoded'
-  //     }
-  //   })
-  //     .then((response) => {
-  //       if (response.status === 400) {
-  //         setId(1); // réinitialiser l'id à 1
-  //       } else {
-  //         return response.json(); // continuer le traitement
-  //       }
-  //     })
-  //     .then((data) => {
-  //       if (data) {
-  //         setUserProfile(data);
-  //         setId(nextId);
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.error('Error:', error);
-  //     });
-  // };
-
   const handlePrevUser = () => {
     const prevId = id - 1;
     fetch(`http://188.165.238.74:8080/user/${prevId}`, {
@@ -236,17 +161,24 @@ export default function Matching() {
       })
       .then((data) => {
         setSlot(data);
+        console.log('data' + data);
         setSlot_id(slot.id);
+        console.log('slot' + slot_id);
         const dateandhours = data[0].dateandhours;
         console.log(dateandhours);
         setLieu(data[0].lieu);
         setDateandhours(dateandhours);
         const dateFormated = new Date(Date.parse(dateandhours));
         setMinute(dateFormated.getMinutes());
+        console.log('dateFormated minute' + minute);
         setYear(dateFormated.getFullYear());
+        console.log('dateFormated year' + year);
         setMonth(dateFormated.getMonth());
+        console.log('dateFormated month' + month);
         setDay(dateFormated.getDate());
+        console.log('dateFormated date' + Date);
         setHour(dateFormated.getHours());
+        console.log('dateFormated hours' + hour);
       })
       .catch((error) => {
         console.error('Error:', error);
@@ -258,6 +190,7 @@ export default function Matching() {
   }, []);
 
   useEffect(() => {}, [year, hour, day, month, minute, lieu]);
+  console.log('dateFormated y h d m m l' + year, hour, day, month, minute, lieu);
 
   const createInvitation = () => {
     setInviter_id(sessionStorage.getItem('userID'));
