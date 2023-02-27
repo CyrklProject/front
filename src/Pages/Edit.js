@@ -13,8 +13,8 @@ import { useState, useEffect } from 'react';
 import { Button } from '../components/Button/Button';
 // import { MultiSelect } from '../components/MultiSelect/MultiSelect';
 import Select from 'react-select';
-// import { SuccessMessage } from '../components/Message/SuccessMessage';
-// import { ErrorMessage } from '../components/Message/ErrorMessage';
+import { SuccessMessage } from '../components/Message/SuccessMessage';
+import { ErrorMessage } from '../components/Message/ErrorMessage';
 
 export default function Edit() {
   const [id, setId] = useState();
@@ -37,7 +37,9 @@ export default function Edit() {
   const [selectedPositionsought, setselectedPositionsought] = useState([]);
   const [isModified, setIsModified] = useState(false);
   // const [submitted, setSubmitted] = useState(false);
-  // const [error, setError] = useState(false);
+  const [error, setError] = useState('');
+  const [errorText, setErrorText] = useState('');
+  const [submitted, setSubmitted] = useState(false);
 
   console.log(urlphoto, id, createdAt, updatedAt);
   const profilephoto =
@@ -159,12 +161,21 @@ export default function Edit() {
         'Content-Type': 'application/x-www-form-urlencoded'
         // Authorization: `Bearer ${token}`
       }
-    })
-      .then((response) => {
-        console.log(response);
-        return response.json();
-      })
-      .then((data) => {
+    }).then((response) => {
+      console.log(response);
+      response.json().then((data) => {
+        console.log(data.error);
+        setErrorText(data.error);
+        if (response.status <= 400) {
+          setSubmitted(true);
+          console.log('im under 400');
+          successMessage();
+        } else {
+          console.log('im after 400');
+          setError(true);
+          console.log(error + 'error in 400');
+          errorMessage();
+        }
         console.log(data);
         setId(data.id);
         setlastname(data.lastname);
@@ -188,10 +199,11 @@ export default function Edit() {
         //     errorMessage();
         //   }
         // });
-      })
-      .catch((error) => {
-        console.error('Error:', error);
       });
+      // .catch((error) => {
+      //   console.error('Error:', error);
+      // });
+    });
   };
 
   function handleSelectIndustry(data) {
@@ -307,11 +319,39 @@ export default function Edit() {
     { value: 'Universitaires', label: 'Universitaires' }
   ];
 
+  const successMessage = () => {
+    return (
+      <div
+        className="success"
+        style={{
+          display: submitted ? '' : 'none'
+        }}>
+        <SuccessMessage>
+          <p>Votre profil à bien été édité, vous allez être redirigé vers la page matching</p>
+        </SuccessMessage>
+      </div>
+    );
+  };
+
+  const errorMessage = () => {
+    return (
+      <div
+        className="error"
+        style={{
+          display: error ? '' : 'none'
+        }}>
+        <ErrorMessage>{errorText}</ErrorMessage>
+      </div>
+    );
+  };
+
   return (
     <EditContainer>
       <CategorieTitle>Mon Profil</CategorieTitle>
       <AvatarMenu>
         <Avatar profilephoto={profilephoto}></Avatar>
+        <div className="messages">{successMessage()}</div>
+        <div className="messages">{errorMessage()}</div>
       </AvatarMenu>
 
       <LabelContainer>
