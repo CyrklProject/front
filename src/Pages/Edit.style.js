@@ -37,3 +37,9 @@ export const ButtonWrapper = styled.div`
   margin-top: 40px;
   margin-left: 120px;
 `;
+
+export const InputSoughtWrapper = styled.div`
+  display: flex;
+  height: 100px;
+  width: 300px;
+`;

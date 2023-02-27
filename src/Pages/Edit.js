@@ -1,6 +1,12 @@
 import './welcome.css';
 import React from 'react';
-import { CategorieTitle, EditContainer, AvatarMenu, ButtonWrapper } from './Edit.style';
+import {
+  CategorieTitle,
+  EditContainer,
+  AvatarMenu,
+  ButtonWrapper,
+  InputSoughtWrapper
+} from './Edit.style';
 import { Avatar } from '../components/Avatar/Avatar';
 import { StyledLabel, Flex, Input, LabelContainer } from '../components/label/Label.style';
 import { useState, useEffect } from 'react';
@@ -180,28 +186,28 @@ export default function Edit() {
     });
   };
 
-  const allSelectedValuesIndustry = [];
+  // const allSelectedValuesIndustry = [];
 
   function handleSelectIndustry(data) {
     setSelectedOptionsIndustry(data);
     const selectedValues = data.map((option) => option.value);
-    allSelectedValuesIndustry.push(...selectedValues); // ajout des nouvelles valeurs à la variable allSelectedValues
+    // allSelectedValuesIndustry.push(...selectedValues); // ajout des nouvelles valeurs à la variable allSelectedValues
     setselectedIndustrysought(selectedValues);
-    setIndustrysought(allSelectedValuesIndustry); // utilisation de la variable allSelectedValues comme source de vérité pour les valeurs sélectionnées
+    // setIndustrysought(allSelectedValuesIndustry); // utilisation de la variable allSelectedValues comme source de vérité pour les valeurs sélectionnées
     setIsModified(true);
-    return allSelectedValuesIndustry;
+    // return allSelectedValuesIndustry;
   }
 
-  const allSelectedValuesPosition = [];
+  // const allSelectedValuesPosition = [];
 
   function handleSelectPosition(data) {
     setSelectedOptionsPosition(data);
     const selectedValues = data.map((option) => option.value);
-    allSelectedValuesPosition.push(...selectedValues); // ajout des nouvelles valeurs à la variable allSelectedValues
+    // allSelectedValuesPosition.push(...selectedValues); // ajout des nouvelles valeurs à la variable allSelectedValues
     setselectedPositionsought(selectedValues);
-    setPositionsought(allSelectedValuesPosition); // utilisation de la variable allSelectedValues comme source de vérité pour les valeurs sélectionnées
+    // setPositionsought(allSelectedValuesPosition); // utilisation de la variable allSelectedValues comme source de vérité pour les valeurs sélectionnées
     setIsModified(true);
-    return allSelectedValuesPosition;
+    // return allSelectedValuesPosition;
   }
 
   console.log(positionsought);
@@ -316,6 +322,15 @@ export default function Edit() {
 
         <Flex>
           <StyledLabel>Secteur d&apos;activité recherché</StyledLabel>
+          <InputSoughtWrapper>
+            <Input
+              type="text"
+              id="position"
+              value={selectedIndustrysought.join(', ')}
+              style={{ width: 290, marginBottom: 30 }}
+            />
+          </InputSoughtWrapper>
+
           <Select
             styles={{
               control: (baseStyles, state) => ({
@@ -333,6 +348,14 @@ export default function Edit() {
 
         <Flex>
           <StyledLabel>Recherche</StyledLabel>
+          <InputSoughtWrapper>
+            <Input
+              type="text"
+              id="position"
+              value={selectedPositionsought.join(', ')}
+              style={{ width: 290, marginBottom: 30, marginTop: 21 }}
+            />
+          </InputSoughtWrapper>
           <Select
             styles={{
               control: (baseStyles, state) => ({
