@@ -7,7 +7,6 @@ import {
   Disponibility,
   Contact,
   Paratitle,
-  Date,
   Location,
   LinkDisponibilities,
   PhotoProfil,
@@ -84,6 +83,7 @@ export default function Matching() {
           })
             .then((response) => {
               if (response.status === 400) {
+                // nextId à un champ vide ou dans tous les slot il correspond à aucun user avec slot on ne le voit pas
                 // si le prochain n'existe pas non plus, retourner à l'id 1
                 setId(1);
               } else {
