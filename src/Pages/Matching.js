@@ -190,8 +190,7 @@ export default function Matching() {
     setInviter_id(sessionStorage.getItem('userID'));
     console.log(inviter_id);
     const uid = id;
-    console.log(uid);
-    fetch(`http://188.165.238.74:8080/invitation/${uid}`, {
+    fetch(`http://188.165.238.74:8080/invitation/${inviter_id}`, {
       mode: 'no-cors',
       method: 'POST',
       headers: {

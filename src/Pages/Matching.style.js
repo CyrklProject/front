@@ -176,7 +176,6 @@ export const TitlteSector = styled.div`
   border-top: 1px solid;
   border-color: #9caf88;
   padding-top: 20px;
-  font-weight: bold;
 `;
 
 export const ParaSector = styled.p`
