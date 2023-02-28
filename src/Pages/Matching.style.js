@@ -11,7 +11,7 @@ export const LeftContent = styled.div`
   display: flex;
   width: 350px;
   height: 350px;
-  margin-top: 13%;
+  margin-top: 9%;
   flex-direction: column;
 `;
 
@@ -75,7 +75,7 @@ export const RightContent = styled.div`
   display: flex;
   width: 350px;
   height: 500px;
-  margin-top: 28px;
+  margin-top: 3%;
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-evenly;
@@ -161,7 +161,7 @@ export const Name = styled.p`
   color: #fc0505;
   align-items: center;
   width: 340px;
-  padding-left: 10px;
+  padding-left: 10%;
   font-family: 'Playfair Display';
   font-size: 26px;
   line-height: 32px;
@@ -261,9 +261,9 @@ export const Duration = styled.div`
 `;
 
 export const WrapperExperience = styled.div`
-  display: flex;
-  margin: 0;
-  flex-direction: column;
+  // display: flex;
+  // margin: 0;
+  // flex-direction: column;
 `;
 
 export const ButtonSwipeCross = styled.div`

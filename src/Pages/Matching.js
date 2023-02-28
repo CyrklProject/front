@@ -6,12 +6,8 @@ import {
   Footer,
   Disponibility,
   Contact,
-  Paratitle,
-  Location,
-  LinkDisponibilities,
   PhotoProfil,
   NameBox,
-  Hours,
   Sector,
   Name,
   TitlteSector,
@@ -19,7 +15,6 @@ import {
   ParaSector,
   Paratitle,
   LinkDisponibilities,
-  Experience,
   TitleExperience,
   InfosExperienceBox,
   Status,
@@ -30,7 +25,6 @@ import {
 } from './Matching.style';
 import { useState, useEffect } from 'react';
 import { Button } from '../components/Button/Button';
-import { useState, useEffect } from 'react';
 
 export default function Matching() {
   const [id, setId] = useState(1);
@@ -274,18 +268,16 @@ export default function Matching() {
             </Sector>
           </CenterContent>
           <RightContent>
-            <Experience>
-              <WrapperExperience>
-                <InfosExperienceBox>
-                  <TitleExperience>SECTEUR ACTUEL</TitleExperience>
-                  <Status>{userProfile.industry}</Status>
-                  <TitleExperience>SECTEUR RECHERCHÉ</TitleExperience>
-                  <Status>{userProfile.industrysought.join(' / ')}</Status>
-                  <TitleExperience>PROFIL RECHERCHÉ</TitleExperience>
-                  <Status>{userProfile.positionsought.join(' / ')}</Status>
-                </InfosExperienceBox>
-              </WrapperExperience>
-            </Experience>
+            <WrapperExperience>
+              <InfosExperienceBox>
+                <TitleExperience>SECTEUR ACTUEL</TitleExperience>
+                <Status>{userProfile.industry}</Status>
+                <TitleExperience>SECTEUR RECHERCHÉ</TitleExperience>
+                <Status>{userProfile.industrysought.join(' / ')}</Status>
+                <TitleExperience>PROFIL RECHERCHÉ</TitleExperience>
+                <Status>{userProfile.positionsought.join(' / ')}</Status>
+              </InfosExperienceBox>
+            </WrapperExperience>
           </RightContent>
         </MatchingContainer>
       )}

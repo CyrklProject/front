@@ -4,7 +4,6 @@ import * as LabelPrimitive from '@radix-ui/react-label';
 export const LabelContainer = styled('div')`
   display: flex;
   flex-direction: row;
-  padding-top: 50px;
   flex-wrap: wrap;
   width: 1000px;
 `;
@@ -27,8 +26,8 @@ export const Flex = styled('div')`
   flex-direction: column;
   width: 196.24px;
   height: 90px;
-  padding: 60px;
-  padding-bottom: 90px;
+  padding: 50px;
+  padding-bottom: 2px;
 `;
 
 export const Input = styled('input')`

@@ -16,7 +16,7 @@ export default function Login() {
   const [isLoggedin, setIsLoggedin] = useState(false);
   const [error, setError] = useState('');
 
-  console.log(sessionToken, isLoggedin, userEmail);
+  console.log(sessionToken, isLoggedin, userEmail, token);
 
   const handleEmail = (e) => {
     setEmail(e.target.value);
@@ -60,7 +60,7 @@ export default function Login() {
       return;
     }
     await login();
-    if (auth == true && token && token != ' ' && token != undefined) {
+    if (auth == true) {
       console.log('CONNECTED');
       setIsLoggedin(true);
       console.log(email);

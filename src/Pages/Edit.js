@@ -5,7 +5,9 @@ import {
   EditContainer,
   AvatarMenu,
   ButtonWrapper,
-  InputSoughtWrapper
+  InputSoughtWrapper,
+  DeleteWrapper,
+  SelectWrapper
 } from './Edit.style';
 import { Avatar } from '../components/Avatar/Avatar';
 import { StyledLabel, Flex, Input, LabelContainer } from '../components/label/Label.style';
@@ -41,6 +43,7 @@ export default function Edit() {
   const [errorText, setErrorText] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const navigate = useNavigate();
+  const [status, setStatus] = useState('');
 
   console.log(urlphoto, id, createdAt, updatedAt);
   const profilephoto =
@@ -196,7 +199,7 @@ export default function Edit() {
         errorMessage();
       }
       setTimeout(() => {
-        navigate('/Matching');
+        navigate('/users/:id');
       }, 10000);
     });
   };
@@ -277,11 +280,31 @@ export default function Edit() {
     );
   };
 
+  const deleteUser = () => {
+    fetch(`http://188.165.238.74:8080/deleteuser/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
+    }).then(() => setStatus('Delete successful'));
+  };
+
+  console.log(status);
+
   return (
     <EditContainer>
       <CategorieTitle>Mon Profil</CategorieTitle>
       <AvatarMenu>
         <Avatar profilephoto={profilephoto}></Avatar>
+        <DeleteWrapper>
+          <Button
+            onClick={deleteUser}
+            type="button"
+            buttonStyle="btn--primary--reverse"
+            buttonSize="btn--medium">
+            SUPPRIMER VOTRE COMPTE
+          </Button>
+        </DeleteWrapper>
       </AvatarMenu>
       <div className="messages">{successMessage()}</div>
       <div className="messages">{errorMessage()}</div>
@@ -327,7 +350,6 @@ export default function Edit() {
             style={{ width: 490 }}
           />
         </Flex>
-
         <Flex>
           <StyledLabel>Secteur d&apos;activité recherché</StyledLabel>
           <InputSoughtWrapper>
@@ -352,34 +374,35 @@ export default function Edit() {
             isMulti
           />
         </Flex>
-
-        <Flex>
-          <StyledLabel>Recherche</StyledLabel>
-          <InputSoughtWrapper>
-            <Input
-              type="text"
-              id="position"
-              value={selectedPositionsought.join(', ')}
-              style={{ width: 290, marginBottom: 30, marginTop: 21 }}
+        <SelectWrapper>
+          <Flex>
+            <StyledLabel>Recherche</StyledLabel>
+            <InputSoughtWrapper>
+              <Input
+                type="text"
+                id="position"
+                value={selectedPositionsought.join(', ')}
+                style={{ width: 290, marginBottom: 30, marginTop: 21 }}
+              />
+            </InputSoughtWrapper>
+            <Select
+              styles={{
+                control: (baseStyles, state) => ({
+                  ...baseStyles,
+                  borderColor: state.isFocused ? '#173F35' : '#9CAF88'
+                }),
+                options: () => ({
+                  borderColor: '#173F35'
+                })
+              }}
+              options={optionListPosition}
+              placeholder="Select"
+              value={selectedOptionsPosition}
+              onChange={handleSelectPosition}
+              isMulti
             />
-          </InputSoughtWrapper>
-          <Select
-            styles={{
-              control: (baseStyles, state) => ({
-                ...baseStyles,
-                borderColor: state.isFocused ? '#173F35' : '#9CAF88'
-              }),
-              options: () => ({
-                borderColor: '#173F35'
-              })
-            }}
-            options={optionListPosition}
-            placeholder="Select"
-            value={selectedOptionsPosition}
-            onChange={handleSelectPosition}
-            isMulti
-          />
-        </Flex>
+          </Flex>
+        </SelectWrapper>
         {isModified && (
           <ButtonWrapper>
             <Button

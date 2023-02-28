@@ -18,7 +18,7 @@ export const EditContainer = styled.div`
   display: flex;
   height: 100%;
   flex-direction: column;
-  padding-left: 20%;
+  padding-left: 15%;
   min-height: 450px;
   justify-content: flex-start;
 `;
@@ -40,6 +40,19 @@ export const ButtonWrapper = styled.div`
 
 export const InputSoughtWrapper = styled.div`
   display: flex;
-  height: 100px;
+  height: 200px;
   width: 300px;
+  flex-direction: column;
+  left: 30px;
+`;
+
+export const DeleteWrapper = styled.div`
+  display: flex;
+  margin-left: 90%;
+  margin-bottom: 3%;
+`;
+
+export const SelectWrapper = styled.div`
+  display: flex;
+  margin-left: 8%;
 `;
