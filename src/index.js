@@ -14,13 +14,6 @@ import Matching from './Pages/Matching';
 import Deconnexion from './Pages/Deconnexion';
 import Invitations from './Pages/Invitations';
 
-// const recupSession = sessionStorage.getItem('token');
-// const [isLoggedin, setIsLoggedin] = useState(false);
-
-// if (recupSession != '' && recupSession != undefined) {
-//   setIsLoggedin(true);
-// }
-
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Router>
@@ -34,13 +27,6 @@ root.render(
       <Route path="/login" element={<Login />} />
       <Route path="/users/:id" element={<Matching />} />
       <Route path="/deconnexion" element={<Deconnexion />} />
-      {/* <Route path="/users/:id" element={<Matching />} /> */}
-      {/* <Route path="/calendrier" element={<Calendrier />} />
-      <Route path="/listes" element={<Listes />} />
-      <Route path="/slides" element={<Slides />} />
-      <Route path="/alertes" element={<Alertes />} />
-      <Route path="/chat" element={<Chat />} />
-      <Route path="/deconnexion" element={<Deconnexion />} /> */}
     </Routes>
   </Router>
 );

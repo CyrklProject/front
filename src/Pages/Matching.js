@@ -45,6 +45,50 @@ export default function Matching() {
 
   console.log(slot, lieu, dateandhours, isLoadingSlots);
 
+  const fetchSlotsByUserId = (id) => {
+    setIsLoadingSlots(true);
+    fetch(`http://188.165.238.74:8080/slots/user/${id}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        setSlot(data);
+        console.log('data' + data);
+        setSlot_id(slot.id);
+        console.log('slot' + slot_id);
+        const dateandhours = data[0].dateandhours;
+        console.log(dateandhours);
+        setLieu(data[0].lieu);
+        setDateandhours(dateandhours);
+        const dateFormated = new Date(Date.parse(dateandhours));
+        setMinute(dateFormated.getMinutes());
+        console.log('dateFormated minute' + minute);
+        setYear(dateFormated.getFullYear());
+        console.log('dateFormated year' + year);
+        setMonth(dateFormated.getMonth());
+        console.log('dateFormated month' + month);
+        setDay(dateFormated.getDate());
+        console.log('dateFormated date' + Date);
+        setHour(dateFormated.getHours());
+        console.log('dateFormated hours' + hour);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  };
+
+  useEffect(() => {
+    fetchSlotsByUserId(id);
+  }, []);
+
+  useEffect(() => {}, [year, hour, day, month, minute, lieu]);
+  console.log('dateFormated y h d m m l' + year, hour, day, month, minute, lieu);
+
   const fetchUserById = (id) => {
     fetch(`http://188.165.238.74:8080/user/${id}`, {
       method: 'GET',
@@ -64,7 +108,11 @@ export default function Matching() {
       });
   };
   const handleNextUser = () => {
-    const nextId = id + 1;
+    let nextId = id + 1;
+    setCurrentUserID(sessionStorage.getItem('userID'));
+    if (currentUserId == nextId) {
+      nextId++;
+    }
     fetch(`http://188.165.238.74:8080/user/${nextId}`, {
       method: 'GET',
       headers: {
@@ -113,7 +161,10 @@ export default function Matching() {
       });
   };
   const handlePrevUser = () => {
-    const prevId = id - 1;
+    let prevId = id - 1;
+    if (currentUserId == prevId) {
+      prevId--;
+    }
     fetch(`http://188.165.238.74:8080/user/${prevId}`, {
       method: 'GET',
       headers: {
@@ -142,54 +193,10 @@ export default function Matching() {
     fetchUserById(id);
   }, [id]);
 
-  const fetchSlotsByUserId = (id) => {
-    setIsLoadingSlots(true);
-    fetch(`http://188.165.238.74:8080/slots/user/${id}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      }
-    })
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        setSlot(data);
-        console.log('data' + data);
-        setSlot_id(slot.id);
-        console.log('slot' + slot_id);
-        const dateandhours = data[0].dateandhours;
-        console.log(dateandhours);
-        setLieu(data[0].lieu);
-        setDateandhours(dateandhours);
-        const dateFormated = new Date(Date.parse(dateandhours));
-        setMinute(dateFormated.getMinutes());
-        console.log('dateFormated minute' + minute);
-        setYear(dateFormated.getFullYear());
-        console.log('dateFormated year' + year);
-        setMonth(dateFormated.getMonth());
-        console.log('dateFormated month' + month);
-        setDay(dateFormated.getDate());
-        console.log('dateFormated date' + Date);
-        setHour(dateFormated.getHours());
-        console.log('dateFormated hours' + hour);
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
-  };
-
-  useEffect(() => {
-    fetchSlotsByUserId(id);
-  }, []);
-
-  useEffect(() => {}, [year, hour, day, month, minute, lieu]);
-  console.log('dateFormated y h d m m l' + year, hour, day, month, minute, lieu);
-
   const createInvitation = () => {
     setInviter_id(sessionStorage.getItem('userID'));
     console.log(inviter_id);
-    const uid = id;
+    // const uid = id;
     fetch(`http://188.165.238.74:8080/invitation/${inviter_id}`, {
       mode: 'no-cors',
       method: 'POST',

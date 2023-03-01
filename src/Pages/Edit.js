@@ -38,7 +38,6 @@ export default function Edit() {
   const [selectedOptionsPosition, setSelectedOptionsPosition] = useState();
   const [selectedPositionsought, setselectedPositionsought] = useState([]);
   const [isModified, setIsModified] = useState(false);
-  // const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState('');
   const [errorText, setErrorText] = useState('');
   const [submitted, setSubmitted] = useState(false);
@@ -139,9 +138,11 @@ export default function Edit() {
   useEffect(() => {
     fetchUsersData();
   }, []);
+
   if (dataLoading === false) {
     setDataLoading(true);
   }
+
   const handleSubmit = () => {
     console.log('id' + id);
     fetch(`http://188.165.238.74:8080/updateuser/${id}`, {
@@ -181,7 +182,6 @@ export default function Edit() {
         setPositionsought(positionsought);
         setIndustrysought(industrysought);
         setIndustry(data.industry);
-        // setIndustrysought(Array.from(data.industrysought));
         setPassword('123456');
         setCreatedAt(data.createdAt);
         setUpdatedAt(data.updatedAt);
@@ -207,23 +207,17 @@ export default function Edit() {
   function handleSelectIndustry(data) {
     setSelectedOptionsIndustry(data);
     const selectedValues = data.map((option) => option.value);
-    // allSelectedValuesIndustry.push(...selectedValues); // ajout des nouvelles valeurs à la variable allSelectedValues
     setselectedIndustrysought(selectedValues);
     setIsModified(true);
-    setIndustrysought(selectedValues); // utilisation de la variable allSelectedValues comme source de vérité pour les valeurs sélectionnées
-    // return allSelectedValuesIndustry;
+    setIndustrysought(selectedValues);
   }
-
-  // const allSelectedValuesPosition = [];
 
   function handleSelectPosition(data) {
     setSelectedOptionsPosition(data);
     const selectedValues = data.map((option) => option.value);
-    // allSelectedValuesPosition.push(...selectedValues); // ajout des nouvelles valeurs à la variable allSelectedValues
     setselectedPositionsought(selectedValues);
     setIsModified(true);
-    setPositionsought(selectedValues); // utilisation de la variable allSelectedValues comme source de vérité pour les valeurs sélectionnées
-    // return allSelectedValuesPosition;
+    setPositionsought(selectedValues);
   }
 
   console.log(positionsought);

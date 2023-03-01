@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unescaped-entities */
 import React from 'react';
 import './welcome.css';
 import { Button } from '../components/Button/Button';
@@ -35,7 +34,7 @@ export default function Welcome() {
                   type="button"
                   buttonStyle="btn--primary--solid"
                   buttonSize="btn--medium">
-                  S'ABONNER
+                  S&apos;ABONNER
                 </Button>
               </a>
             </div>

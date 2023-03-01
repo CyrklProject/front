@@ -17,12 +17,11 @@ import { useNavigate } from 'react-router-dom';
 
 export function Navbar() {
   const [extendNavbar, setExtendNavbar] = useState(false);
-  const [isLoggedin, setIsLoggedin] = useState(false); // Ajout de l'état isConnected
-  const navigate = useNavigate(); // Utilisation du hook useNavigate pour gérer les redirections
+  const [isLoggedin, setIsLoggedin] = useState(false);
+  const navigate = useNavigate();
   const recupSession = sessionStorage.getItem('token');
 
   useEffect(() => {
-    // Cette fonction ne sera exécutée qu'une seule fois après le premier rendu de la navbar
     if (recupSession != '' && recupSession != undefined) {
       setIsLoggedin(true);
     }
@@ -45,13 +44,11 @@ export function Navbar() {
             <NavbarLink to="/invitations"> Invitations</NavbarLink>
             <NavbarLink to="/users/:id"> Matching</NavbarLink>
             {isLoggedin ? (
-              // Si l'utilisateur est connecté, afficher Logout
               <NavbarLink to="/deconnexion" onClick={handleLogout}>
                 {' '}
                 Deconnexion
               </NavbarLink>
             ) : (
-              // Sinon, afficher Login
               <NavbarLink to="/login"> Login</NavbarLink>
             )}
 
@@ -72,12 +69,10 @@ export function Navbar() {
           <NavbarLinkExtended to="/edit"> Edit</NavbarLinkExtended>
           <NavbarLinkExtended to="/invitations"> Invitations</NavbarLinkExtended>
           {isLoggedin ? (
-            // Si l'utilisateur est connecté, afficher Logout
             <NavbarLinkExtended to="/Deconnexion" onClick={handleLogout}>
               Deconnexion
             </NavbarLinkExtended>
           ) : (
-            // Sinon, afficher Login
             <NavbarLinkExtended to="/login"> Login</NavbarLinkExtended>
           )}
           <NavbarLinkExtended to="/users/:id"> Matching</NavbarLinkExtended>

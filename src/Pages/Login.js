@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unescaped-entities */
 import React, { useState } from 'react';
 import './Login.css';
 import { Button } from '../components/Button/Button';
@@ -68,10 +67,6 @@ export default function Login() {
       setError('Identifiants invalides.');
       return;
     }
-    // else {
-    //   setError('Identifiants invalides.');
-    //   return;
-    // }
     console.log('CONNECTED');
     setIsLoggedin(true);
     console.log(email);

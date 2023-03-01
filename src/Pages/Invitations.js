@@ -22,7 +22,6 @@ import {
 } from './Invitations.style';
 
 export default function Inviations() {
-  //received
   const [datafetchInvit, setDatafetchInvit] = useState([]);
   const [status, setStatus] = useState('');
   const [inviter_id, setInviter_id] = useState();
@@ -41,7 +40,6 @@ export default function Inviations() {
   const [acceptedInvitations, setAcceptedInvitations] = useState([]);
   const [rejectedInvitations, setRejectedInvitations] = useState([]);
 
-  //sended
   const [datafetchInvitSended, setDatafetchInvitSended] = useState([]);
   const [statusSended, setStatusSended] = useState('');
   const [inviter_idSended, setInviter_idSended] = useState();
