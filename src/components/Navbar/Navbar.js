@@ -40,14 +40,15 @@ export function Navbar() {
         </LeftContainer>
         <RightContainer>
           <NavbarLinkContainer>
-            <NavbarLink to="/edit"> Profil</NavbarLink>
-            <NavbarLink to="/invitations"> Invitations</NavbarLink>
-            <NavbarLink to="/users/:id"> Matching</NavbarLink>
             {isLoggedin ? (
-              <NavbarLink to="/deconnexion" onClick={handleLogout}>
-                {' '}
-                Deconnexion
-              </NavbarLink>
+              <>
+                <NavbarLink to="/edit"> Profil</NavbarLink>
+                <NavbarLink to="/invitations"> Invitations</NavbarLink>
+                <NavbarLink to="/users/:id"> Matching</NavbarLink>
+                <NavbarLink to="/deconnexion" onClick={handleLogout}>
+                  Deconnexion
+                </NavbarLink>
+              </>
             ) : (
               <NavbarLink to="/login"> Login</NavbarLink>
             )}
@@ -64,18 +65,16 @@ export function Navbar() {
       </NavbarInnerContainer>
       {extendNavbar && (
         <NavbarExtendedContainer>
-          <NavbarLinkExtended to="/welcome"> Welcome</NavbarLinkExtended>
-          <NavbarLinkExtended to="/registration"> Registration</NavbarLinkExtended>
-          <NavbarLinkExtended to="/edit"> Edit</NavbarLinkExtended>
-          <NavbarLinkExtended to="/invitations"> Invitations</NavbarLinkExtended>
           {isLoggedin ? (
-            <NavbarLinkExtended to="/Deconnexion" onClick={handleLogout}>
-              Deconnexion
-            </NavbarLinkExtended>
+            <>
+              <NavbarLinkExtended to="/edit"> Edit</NavbarLinkExtended>
+              <NavbarLinkExtended to="/invitations"> Invitations</NavbarLinkExtended>
+              <NavbarLinkExtended to="/users/:id"> Matching</NavbarLinkExtended>
+              <NavbarLinkExtended to="/Deconnexion" onClick={handleLogout}></NavbarLinkExtended>
+            </>
           ) : (
             <NavbarLinkExtended to="/login"> Login</NavbarLinkExtended>
           )}
-          <NavbarLinkExtended to="/users/:id"> Matching</NavbarLinkExtended>
         </NavbarExtendedContainer>
       )}
     </NavbarContainer>
