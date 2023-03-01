@@ -29,13 +29,11 @@ export const AvatarMenu = styled.div`
   align-items: center;
   justify-content: flex-start;
   margin: 0px;
-  width: 50%;
 `;
 
 export const ButtonWrapper = styled.div`
   display: flex;
-  margin-top: 40px;
-  margin-left: 120px;
+  margin-left: 3%;
 `;
 
 export const InputSoughtWrapper = styled.div`
@@ -48,11 +46,10 @@ export const InputSoughtWrapper = styled.div`
 
 export const DeleteWrapper = styled.div`
   display: flex;
-  margin-left: 90%;
-  margin-bottom: 3%;
+  margin-left: 3%;
 `;
 
 export const SelectWrapper = styled.div`
   display: flex;
-  margin-left: 8%;
+  margin-left: 20%;
 `;

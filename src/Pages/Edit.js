@@ -9,7 +9,6 @@ import {
   DeleteWrapper,
   SelectWrapper
 } from './Edit.style';
-import { Avatar } from '../components/Avatar/Avatar';
 import { StyledLabel, Flex, Input, LabelContainer } from '../components/label/Label.style';
 import { useState, useEffect } from 'react';
 import { Button } from '../components/Button/Button';
@@ -289,7 +288,19 @@ export default function Edit() {
     <EditContainer>
       <CategorieTitle>Mon Profil</CategorieTitle>
       <AvatarMenu>
-        <Avatar profilephoto={profilephoto}></Avatar>
+        <div className="messages">{successMessage()}</div>
+        <div className="messages">{errorMessage()}</div>
+        {isModified && (
+          <ButtonWrapper>
+            <Button
+              onClick={handleSubmit}
+              type="button"
+              buttonStyle="btn--primary--reverse"
+              buttonSize="btn--medium">
+              ENREGISTRER
+            </Button>
+          </ButtonWrapper>
+        )}
         <DeleteWrapper>
           <Button
             onClick={deleteUser}
@@ -300,8 +311,6 @@ export default function Edit() {
           </Button>
         </DeleteWrapper>
       </AvatarMenu>
-      <div className="messages">{successMessage()}</div>
-      <div className="messages">{errorMessage()}</div>
       <LabelContainer>
         <Flex id="firstname-container">
           <StyledLabel>Prénom</StyledLabel>
@@ -350,8 +359,9 @@ export default function Edit() {
             <Input
               type="text"
               id="position"
-              value={selectedIndustrysought.join(', ')}
-              style={{ width: 290, marginBottom: 30 }}
+              onChange={industrysought.join(',')}
+              value={industrysought.join(', ')}
+              style={{ width: 390, marginBottom: 30 }}
             />
           </InputSoughtWrapper>
           <Select
@@ -375,8 +385,9 @@ export default function Edit() {
               <Input
                 type="text"
                 id="position"
-                value={selectedPositionsought.join(', ')}
-                style={{ width: 290, marginBottom: 30, marginTop: 21 }}
+                value={positionsought.join(', ')}
+                onChange={positionsought.join(', ')}
+                style={{ width: 490, marginBottom: 30, marginTop: 21 }}
               />
             </InputSoughtWrapper>
             <Select
@@ -397,17 +408,6 @@ export default function Edit() {
             />
           </Flex>
         </SelectWrapper>
-        {isModified && (
-          <ButtonWrapper>
-            <Button
-              onClick={handleSubmit}
-              type="button"
-              buttonStyle="btn--primary--reverse"
-              buttonSize="btn--medium">
-              ENREGISTRER
-            </Button>
-          </ButtonWrapper>
-        )}
       </LabelContainer>
     </EditContainer>
   );
