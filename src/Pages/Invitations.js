@@ -22,6 +22,7 @@ import {
 } from './Invitations.style';
 
 export default function Inviations() {
+  //received
   const [datafetchInvit, setDatafetchInvit] = useState([]);
   const [status, setStatus] = useState('');
   const [inviter_id, setInviter_id] = useState();
@@ -39,12 +40,14 @@ export default function Inviations() {
   const [invited_id, setInvited_id] = useState();
   const [acceptedInvitations, setAcceptedInvitations] = useState([]);
   const [rejectedInvitations, setRejectedInvitations] = useState([]);
+  const [invitationID, setInvitationID] = useState();
 
+  //sended
   const [datafetchInvitSended, setDatafetchInvitSended] = useState([]);
   const [statusSended, setStatusSended] = useState('');
-  const [inviter_idSended, setInviter_idSended] = useState();
-  const [inviter_nameSended, setInviter_nameSended] = useState('');
-  const [inviter_lastnameSended, setInviter_lastnameSended] = useState('');
+  const [invited_idSended, setInvited_idSended] = useState();
+  const [invited_nameSended, setInvited_nameSended] = useState('');
+  const [invited_lastnameSended, setInvited_lastnameSended] = useState('');
   const [slot_idSended, setSlot_idSended] = useState();
   const [slotDateAndHoursSended, setSlotDateAndHoursSended] = useState();
   const [lieuSended, setLieuSended] = useState();
@@ -54,7 +57,7 @@ export default function Inviations() {
   const [hourSended, setHourSended] = useState();
   const [minuteSended, setMinuteSended] = useState();
   const [slotIdSended, setSlotIdSended] = useState();
-  const [invited_idSended, setInvited_idSended] = useState();
+  // const [inviter_idSended, setInviter_idSended] = useState();
 
   const getInvitationByUserId = () => {
     const userId = sessionStorage.getItem('userID');
@@ -74,7 +77,7 @@ export default function Inviations() {
         if (data) {
           setDatafetchInvit(data[0]);
           setSlotId(slot_id);
-          console.log(slotId);
+          setInvitationID(data[0].id);
           setInviter_id(data[0].inviter_id);
           setInviter_lastname(data[0].inviter.lastname);
           setInviter_name(data[0].inviter.name);
@@ -133,9 +136,9 @@ export default function Inviations() {
           setDatafetchInvitSended(data[0]);
           setSlotIdSended(slot_idSended);
           console.log(slotIdSended);
-          setInviter_idSended(data[0].inviter_id);
-          setInviter_lastnameSended(data[0].inviter.lastname);
-          setInviter_nameSended(data[0].inviter.name);
+          setInvited_idSended(data[0].invited_id);
+          setInvited_lastnameSended(data[0].invited.lastname);
+          setInvited_nameSended(data[0].invited.name);
           setSlot_idSended(data[0].slot_id);
           setStatusSended(data[0].statut);
           setInvited_idSended(data[0].invited_id);
@@ -168,10 +171,10 @@ export default function Inviations() {
     lieuSended
   ]);
 
-  console.log(datafetchInvitSended, statusSended, inviter_idSended, slotDateAndHoursSended);
+  console.log(datafetchInvitSended, statusSended, invited_idSended, slotDateAndHoursSended);
 
   const accepteInvitation = () => {
-    const id = slot_id;
+    const id = invitationID;
     const newStatus = 'accepted';
     fetch(`http://188.165.238.74:8080/updateinvitation/${id}`, {
       mode: 'no-cors',
@@ -198,7 +201,7 @@ export default function Inviations() {
   };
 
   const refusedInvitation = () => {
-    const id = slot_id;
+    const id = invitationID;
     const newStatus = 'refused';
     fetch(`http://188.165.238.74:8080/updateinvitation/${id}`, {
       mode: 'no-cors',
@@ -302,7 +305,7 @@ export default function Inviations() {
             <InProgress>En attente de réponse:</InProgress>
             <Invitation>
               <Inviter>
-                {inviter_nameSended} {inviter_lastnameSended}
+                {invited_nameSended} {invited_lastnameSended}
               </Inviter>
               <DateAndHours>
                 {daySended + ' . '}
@@ -323,7 +326,7 @@ export default function Inviations() {
             <Accepted>Acceptées</Accepted>
             <Invitation>
               <Inviter>
-                {inviter_nameSended} {inviter_lastnameSended}
+                {invited_nameSended} {invited_lastnameSended}
               </Inviter>
               <DateAndHours>
                 {daySended + ' . '}
@@ -344,7 +347,7 @@ export default function Inviations() {
             <Rejected>Rejetées</Rejected>
             <Invitation>
               <Inviter>
-                {inviter_nameSended} {inviter_lastnameSended}
+                {invited_nameSended} {invited_lastnameSended}
               </Inviter>
               <DateAndHours>
                 {daySended + ' . '}
