@@ -158,11 +158,10 @@ export const Sector = styled.div`
 export const Name = styled.p`
   display: flex;
   margin: 0;
-  color: #fc0505;
+  color: #173f35;
   align-items: center;
   width: 340px;
   padding-left: 10%;
-  font-family: 'Playfair Display';
   font-size: 26px;
   line-height: 32px;
 `;
@@ -176,14 +175,15 @@ export const TitlteSector = styled.div`
   border-top: 1px solid;
   border-color: #9caf88;
   padding-top: 20px;
+  font-weight: bold;
 `;
 
 export const ParaSector = styled.p`
   display: flex;
   margin: 0;
   height: 80px;
-  padding-left: 10px;
-  font-size: 14px;
+  font-size: 18px;
+  font-weight: bold;
 `;
 
 export const Experience = styled.div`
@@ -244,7 +244,7 @@ export const Status = styled.div`
   padding-bottom: 10%;
   font-weight: bold;
   font-size: 18px;
-  padding-left: 5%;
+  flex-direction: column;
 `;
 
 export const Entreprise = styled.div`
@@ -294,4 +294,13 @@ export const ButtonSwipeDiner = styled.div`
   color: #efe8e1;
   font-weight: bold;
   font-size: 36px;
+`;
+
+export const StatusMappingContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+export const Map = styled.div`
+  display: flex;
 `;

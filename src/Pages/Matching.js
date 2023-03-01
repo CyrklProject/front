@@ -21,7 +21,9 @@ import {
   WrapperExperience,
   ButtonSwipeCross,
   ButtonSwipeDiner,
-  Hours
+  Hours,
+  StatusMappingContainer,
+  Map
 } from './Matching.style';
 import { useState, useEffect } from 'react';
 import { Button } from '../components/Button/Button';
@@ -279,9 +281,21 @@ export default function Matching() {
                 <TitleExperience>SECTEUR ACTUEL</TitleExperience>
                 <Status>{userProfile.industry}</Status>
                 <TitleExperience>SECTEUR RECHERCHÉ</TitleExperience>
-                <Status>{userProfile.industrysought.join(' / ')}</Status>
+                <StatusMappingContainer>
+                  <Status>
+                    {userProfile.industrysought.map((position, index) => (
+                      <Map key={index}>{position}</Map>
+                    ))}
+                  </Status>
+                </StatusMappingContainer>
                 <TitleExperience>PROFIL RECHERCHÉ</TitleExperience>
-                <Status>{userProfile.positionsought.join(' / ')}</Status>
+                <StatusMappingContainer>
+                  <Status>
+                    {userProfile.positionsought.map((position, index) => (
+                      <Map key={index}>{position}</Map>
+                    ))}
+                  </Status>
+                </StatusMappingContainer>
               </InfosExperienceBox>
             </WrapperExperience>
           </RightContent>
