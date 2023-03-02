@@ -23,11 +23,12 @@ import {
   ButtonSwipeDiner,
   Hours,
   StatusMappingContainer,
-  Map
+  Map,
+  SuccessMessageInvit
 } from './Matching.style';
 import { useState, useEffect } from 'react';
 import { Button } from '../components/Button/Button';
-import { SuccessMessage } from '../components/Message/SuccessMessage';
+import { Navbar } from '../components/Navbar/Navbar';
 
 export default function Matching() {
   const [id, setId] = useState(1);
@@ -48,6 +49,7 @@ export default function Matching() {
   const [inviter_id, setInviter_id] = useState(parseInt(idInviterString, 10));
   const [submitted, setSubmitted] = useState(false);
   const [urlphoto, seturlphoto] = useState('');
+  const [show, setShow] = useState(true);
 
   const fetchSlotsByUserId = (id) => {
     setIsLoadingSlots(true);
@@ -122,6 +124,7 @@ export default function Matching() {
       });
   };
   const handleNextUser = () => {
+    setShow(false);
     let nextId = id + 1;
     setCurrentUserID(sessionStorage.getItem('userID'));
     if (currentUserId == nextId) {
@@ -154,7 +157,6 @@ export default function Matching() {
             .then((data) => {
               if (data) {
                 setUserProfile(data);
-                // seturlphoto(data.urlphoto);
                 setId(nextId + 1);
               }
             })
@@ -197,6 +199,7 @@ export default function Matching() {
         if (data) {
           setUserProfile(data);
           seturlphoto(data.urlphoto);
+          setShow(false);
           setId(prevId);
         }
       })
@@ -231,6 +234,7 @@ export default function Matching() {
       .then((response) => {
         if (response.status <= 400) {
           setSubmitted(true);
+          setShow(true);
           successMessage();
         }
       })
@@ -246,18 +250,19 @@ export default function Matching() {
         style={{
           display: submitted ? '' : 'none'
         }}>
-        <SuccessMessage>
+        <SuccessMessageInvit>
           <p>
             Votre demande à bien été envoyé, vous pourrez voir votre invitation dans l&apos;onglet
             Invitations
           </p>
-        </SuccessMessage>
+        </SuccessMessageInvit>
       </div>
     );
   };
 
   return (
     <div>
+      <Navbar />
       {userProfile && (
         <MatchingContainer>
           <LeftContent>
@@ -279,7 +284,7 @@ export default function Matching() {
                 <LinkDisponibilities>Voir les autres disponibilités</LinkDisponibilities>
               </a>
             </Disponibility>
-            <div className="messages">successMessage()</div>
+            {show && <div className="messages">{successMessage()}</div>}
             <Contact>
               <Button
                 onClick={createInvitation}

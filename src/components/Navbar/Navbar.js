@@ -18,15 +18,18 @@ export function Navbar() {
   const [isLoggedin, setIsLoggedin] = useState(false);
   const navigate = useNavigate();
   const recupSession = sessionStorage.getItem('token');
+  const [logedIn, setLogedIn] = useState(false);
 
   useEffect(() => {
     if (recupSession != '' && recupSession != undefined) {
       setIsLoggedin(true);
+      setLogedIn(true);
     }
   }, []);
 
   const handleLogout = () => {
     setIsLoggedin(false);
+    setLogedIn(false);
     navigate('/Deconnexion');
   };
 
@@ -38,7 +41,7 @@ export function Navbar() {
         </LeftContainer>
         <RightContainer>
           <NavbarLinkContainer>
-            {isLoggedin ? (
+            {isLoggedin || logedIn ? (
               <>
                 <NavbarLink to="/edit"> Profil</NavbarLink>
                 <NavbarLink to="/invitations"> Invitations</NavbarLink>

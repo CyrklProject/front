@@ -8,7 +8,7 @@ import { Routes, Route } from 'react-router-dom';
 import Registration from './Pages/Registration';
 import Welcome from './Pages/Welcome';
 import Edit from './Pages/Edit';
-import { Navbar } from './components/Navbar/Navbar';
+// import { Navbar } from './components/Navbar/Navbar';
 import Login from './Pages/Login';
 import Matching from './Pages/Matching';
 import Deconnexion from './Pages/Deconnexion';
@@ -17,7 +17,7 @@ import Invitations from './Pages/Invitations';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Router>
-    <Navbar />
+    {/* <Navbar /> */}
     <Routes>
       <Route path="/" element={<App />} />
       <Route path="/welcome" element={<Welcome />} />

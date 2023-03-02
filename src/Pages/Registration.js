@@ -3,6 +3,7 @@ import './Registration.css';
 import { Button } from '../components/Button/Button';
 import { SuccessMessage } from '../components/Message/SuccessMessage';
 import { ErrorMessage } from '../components/Message/ErrorMessage';
+import { Navbar } from '../components/Navbar/Navbar';
 
 export default function Registration() {
   const [name, setName] = useState('');
@@ -111,70 +112,74 @@ export default function Registration() {
   };
 
   return (
-    <div className="registration-body">
-      <div className="registration-background">
-        <div className="color-block-registration"></div>
-        <div className="registration-title">S&apos;inscrire</div>
-        <div className="registration-form">
-          <form>
-            <input
-              onChange={handleName}
-              className="input"
-              value={name}
-              type="text"
-              placeholder="Nom"
-            />
-            <input
-              onChange={handlelastname}
-              className="input"
-              value={lastname}
-              type="text"
-              placeholder="Prénom"
-            />
-            <input
-              onChange={handleemail}
-              className="input"
-              value={email}
-              type="text"
-              placeholder="Email"
-            />
-            <input
-              onChange={handleTelephone}
-              className="input"
-              value={telephone}
-              type="text"
-              placeholder="Téléphone"
-            />
-            <input
-              onChange={handlepassword}
-              className="input"
-              value={password}
-              type="text"
-              placeholder="Mot de passe"
-            />
-          </form>
-          <Button
-            onClick={handleSubmit}
-            type="button"
-            buttonStyle="btn--primary--reverse"
-            buttonSize="btn--medium">
-            S&apos;INSCRIRE
-          </Button>
-        </div>
-        <div className="right--wrapper">
-          <div className="messages">{successMessage()}</div>
-          <div className="messages">{errorMessage()}</div>
+    <div>
+      <Navbar />
 
-          <p className="right--content">Déjà inscrit ?</p>
-          <a href="/Login">
+      <div className="registration-body">
+        <div className="registration-background">
+          <div className="color-block-registration"></div>
+          <div className="registration-title">S&apos;inscrire</div>
+          <div className="registration-form">
+            <form>
+              <input
+                onChange={handleName}
+                className="input"
+                value={name}
+                type="text"
+                placeholder="Nom"
+              />
+              <input
+                onChange={handlelastname}
+                className="input"
+                value={lastname}
+                type="text"
+                placeholder="Prénom"
+              />
+              <input
+                onChange={handleemail}
+                className="input"
+                value={email}
+                type="text"
+                placeholder="Email"
+              />
+              <input
+                onChange={handleTelephone}
+                className="input"
+                value={telephone}
+                type="text"
+                placeholder="Téléphone"
+              />
+              <input
+                onChange={handlepassword}
+                className="input"
+                value={password}
+                type="password"
+                placeholder="Mot de passe"
+              />
+            </form>
             <Button
-              className="button--right"
+              onClick={handleSubmit}
               type="button"
               buttonStyle="btn--primary--reverse"
               buttonSize="btn--medium">
-              SE CONNECTER
+              S&apos;INSCRIRE
             </Button>
-          </a>
+          </div>
+          <div className="right--wrapper">
+            <div className="messages">{successMessage()}</div>
+            <div className="messages">{errorMessage()}</div>
+
+            <p className="right--content">Déjà inscrit ?</p>
+            <a href="/Login">
+              <Button
+                className="button--right"
+                type="button"
+                buttonStyle="btn--primary--reverse"
+                buttonSize="btn--medium">
+                SE CONNECTER
+              </Button>
+            </a>
+          </div>
         </div>
       </div>
     </div>

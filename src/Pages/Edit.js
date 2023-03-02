@@ -17,6 +17,7 @@ import Select from 'react-select';
 import { SuccessMessage } from '../components/Message/SuccessMessage';
 import { ErrorMessage } from '../components/Message/ErrorMessage';
 import { useNavigate } from 'react-router-dom';
+import { Navbar } from '../components/Navbar/Navbar';
 
 export default function Edit() {
   const [id, setId] = useState();
@@ -43,8 +44,8 @@ export default function Edit() {
   const [submitted, setSubmitted] = useState(false);
   const navigate = useNavigate();
   const [status, setStatus] = useState('');
-  const [logedIn, setLogedIn] = useState(false);
-  const [islogedIn, setIslogedIn] = useState(false);
+  const [logedIn, setLogedIn] = useState(true);
+  const [islogedIn, setIslogedIn] = useState(true);
 
   console.log(urlphoto, id, createdAt, updatedAt, logedIn, islogedIn);
 
@@ -284,6 +285,9 @@ export default function Edit() {
       setStatus('Delete successful');
       setLogedIn(false);
       setIslogedIn(false);
+      sessionStorage.removeItem('token');
+      sessionStorage.removeItem('email');
+      sessionStorage.removeItem('userID');
       navigate('/Welcome');
     });
   };
@@ -291,110 +295,86 @@ export default function Edit() {
   console.log(status);
 
   return (
-    <EditContainer>
-      <CategorieTitle>Mon Profil</CategorieTitle>
-      <AvatarMenu>
-        <Avatar profilephoto={urlphoto}></Avatar>
-        <div className="messages">{successMessage()}</div>
-        <div className="messages">{errorMessage()}</div>
-        {isModified && (
-          <ButtonWrapper>
+    <div>
+      <Navbar />
+      <EditContainer>
+        <CategorieTitle>Mon Profil</CategorieTitle>
+        <AvatarMenu>
+          <Avatar profilephoto={urlphoto}></Avatar>
+          <div className="messages">{successMessage()}</div>
+          <div className="messages">{errorMessage()}</div>
+          {isModified && (
+            <ButtonWrapper>
+              <Button
+                onClick={handleSubmit}
+                type="button"
+                buttonStyle="btn--primary--reverse"
+                buttonSize="btn--medium">
+                ENREGISTRER
+              </Button>
+            </ButtonWrapper>
+          )}
+          <DeleteWrapper>
             <Button
-              onClick={handleSubmit}
+              onClick={deleteUser}
               type="button"
               buttonStyle="btn--primary--reverse"
               buttonSize="btn--medium">
-              ENREGISTRER
+              SUPPRIMER VOTRE COMPTE
             </Button>
-          </ButtonWrapper>
-        )}
-        <DeleteWrapper>
-          <Button
-            onClick={deleteUser}
-            type="button"
-            buttonStyle="btn--primary--reverse"
-            buttonSize="btn--medium">
-            SUPPRIMER VOTRE COMPTE
-          </Button>
-        </DeleteWrapper>
-      </AvatarMenu>
-      <LabelContainer>
-        <Flex id="firstname-container">
-          <StyledLabel>Prénom</StyledLabel>
-          <Input type="text" id="name" value={name} onChange={handleChangeName} />
-        </Flex>
+          </DeleteWrapper>
+        </AvatarMenu>
+        <LabelContainer>
+          <Flex id="firstname-container">
+            <StyledLabel>Prénom</StyledLabel>
+            <Input type="text" id="name" value={name} onChange={handleChangeName} />
+          </Flex>
 
-        <Flex>
-          <StyledLabel>Nom</StyledLabel>
-          <Input type="text" id="lastname" value={lastname} onChange={handleChangeLastname} />
-        </Flex>
+          <Flex>
+            <StyledLabel>Nom</StyledLabel>
+            <Input type="text" id="lastname" value={lastname} onChange={handleChangeLastname} />
+          </Flex>
 
-        <Flex>
-          <StyledLabel>Email</StyledLabel>
-          <Input
-            type="text"
-            id="email"
-            style={{ width: 350 }}
-            value={email}
-            onChange={handleChangeEmail}
-          />
-        </Flex>
+          <Flex>
+            <StyledLabel>Email</StyledLabel>
+            <Input
+              type="text"
+              id="email"
+              style={{ width: 350 }}
+              value={email}
+              onChange={handleChangeEmail}
+            />
+          </Flex>
 
-        <Flex>
-          <StyledLabel>Telephone</StyledLabel>
-          <Input type="text" id="telephone" value={telephone} onChange={handleChangeTelephone} />
-        </Flex>
+          <Flex>
+            <StyledLabel>Telephone</StyledLabel>
+            <Input type="text" id="telephone" value={telephone} onChange={handleChangeTelephone} />
+          </Flex>
 
-        <Flex>
-          <StyledLabel>Secteur</StyledLabel>
-          <Input type="text" id="industry" value={industry} onChange={handleChangeIndustry} />
-        </Flex>
+          <Flex>
+            <StyledLabel>Secteur</StyledLabel>
+            <Input type="text" id="industry" value={industry} onChange={handleChangeIndustry} />
+          </Flex>
 
-        <Flex>
-          <StyledLabel>Titre profil</StyledLabel>
-          <Input
-            type="text"
-            id="position"
-            value={position}
-            onChange={handleChangePosition}
-            style={{ width: 490 }}
-          />
-        </Flex>
-        <Flex>
-          <StyledLabel>Secteur d&apos;activité recherché</StyledLabel>
-          <InputSoughtWrapper>
+          <Flex>
+            <StyledLabel>Titre profil</StyledLabel>
             <Input
               type="text"
               id="position"
-              onChange={industrysought.join(',')}
-              value={industrysought.join(', ')}
-              style={{ width: 390, marginBottom: 30 }}
+              value={position}
+              onChange={handleChangePosition}
+              style={{ width: 490 }}
             />
-          </InputSoughtWrapper>
-          <Select
-            styles={{
-              control: (baseStyles, state) => ({
-                ...baseStyles,
-                borderColor: state.isFocused ? '#173F35' : '#9CAF88'
-              })
-            }}
-            options={optionListIndustry}
-            placeholder="Select"
-            value={selectedOptionsIndustry}
-            onChange={handleSelectIndustry}
-            isMulti
-          />
-        </Flex>
-        <SelectWrapper>
+          </Flex>
           <Flex>
-            <StyledLabel>Recherche</StyledLabel>
+            <StyledLabel>Secteur d&apos;activité recherché</StyledLabel>
             <InputSoughtWrapper>
               <Input
                 type="text"
                 id="position"
-                value={positionsought.join(', ')}
-                onChange={positionsought.join(', ')}
-                style={{ width: 490, marginBottom: 30, marginTop: 21 }}
+                onChange={industrysought.join(',')}
+                value={industrysought.join(', ')}
+                style={{ width: 390, marginBottom: 30 }}
               />
             </InputSoughtWrapper>
             <Select
@@ -402,20 +382,47 @@ export default function Edit() {
                 control: (baseStyles, state) => ({
                   ...baseStyles,
                   borderColor: state.isFocused ? '#173F35' : '#9CAF88'
-                }),
-                options: () => ({
-                  borderColor: '#173F35'
                 })
               }}
-              options={optionListPosition}
+              options={optionListIndustry}
               placeholder="Select"
-              value={selectedOptionsPosition}
-              onChange={handleSelectPosition}
+              value={selectedOptionsIndustry}
+              onChange={handleSelectIndustry}
               isMulti
             />
           </Flex>
-        </SelectWrapper>
-      </LabelContainer>
-    </EditContainer>
+          <SelectWrapper>
+            <Flex>
+              <StyledLabel>Recherche</StyledLabel>
+              <InputSoughtWrapper>
+                <Input
+                  type="text"
+                  id="position"
+                  value={positionsought.join(', ')}
+                  onChange={positionsought.join(', ')}
+                  style={{ width: 490, marginBottom: 30, marginTop: 21 }}
+                />
+              </InputSoughtWrapper>
+              <Select
+                styles={{
+                  control: (baseStyles, state) => ({
+                    ...baseStyles,
+                    borderColor: state.isFocused ? '#173F35' : '#9CAF88'
+                  }),
+                  options: () => ({
+                    borderColor: '#173F35'
+                  })
+                }}
+                options={optionListPosition}
+                placeholder="Select"
+                value={selectedOptionsPosition}
+                onChange={handleSelectPosition}
+                isMulti
+              />
+            </Flex>
+          </SelectWrapper>
+        </LabelContainer>
+      </EditContainer>
+    </div>
   );
 }

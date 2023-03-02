@@ -20,6 +20,7 @@ import {
   AcceptedBadge,
   WaitingBadge
 } from './Invitations.style';
+import { Navbar } from '../components/Navbar/Navbar';
 
 export default function Inviations() {
   //received
@@ -228,142 +229,145 @@ export default function Inviations() {
   };
 
   return (
-    <InvitationsWrapper>
-      <InviationReceivedWrapper>
-        <TitleReceived>REÇUES</TitleReceived>
-        {datafetchInvit && status === 'in progress' && (
-          <>
-            <InProgress>Nouvelles invitations</InProgress>
-            <Invitation>
-              <Inviter>
-                {inviter_name} {inviter_lastname}
-              </Inviter>
-              <DateAndHours>
-                {day + ' . '}
-                {month + ' . '}
-                {year}
-                <Hours>
-                  {hour + ' : '}
-                  {minute}
-                </Hours>
-                <Location>{lieu}</Location>
-              </DateAndHours>
-              <ButtonsWrapper>
-                <ButtonAccepted onClick={accepteInvitation}>Accepter</ButtonAccepted>
-                <ButtonRefused onClick={refusedInvitation}>Refuser</ButtonRefused>
-              </ButtonsWrapper>
-            </Invitation>
-          </>
-        )}
-        {datafetchInvit && status === 'accepted' && (
-          <>
-            <Accepted>Acceptées</Accepted>
-            <Invitation>
-              <Inviter>
-                {inviter_name} {inviter_lastname}
-              </Inviter>
-              <DateAndHours>
-                {day + ' . '}
-                {month + ' . '}
-                {year}
-                <Hours>
-                  {hour + ' : '}
-                  {minute}
-                </Hours>
-                <Location>{lieu}</Location>
-              </DateAndHours>
-              <AcceptedBadge>&#x2714;</AcceptedBadge>
-            </Invitation>
-          </>
-        )}
-        {datafetchInvit && status === 'refused' && (
-          <>
-            <Rejected>Refusé</Rejected>
-            <Invitation>
-              <Inviter>
-                {inviter_name} {inviter_lastname}
-              </Inviter>
-              <DateAndHours>
-                {day + ' . '}
-                {month + ' . '}
-                {year}
-                <Hours>
-                  {hour + ' : '}
-                  {minute}
-                </Hours>
-                <Location>{lieu}</Location>
-              </DateAndHours>
-              <RefusedBadge>&#x2716;</RefusedBadge>
-            </Invitation>
-          </>
-        )}
-      </InviationReceivedWrapper>
-      <InvitationSendedWrapper>
-        <TitleSended>ENVOYÉES</TitleSended>
-        {datafetchInvitSended && statusSended === 'in progress' && (
-          <>
-            <InProgress>En attente de réponse:</InProgress>
-            <Invitation>
-              <Inviter>
-                {invited_nameSended} {invited_lastnameSended}
-              </Inviter>
-              <DateAndHours>
-                {daySended + ' . '}
-                {monthSended + ' . '}
-                {yearSended}
-                <Hours>
-                  {hourSended + ' : '}
-                  {minuteSended}
-                </Hours>
-                <Location>{lieuSended}</Location>
-              </DateAndHours>
-              <WaitingBadge>&#x2026;</WaitingBadge>
-            </Invitation>
-          </>
-        )}
-        {datafetchInvitSended && statusSended === 'accepted' && (
-          <>
-            <Accepted>Acceptées</Accepted>
-            <Invitation>
-              <Inviter>
-                {invited_nameSended} {invited_lastnameSended}
-              </Inviter>
-              <DateAndHours>
-                {daySended + ' . '}
-                {monthSended + ' . '}
-                {yearSended}
-                <Hours>
-                  {hourSended + ' : '}
-                  {minuteSended}
-                </Hours>
-                <Location>{lieuSended}</Location>
-              </DateAndHours>
-              <AcceptedBadge>&#x2714;</AcceptedBadge>
-            </Invitation>
-          </>
-        )}
-        {datafetchInvit && statusSended === 'refused' && (
-          <>
-            <Rejected>Rejetées</Rejected>
-            <Invitation>
-              <Inviter>
-                {invited_nameSended} {invited_lastnameSended}
-              </Inviter>
-              <DateAndHours>
-                {daySended + ' . '}
-                {monthSended + ' . '}
-                {yearSended}
-                <Hours>
-                  {hourSended + ' : '}
-                  {minuteSended}
-                </Hours>
-                <Location>{lieuSended}</Location>
-              </DateAndHours>
-              <RefusedBadge>&#x2716;</RefusedBadge>
-            </Invitation>
-          </>
-        )}
-      </InvitationSendedWrapper>
-    </InvitationsWrapper>
+    <div>
+      <Navbar />
+      <InvitationsWrapper>
+        <InviationReceivedWrapper>
+          <TitleReceived>REÇUES</TitleReceived>
+          {datafetchInvit && status === 'in progress' && (
+            <>
+              <InProgress>Nouvelles invitations</InProgress>
+              <Invitation>
+                <Inviter>
+                  {inviter_name} {inviter_lastname}
+                </Inviter>
+                <DateAndHours>
+                  {day + ' . '}
+                  {month + ' . '}
+                  {year}
+                  <Hours>
+                    {hour + ' : '}
+                    {minute}
+                  </Hours>
+                  <Location>{lieu}</Location>
+                </DateAndHours>
+                <ButtonsWrapper>
+                  <ButtonAccepted onClick={accepteInvitation}>Accepter</ButtonAccepted>
+                  <ButtonRefused onClick={refusedInvitation}>Refuser</ButtonRefused>
+                </ButtonsWrapper>
+              </Invitation>
+            </>
+          )}
+          {datafetchInvit && status === 'accepted' && (
+            <>
+              <Accepted>Acceptées</Accepted>
+              <Invitation>
+                <Inviter>
+                  {inviter_name} {inviter_lastname}
+                </Inviter>
+                <DateAndHours>
+                  {day + ' . '}
+                  {month + ' . '}
+                  {year}
+                  <Hours>
+                    {hour + ' : '}
+                    {minute}
+                  </Hours>
+                  <Location>{lieu}</Location>
+                </DateAndHours>
+                <AcceptedBadge>&#x2714;</AcceptedBadge>
+              </Invitation>
+            </>
+          )}
+          {datafetchInvit && status === 'refused' && (
+            <>
+              <Rejected>Refusé</Rejected>
+              <Invitation>
+                <Inviter>
+                  {inviter_name} {inviter_lastname}
+                </Inviter>
+                <DateAndHours>
+                  {day + ' . '}
+                  {month + ' . '}
+                  {year}
+                  <Hours>
+                    {hour + ' : '}
+                    {minute}
+                  </Hours>
+                  <Location>{lieu}</Location>
+                </DateAndHours>
+                <RefusedBadge>&#x2716;</RefusedBadge>
+              </Invitation>
+            </>
+          )}
+        </InviationReceivedWrapper>
+        <InvitationSendedWrapper>
+          <TitleSended>ENVOYÉES</TitleSended>
+          {datafetchInvitSended && statusSended === 'in progress' && (
+            <>
+              <InProgress>En attente de réponse:</InProgress>
+              <Invitation>
+                <Inviter>
+                  {invited_nameSended} {invited_lastnameSended}
+                </Inviter>
+                <DateAndHours>
+                  {daySended + ' . '}
+                  {monthSended + ' . '}
+                  {yearSended}
+                  <Hours>
+                    {hourSended + ' : '}
+                    {minuteSended}
+                  </Hours>
+                  <Location>{lieuSended}</Location>
+                </DateAndHours>
+                <WaitingBadge>&#x2026;</WaitingBadge>
+              </Invitation>
+            </>
+          )}
+          {datafetchInvitSended && statusSended === 'accepted' && (
+            <>
+              <Accepted>Acceptées</Accepted>
+              <Invitation>
+                <Inviter>
+                  {invited_nameSended} {invited_lastnameSended}
+                </Inviter>
+                <DateAndHours>
+                  {daySended + ' . '}
+                  {monthSended + ' . '}
+                  {yearSended}
+                  <Hours>
+                    {hourSended + ' : '}
+                    {minuteSended}
+                  </Hours>
+                  <Location>{lieuSended}</Location>
+                </DateAndHours>
+                <AcceptedBadge>&#x2714;</AcceptedBadge>
+              </Invitation>
+            </>
+          )}
+          {datafetchInvit && statusSended === 'refused' && (
+            <>
+              <Rejected>Rejetées</Rejected>
+              <Invitation>
+                <Inviter>
+                  {invited_nameSended} {invited_lastnameSended}
+                </Inviter>
+                <DateAndHours>
+                  {daySended + ' . '}
+                  {monthSended + ' . '}
+                  {yearSended}
+                  <Hours>
+                    {hourSended + ' : '}
+                    {minuteSended}
+                  </Hours>
+                  <Location>{lieuSended}</Location>
+                </DateAndHours>
+                <RefusedBadge>&#x2716;</RefusedBadge>
+              </Invitation>
+            </>
+          )}
+        </InvitationSendedWrapper>
+      </InvitationsWrapper>
+    </div>
   );
 }

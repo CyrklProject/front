@@ -304,3 +304,19 @@ export const StatusMappingContainer = styled.div`
 export const Map = styled.div`
   display: flex;
 `;
+
+export const SuccessMessageInvit = styled.div`
+  display: flex;
+  flex-direction: column;
+  font-family: 'Be Vietnam Pro', sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  background-color: #9caf88;
+  color: #ffffff;
+  width: 270px;
+  height: 90px;
+  border-radius: 8px;
+  padding: 10px;
+  margin-left: 10%;
+`;
