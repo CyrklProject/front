@@ -3,7 +3,8 @@ import styled from 'styled-components';
 export const MatchingContainer = styled.div`
   display: flex;
   height: 100%;
-  min-height: 450px;
+  margin-top: 100px;
+  min-height: 635px;
   justify-content: space-evenly;
 `;
 
