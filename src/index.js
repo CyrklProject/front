@@ -25,7 +25,7 @@ root.render(
       <Route path="/edit" element={<Edit />} />
       <Route path="/invitations" element={<Invitations />} />
       <Route path="/login" element={<Login />} />
-      <Route path="/users/:id" element={<Matching />} />
+      <Route path="/users" element={<Matching />} />
       <Route path="/deconnexion" element={<Deconnexion />} />
     </Routes>
   </Router>

@@ -7,12 +7,10 @@ import {
   NavbarInnerContainer,
   NavbarLinkContainer,
   NavbarLink,
-  Profil,
   OpenLinksButton,
   NavbarLinkExtended,
   Logo
 } from './Navbar.style';
-import ProfilImg from '../../Pages/assets/profil.png';
 import { useNavigate } from 'react-router-dom';
 
 export function Navbar() {
@@ -44,7 +42,7 @@ export function Navbar() {
               <>
                 <NavbarLink to="/edit"> Profil</NavbarLink>
                 <NavbarLink to="/invitations"> Invitations</NavbarLink>
-                <NavbarLink to="/users/:id"> Matching</NavbarLink>
+                <NavbarLink to="/users"> Matching</NavbarLink>
                 <NavbarLink to="/deconnexion" onClick={handleLogout}>
                   Deconnexion
                 </NavbarLink>
@@ -60,7 +58,6 @@ export function Navbar() {
               {extendNavbar ? <>&#10005;</> : <> &#8801;</>}
             </OpenLinksButton>
           </NavbarLinkContainer>
-          <Profil src={ProfilImg}></Profil>
         </RightContainer>
       </NavbarInnerContainer>
       {extendNavbar && (
@@ -69,7 +66,7 @@ export function Navbar() {
             <>
               <NavbarLinkExtended to="/edit"> Edit</NavbarLinkExtended>
               <NavbarLinkExtended to="/invitations"> Invitations</NavbarLinkExtended>
-              <NavbarLinkExtended to="/users/:id"> Matching</NavbarLinkExtended>
+              <NavbarLinkExtended to="/users"> Matching</NavbarLinkExtended>
               <NavbarLinkExtended to="/Deconnexion" onClick={handleLogout}></NavbarLinkExtended>
             </>
           ) : (
