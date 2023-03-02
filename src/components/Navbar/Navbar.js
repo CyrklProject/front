@@ -48,7 +48,7 @@ export function Navbar() {
                 </NavbarLink>
               </>
             ) : (
-              <NavbarLink to="/login"> Login</NavbarLink>
+              <NavbarLink to="/login"> Se connecter</NavbarLink>
             )}
 
             <OpenLinksButton

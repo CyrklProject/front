@@ -27,6 +27,7 @@ import {
 } from './Matching.style';
 import { useState, useEffect } from 'react';
 import { Button } from '../components/Button/Button';
+import { SuccessMessage } from '../components/Message/SuccessMessage';
 
 export default function Matching() {
   const [id, setId] = useState(1);
@@ -41,11 +42,12 @@ export default function Matching() {
   const [day, setDay] = useState();
   const [hour, setHour] = useState();
   const [minute, setMinute] = useState();
-  const [inviter_id, setInviter_id] = useState();
   const [invited_id, setInvited_id] = useState();
   const [slot_id, setSlot_id] = useState();
-
-  console.log(slot, lieu, dateandhours, isLoadingSlots);
+  const [idInviterString, setIdInviterString] = useState(sessionStorage.getItem('userID'));
+  const [inviter_id, setInviter_id] = useState(parseInt(idInviterString, 10));
+  const [submitted, setSubmitted] = useState(false);
+  const [urlphoto, seturlphoto] = useState('');
 
   const fetchSlotsByUserId = (id) => {
     setIsLoadingSlots(true);
@@ -60,9 +62,10 @@ export default function Matching() {
       })
       .then((data) => {
         setSlot(data);
-        console.log('data' + data);
-        setSlot_id(slot.id);
+        setSlot_id(data[0].id);
         console.log('slot' + slot_id);
+        setInvited_id(data[0].user_id);
+        console.log(invited_id);
         const dateandhours = data[0].dateandhours;
         console.log(dateandhours);
         setLieu(data[0].lieu);
@@ -88,8 +91,17 @@ export default function Matching() {
     fetchSlotsByUserId(id);
   }, []);
 
-  useEffect(() => {}, [year, hour, day, month, minute, lieu]);
-  console.log('dateFormated y h d m m l' + year, hour, day, month, minute, lieu);
+  useEffect(() => {}, [year, hour, day, month, minute, lieu, slot_id, invited_id]);
+  console.log(
+    'dateFormated y h d m m l' + year,
+    hour,
+    day,
+    month,
+    minute,
+    lieu,
+    slot_id,
+    invited_id
+  );
 
   const fetchUserById = (id) => {
     fetch(`http://188.165.238.74:8080/user/${id}`, {
@@ -142,6 +154,7 @@ export default function Matching() {
             .then((data) => {
               if (data) {
                 setUserProfile(data);
+                // seturlphoto(data.urlphoto);
                 setId(nextId + 1);
               }
             })
@@ -183,6 +196,7 @@ export default function Matching() {
       .then((data) => {
         if (data) {
           setUserProfile(data);
+          seturlphoto(data.urlphoto);
           setId(prevId);
         }
       })
@@ -195,37 +209,51 @@ export default function Matching() {
     fetchUserById(id);
   }, [id]);
 
+  console.log(slot_id, invited_id);
+  console.log(setIdInviterString);
+  console.log(slot, lieu, dateandhours, isLoadingSlots, urlphoto);
+
   const createInvitation = () => {
     setInviter_id(sessionStorage.getItem('userID'));
-    console.log(inviter_id);
-    // const uid = id;
-    fetch(`http://188.165.238.74:8080/invitation/${inviter_id}`, {
-      mode: 'no-cors',
+    console.log(invited_id);
+    const id = invited_id;
+    fetch(`http://188.165.238.74:8080/invitation/${id}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
       },
       body: JSON.stringify({
-        inviter_id,
-        invited_id,
-        slot_id
+        inviter_id: inviter_id,
+        invited_id: invited_id,
+        slot_id: slot_id
       })
     })
       .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        console.log(data);
-        setCurrentUserID(sessionStorage.getItem('userID'));
-        console.log(currentUserId);
-        setInvited_id(id);
-        console.log(invited_id);
-        setSlot_id(slot.id);
-        console.log(slot_id);
+        if (response.status <= 400) {
+          setSubmitted(true);
+          successMessage();
+        }
       })
       .catch((error) => {
         console.error('Error:', error);
       });
+  };
+
+  const successMessage = () => {
+    return (
+      <div
+        className="success"
+        style={{
+          display: submitted ? '' : 'none'
+        }}>
+        <SuccessMessage>
+          <p>
+            Votre demande à bien été envoyé, vous pourrez voir votre invitation dans l&apos;onglet
+            Invitations
+          </p>
+        </SuccessMessage>
+      </div>
+    );
   };
 
   return (
@@ -251,6 +279,7 @@ export default function Matching() {
                 <LinkDisponibilities>Voir les autres disponibilités</LinkDisponibilities>
               </a>
             </Disponibility>
+            <div className="messages">successMessage()</div>
             <Contact>
               <Button
                 onClick={createInvitation}
@@ -263,7 +292,7 @@ export default function Matching() {
           </LeftContent>
           <CenterContent>
             <PhotoProfil>
-              <img src="https://www.michelrichardphotographe.fr/wp-content/uploads/2018/07/Profil-Linkedin-viadeo.jpg"></img>
+              <img src={userProfile.urlphoto}></img>
             </PhotoProfil>
             <NameBox>
               <Name>

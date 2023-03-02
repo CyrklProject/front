@@ -12,6 +12,7 @@ import {
 import { StyledLabel, Flex, Input, LabelContainer } from '../components/label/Label.style';
 import { useState, useEffect } from 'react';
 import { Button } from '../components/Button/Button';
+import { Avatar } from '../components/Avatar/Avatar';
 import Select from 'react-select';
 import { SuccessMessage } from '../components/Message/SuccessMessage';
 import { ErrorMessage } from '../components/Message/ErrorMessage';
@@ -42,10 +43,10 @@ export default function Edit() {
   const [submitted, setSubmitted] = useState(false);
   const navigate = useNavigate();
   const [status, setStatus] = useState('');
+  const [logedIn, setLogedIn] = useState(false);
+  const [islogedIn, setIslogedIn] = useState(false);
 
-  console.log(urlphoto, id, createdAt, updatedAt);
-  const profilephoto =
-    'https://www.michelrichardphotographe.fr/wp-content/uploads/2018/07/Profil-Linkedin-viadeo.jpg';
+  console.log(urlphoto, id, createdAt, updatedAt, logedIn, islogedIn);
 
   function handleChangeLastname(e) {
     setlastname(e.target.value);
@@ -80,6 +81,7 @@ export default function Edit() {
   console.log(dataLoading + 'data is loading');
 
   const fetchUsersData = () => {
+    const userEmail = sessionStorage.getItem('email');
     fetch('http://188.165.238.74:8080/users', {
       method: 'GET',
       headers: {
@@ -90,7 +92,6 @@ export default function Edit() {
         return response.json();
       })
       .then((data) => {
-        const userEmail = sessionStorage.getItem('email');
         const allUsers = data;
         const user = allUsers.find((user) => user.email === userEmail);
         if (user) {
@@ -120,7 +121,7 @@ export default function Edit() {
               setPassword(data.password);
               setCreatedAt(data.createdAt);
               setUpdatedAt(data.updatedAt);
-              seturlphoto(profilephoto);
+              seturlphoto(data.urlphoto);
             })
             .catch((error) => {
               console.error('Error:', error);
@@ -184,7 +185,7 @@ export default function Edit() {
         setPassword('123456');
         setCreatedAt(data.createdAt);
         setUpdatedAt(data.updatedAt);
-        seturlphoto(profilephoto);
+        seturlphoto(data.urlphoto);
         console.log(response.status);
       });
       if (response.status <= 400) {
@@ -198,8 +199,8 @@ export default function Edit() {
         errorMessage();
       }
       setTimeout(() => {
-        navigate('/users/:id');
-      }, 10000);
+        navigate('/users');
+      }, 5000);
     });
   };
 
@@ -275,11 +276,16 @@ export default function Edit() {
 
   const deleteUser = () => {
     fetch(`http://188.165.238.74:8080/deleteuser/${id}`, {
-      method: 'DELETE',
+      method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
       }
-    }).then(() => setStatus('Delete successful'));
+    }).then(() => {
+      setStatus('Delete successful');
+      setLogedIn(false);
+      setIslogedIn(false);
+      navigate('/Welcome');
+    });
   };
 
   console.log(status);
@@ -288,6 +294,7 @@ export default function Edit() {
     <EditContainer>
       <CategorieTitle>Mon Profil</CategorieTitle>
       <AvatarMenu>
+        <Avatar profilephoto={urlphoto}></Avatar>
         <div className="messages">{successMessage()}</div>
         <div className="messages">{errorMessage()}</div>
         {isModified && (

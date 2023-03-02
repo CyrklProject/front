@@ -13,6 +13,9 @@ export default function Registration() {
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState(false);
   const [errorText, setErrorText] = useState('');
+  const urlphoto = 'https://publicdomainvectors.org/tn_img/cliente.webp';
+  const positionsought = ['z', 'z'];
+  const industrysought = ['z', 'z'];
 
   const handleName = (e) => {
     setName(e.target.value);
@@ -45,7 +48,10 @@ export default function Registration() {
         lastname,
         email,
         telephone,
-        password
+        password,
+        urlphoto: urlphoto,
+        industrysought: industrysought,
+        positionsought: positionsought
       }),
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
